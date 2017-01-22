@@ -1,0 +1,108 @@
+/**index.wxss**/
+.container{
+  color: #9a9a9a;  
+}
+.userinfo {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.userinfo-avatar {
+  width: 128rpx;
+  height: 128rpx;
+  margin: 20rpx;
+  border-radius: 50%;
+}
+
+.userinfo-nickname {
+  color: #aaa;
+}
+
+.usermotto {
+  margin-top: 200px;
+}
+
+.index-header {
+  padding: 0 50rpx;
+  width: 100%;
+  height: 90rpx;
+  background-color: #ffd300;
+  text-align: center;
+  font-size: 30rpx;
+  color: #fff;
+}
+
+.index-header-weizhi {
+  background-color: #9d851e;
+  width: 250rpx;
+  height: 60rpx;
+  border-radius: 50rpx;
+  text-align: center;
+  line-height: 60rpx;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+.nav{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;  
+  padding: 20rpx 0;
+  height: 130rpx;
+  border: 1px solid #dfdfe1;
+  font-size: 28rpx;
+  align-items:center;
+}
+.nav-border{
+  width: 80rpx;
+  height: 80rpx;
+  border-radius: 50%;
+}
+.yellow{
+  background-color: #ffd300;
+}
+.red{
+  background-color: #ff6666;
+}
+.green{
+  background-color: #66cdcd;  
+}
+.black{
+  background-color: #9a9a9a;  
+}
+.nav>view{
+  display: flex;
+  flex-direction: column;
+}
+.index-home{
+  font-size: 29rpx;
+  line-height: 60rpx;
+  width: 100%;
+  height: 60rpx;
+  border-bottom: 1px solid #ededf3;
+  border-top: 10px solid #ededf3;
+}
+.content{
+	background-color: #fff;
+}
+
+.show{
+	padding: .8rem;
+	border-bottom: 1px solid #ededf3;
+}
+.show-list{
+  margin-left: 4rem;
+}
+.show .title{
+  color: #000;
+	display: block;
+	font-size: 1rem;
+  font-weight: 600 ;
+  margin-bottom: .25rem;
+}
+.show p{
+  line-height: 1.3;
+	display: block;
+	font-size: .7rem;
+}

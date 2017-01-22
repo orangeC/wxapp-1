@@ -1,0 +1,50 @@
+
+<!--index.wxml-->
+<view class="container">
+  <view class="index-header">
+    <view class="index-header-weizhi" bindtap="bindWeizhi">
+      {{name}}
+      <view hidden="{{name ? true : false}}">
+        点击获取位置
+      </view>
+    </view>
+  </view>
+  <view class="nav">
+    <view>
+      <view class="nav-border yellow"></view>
+      <view>个人服务</view>
+    </view>
+    <view>
+      <view class="nav-border red"></view>
+      <view>对公服务</view>
+    </view>
+    <view>
+      <view class="nav-border green"></view>
+      <view>XX服务</view>
+    </view>
+    <view>
+      <view class="nav-border black"></view>
+      <view>全部商家</view>
+    </view>
+  </view>
+  <view class="index-home">附近商家</view>
+  <view class="content flex-item">
+    <block wx:for="{{showList}}" wx:key="i">
+      <view class="show">
+      <image style="width:60px;height:60px;float:left" src="https://o97mkvfjm.qnssl.com/logo.png"></image>
+        <view class="show-list">
+          <text class="title">{{item.title}}</text>
+          <p>服务类型：{{item.ser}}</p>
+          <p>距离：{{item.distance}}</p>
+        </view>
+      </view>
+    </block>
+  </view>
+  <view wx:for="{{arr}}" wx:for-item="fitem" wx:key="i" wx:for-index="i">
+    <view class="myArray-{{i}}">{{i}}-{{fitem.message}}</view>
+  </view>
+  <view bindtap="bindWeizhi"></view>
+  <view class="usermotto">
+    <text class="user-motto">{{motto}}</text>
+  </view>
+</view>
