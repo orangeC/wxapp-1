@@ -37,10 +37,9 @@
   },
   "window":{
     "backgroundColor":"white",
-    "backgroundTextStyle":"black",
+    "backgroundTextStyle":"white",
     "navigationBarBackgroundColor": "#ffd300",
     "navigationBarTitleText": "周边服务",
-    "navigationBarTextStyle":"black",
-    "enablePullDownRefresh": true
+    "navigationBarTextStyle":"white"
   }
 }
