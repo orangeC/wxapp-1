@@ -34,20 +34,14 @@
   <view class="content">
     <block wx:for="{{showList}}" wx:key="i">
       <navigator class="show" url="../components/other" hover-class="navigator-hover">
-      <image style="width:60px;height:60px;float:left" src="https://o97mkvfjm.qnssl.com/logo.png"></image>
+      <image style="width:80px;height:80px" src="http://h0.hucdn.com/images/201639/8a92f3b3c7f9d255_132x122.png"></image>
         <view class="show-list">
           <text class="title">{{item.title}}</text>
-          <p>服务类型：{{item.ser}}</p>
-          <p>距离：{{item.distance}}</p>
+          <text>服务类型：{{item.ser}}</text>
+          <text>距离：{{item.distance}}</text>
         </view>
       </navigator>
     </block>
   </view>
-  <view wx:for="{{arr}}" wx:for-item="fitem" wx:key="i" wx:for-index="i">
-    <view class="myArray-{{i}}">{{i}}-{{fitem.message}}</view>
-  </view>
-  <view bindtap="bindWeizhi"></view>
-  <view class="usermotto">
-    <text class="user-motto">{{motto}}</text>
-  </view>
+  
 </view>
