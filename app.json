@@ -4,7 +4,8 @@
     "pages/logs/logs",
     "pages/test/test",
     "pages/request/request",
-    "pages/user/user"
+    "pages/user/user",
+    "pages/components/other"
   ],
   "tabBar": {
     "list": [{
@@ -35,9 +36,11 @@
     }]
   },
   "window":{
-    "backgroundTextStyle":"light",
+    "backgroundColor":"white",
+    "backgroundTextStyle":"black",
     "navigationBarBackgroundColor": "#ffd300",
     "navigationBarTitleText": "周边服务",
-    "navigationBarTextStyle":"black"
+    "navigationBarTextStyle":"black",
+    "enablePullDownRefresh": true
   }
 }

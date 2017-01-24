@@ -11,33 +11,33 @@
   </view>
   <view class="nav">
     <view>
-      <view class="nav-border yellow"></view>
-      <view>个人服务</view>
+      <image src="http://b2.hucdn.com//upload/hmp/1609/14/23080112334484_120x80.png!100q50.webp" mode="scaleToFill" class="nav-img"></image>
+      <text>个人服务</text>
     </view>
     <view>
-      <view class="nav-border red"></view>
-      <view>对公服务</view>
+      <image src="http://b2.hucdn.com//upload/hmp/1609/14/23080112334484_120x80.png!100q50.webp" mode="scaleToFill" class="nav-img"></image>
+      <text>对公服务</text>
     </view>
     <view>
-      <view class="nav-border green"></view>
-      <view>XX服务</view>
+      <image src="http://b2.hucdn.com//upload/hmp/1609/14/23080112334484_120x80.png!100q50.webp" mode="scaleToFill" class="nav-img"></image>
+      <text>XX服务</text>
     </view>
     <view>
-      <view class="nav-border black"></view>
-      <view>全部商家</view>
+      <image src="http://b2.hucdn.com//upload/hmp/1609/14/23080112334484_120x80.png!100q50.webp" mode="scaleToFill" class="nav-img"></image>
+      <text>全部商家</text>
     </view>
   </view>
   <view class="index-home">附近商家</view>
   <view class="content flex-item">
     <block wx:for="{{showList}}" wx:key="i">
-      <view class="show">
+      <navigator class="show" url="../components/other" hover-class="navigator-hover">
       <image style="width:60px;height:60px;float:left" src="https://o97mkvfjm.qnssl.com/logo.png"></image>
         <view class="show-list">
           <text class="title">{{item.title}}</text>
           <p>服务类型：{{item.ser}}</p>
           <p>距离：{{item.distance}}</p>
         </view>
-      </view>
+      </navigator>
     </block>
   </view>
   <view wx:for="{{arr}}" wx:for-item="fitem" wx:key="i" wx:for-index="i">
