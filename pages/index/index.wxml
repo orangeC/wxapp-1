@@ -2,11 +2,14 @@
 <!--index.wxml-->
 <view class="container">
   <view class="index-header">
-    <view class="index-header-weizhi" bindtap="bindWeizhi">
+    <view class="index-head position" bindtap="bindWeizhi">
       {{name}}
       <view hidden="{{name ? true : false}}">
         点击获取位置
       </view>
+    </view>
+    <view class="index-head search" >
+      请输入服务类型
     </view>
   </view>
   <view class="nav">
@@ -28,7 +31,7 @@
     </view>
   </view>
   <view class="index-home">附近商家</view>
-  <view class="content flex-item">
+  <view class="content">
     <block wx:for="{{showList}}" wx:key="i">
       <navigator class="show" url="../components/other" hover-class="navigator-hover">
       <image style="width:60px;height:60px;float:left" src="https://o97mkvfjm.qnssl.com/logo.png"></image>
