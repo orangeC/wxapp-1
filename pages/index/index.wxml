@@ -40,7 +40,7 @@
         <view class="show-list">
           <text class="title">{{item.title}}</text>
           <text>服务类型：{{item.ser}}</text>
-          <text>距离：{{item.distance}}</text>
+          <text>距离：{{item.distance}} 点赞：{{item.heart}}</text>
         </view>
       </navigator>
     </block>

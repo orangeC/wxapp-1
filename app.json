@@ -8,6 +8,10 @@
     "pages/components/other"
   ],
   "tabBar": {
+    "color":"#636363",
+    "selectedColor": "#ffd300",
+    "backgroundColor": "#ffffff",
+    "borderStyle": "black",
     "list": [{
       "pagePath": "pages/index/index",
       "text": "寻找服务",
