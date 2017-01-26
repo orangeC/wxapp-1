@@ -1,14 +1,19 @@
 /* pages/components/other.wxss */
 
 
-.other-header{
+.normal{
     display: flex;
     flex-direction: row;
     width: 100%;
     justify-content: flex-start;
-    padding: 20rpx;
-    font-size: .9em;
     align-items: center;
+    padding: 20rpx;
+    font-size: .8em;
+    border-bottom: 1px solid #edecf2;    
+}
+
+.other-header{
+    font-size: .9em;
 }
 .other-header>image{
     width: 50px;
@@ -39,30 +44,14 @@
     height: 10rpx;
     border-top: 1px solid #dedde2;
 }
-.other-tel{
-    display: flex;
-    flex-direction: row;
-    justify-content: flex-start;
-    align-items: center;
-    padding: 20rpx;
-    border-bottom: 1px solid #eeeeee;
-}
 .other-tel>image{
     width: 20px;
     height: 20px;
     padding-right: 20rpx;
 }
 .other-tel>text{
-    flex: 0.95;
+    flex: 0.9;
     padding-left: 10rpx;
-}
-.other-address{
-    display: flex;
-    padding: 20rpx;
-    align-items: center;
-    justify-content: flex-start;
-    flex-direction: row;
-    font-size: .8em;
 }
 .other-address>image{
     width: 20px;
@@ -72,4 +61,31 @@
 .other-address>text{
     flex: 0.95;
     padding-left: 10rpx;
+}
+map{
+    border-bottom: 25rpx solid #eeedf3; 
+}
+.other-service>image{
+    width: 20px;
+    height: 20px;
+    padding-right: 20rpx;
+}
+.other-info{
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    justify-content: flex-start;
+    font-size: .8em;
+    border-bottom: 1px solid #edecf2;  
+    padding: 20rpx 20rpx 80rpx;
+}
+.other-info>image{
+    width: 20px;
+    height: 20px;
+    padding-right: 20rpx;
+}
+.more{
+    background-color: #eeedf3;
+    width: 100%;
+    height: 280rpx;
 }
