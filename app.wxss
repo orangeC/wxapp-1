@@ -5,4 +5,5 @@
   flex-direction: column;
   box-sizing: border-box;
   align-content:flex-start;
+  color: #9a9a9a;
 }

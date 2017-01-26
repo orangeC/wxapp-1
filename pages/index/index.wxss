@@ -1,9 +1,5 @@
 /**index.wxss**/
 
-.container {
-  color: #9a9a9a;
-}
-
 .index-header {
   display: flex;
   justify-content: space-between;

@@ -1,17 +1,22 @@
 <view class="container">
   <loading hidden="{{ !loading }}">加载中...</loading>
-  <image class="background" src="{{ movie.images.large }}" mode="aspectFill"/>
-  <scroll-view class="container" scroll-y="true" wx:if="{{ movie.title }}">
-    <view class="meta">
-      <image class="poster" src="{{ movie.images.large }}" mode="aspectFit"/>
-      <text class="title">{{ movie.title }}({{ movie.year }})</text>
-      <text class="info">评分：{{ movie.rating.average }}</text>
-      <text class="info">导演：<block wx:for="{{ movie.directors }}" wx:key="{{ item.id }}"> {{ item.name }} </block></text>
-      <text class="info">主演：<block wx:for="{{ movie.casts }}" wx:key="{{ item.id }}"> {{ item.name }} </block></text>
+  <view class="other-header">
+    <image src="https://qnmob.doubanio.com/view/movie_poster_cover/lpst/public/p2351313845.jpg?imageView2/0/q/80/w/9999/h/300/format/jpg" mode="scaleToFill"></image>
+    <text class="other-title">帮家博士</text>
+    <text>|</text>
+    <view class="other-zan">
+      <image src="http://b2.hucdn.com//upload/hmp/1609/14/23080112334484_120x80.png!100q50.webp" mode="scaleToFill"></image>
+    <text>点赞：1</text>
     </view>
-    <view class="summary">
-      <text class="label">摘要：</text>
-      <text class="content">{{ movie.summary }}</text>
-    </view>
-  </scroll-view>
+  </view>
+  <view class="other-block"></view>
+  <view class="other-tel">
+  <image src="https://qnmob.doubanio.com/view/movie_poster_cover/lpst/public/p2351313845.jpg?imageView2/0/q/80/w/9999/h/300/format/jpg"></image>
+  <text>1234567890</text>
+  <image src="https://qnmob.doubanio.com/view/movie_poster_cover/lpst/public/p2351313845.jpg?imageView2/0/q/80/w/9999/h/300/format/jpg"></image>
+  </view>
+  <view class="other-address">
+  <image src="https://qnmob.doubanio.com/view/movie_poster_cover/lpst/public/p2351313845.jpg?imageView2/0/q/80/w/9999/h/300/format/jpg"></image>
+  <text>哎什么都没都没买到假的假的假的假的假的</text>
+  </view>
 </view>

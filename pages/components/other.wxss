@@ -1,1 +1,75 @@
 /* pages/components/other.wxss */
+
+
+.other-header{
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    justify-content: flex-start;
+    padding: 20rpx;
+    font-size: .9em;
+    align-items: center;
+}
+.other-header>image{
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+}
+.other-title{
+    color: #000;
+    flex: 1;
+    padding: 0 50rpx;
+}
+.other-zan{
+    display: flex;
+    flex-direction: column;
+    flex: 0.6;
+    justify-content: space-between;
+    text-align: center;
+    font-size: .75em;
+}
+.other-zan>image{
+    width: 20px;
+    height: 20px;
+    margin: 5px auto;
+}
+.other-block{
+    background-color: #edecf2;
+    width: 100%;
+    height: 10rpx;
+    border-top: 1px solid #dedde2;
+}
+.other-tel{
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+    padding: 20rpx;
+    border-bottom: 1px solid #eeeeee;
+}
+.other-tel>image{
+    width: 20px;
+    height: 20px;
+    padding-right: 20rpx;
+}
+.other-tel>text{
+    flex: 0.95;
+    padding-left: 10rpx;
+}
+.other-address{
+    display: flex;
+    padding: 20rpx;
+    align-items: center;
+    justify-content: flex-start;
+    flex-direction: row;
+    font-size: .8em;
+}
+.other-address>image{
+    width: 20px;
+    height: 20px;
+    padding-right: 20rpx;
+}
+.other-address>text{
+    flex: 0.95;
+    padding-left: 10rpx;
+}

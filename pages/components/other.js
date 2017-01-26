@@ -11,7 +11,7 @@ Page({
    */
   data: {
     title: '',
-    loading: true,
+    loading: false,
     movie: {}
   },
 
@@ -23,7 +23,7 @@ Page({
 
     app.douban.findOne(params.id).then(function (d) {
       _this.setData({ title: d.title, movie: d, loading: false });
-      wx.setNavigationBarTitle({ title: d.title + ' « 电影 « 豆瓣' });
+      wx.setNavigationBarTitle({ title: d.title + 'XX 商家' });
     }).catch(function (e) {
       _this.setData({ title: '获取数据异常', movie: {}, loading: false });
       console.error(e);
@@ -35,7 +35,7 @@ Page({
    * 生命周期函数--监听页面初次渲染完成
    */
   onReady: function onReady() {
-    wx.setNavigationBarTitle({ title: this.data.title + ' « 电影 « 豆瓣' });
+    wx.setNavigationBarTitle({ title: this.data.title + 'XX商家' });
   },
 
 
