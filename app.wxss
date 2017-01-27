@@ -1,9 +1,17 @@
 /**app.wxss**/
 
+page {
+  height: 100%;
+  width: 100%;
+  overflow: hidden;
+  background-color: #eeedf3;
+  font-family: -apple-system-font, 'Helvetica Neue', Helvetica, 'Microsoft YaHei', sans-serif;
+}
+
 .container {
   display: flex;
   flex-direction: column;
   box-sizing: border-box;
-  align-content:flex-start;
+  align-content: flex-start;
   color: #9a9a9a;
 }

@@ -9,7 +9,8 @@
     align-items: center;
     padding: 20rpx;
     font-size: .8em;
-    border-bottom: 1px solid #edecf2;    
+    border-bottom: 1px solid #edecf2;   
+    background-color: #fff; 
 }
 
 .other-header{
@@ -71,18 +72,17 @@ map{
     padding-right: 20rpx;
 }
 .other-info{
-    display: flex;
-    flex-direction: row;
-    width: 100%;
-    justify-content: flex-start;
-    font-size: .8em;
-    border-bottom: 1px solid #edecf2;  
-    padding: 20rpx 20rpx 80rpx;
+    align-items: flex-start;
+    padding-bottom: 60rpx;
 }
 .other-info>image{
     width: 20px;
     height: 20px;
     padding-right: 20rpx;
+}
+.other-info>text{
+    flex: 0.95;
+    line-height: 1.35
 }
 .more{
     background-color: #eeedf3;
