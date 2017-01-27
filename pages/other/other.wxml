@@ -2,7 +2,7 @@
   <loading hidden="{{ !loading }}">加载中...</loading>
   <view class="other-header normal">
     <image src="https://qnmob.doubanio.com/view/movie_poster_cover/lpst/public/p2351313845.jpg?imageView2/0/q/80/w/9999/h/300/format/jpg" mode="scaleToFill"></image>
-    <text class="other-title">帮家博士</text>
+    <text class="other-title">{{title}}</text>
     <text>|</text>
     <view class="other-zan">
       <image src="http://b2.hucdn.com//upload/hmp/1609/14/23080112334484_120x80.png!100q50.webp" mode="scaleToFill"></image>

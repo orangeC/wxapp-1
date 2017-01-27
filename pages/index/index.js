@@ -7,9 +7,9 @@ Page({
     showList:[
       {title:"帮家博士",ser:"保洁",distance:"499m",heart:"1"},
       {title:"涂家换新",ser:"装修",distance:"200m",heart:"6"},
+      {title:"2",ser:"装修",distance:"200m",heart:"1"},
       {title:"涂家换新",ser:"装修",distance:"200m",heart:"1"},
-      {title:"涂家换新",ser:"装修",distance:"200m",heart:"1"},
-      {title:"涂家换新",ser:"装修",distance:"200m",heart:"3"},
+      {title:"3",ser:"装修",distance:"200m",heart:"3"},
       {title:"衣保姆",ser:"干洗",distance:"200m",heart:"5"}
     ],
     name:"",
@@ -68,13 +68,6 @@ Page({
         userInfo: userInfo
       })
     })
-  },
-  onShow: function () {
-    app.globalData.userInfo = "i am in index.js";
-    console.log(app.globalData.userInfo)
-  },
-  onHide: function () {
-    common.sayHello("看这");
-    common.sayGoodbye("再见")
   }
+  
 })

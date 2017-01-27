@@ -6,6 +6,7 @@ page {
   overflow: hidden;
   background-color: #eeedf3;
   font-family: -apple-system-font, 'Helvetica Neue', Helvetica, 'Microsoft YaHei', sans-serif;
+  color: red;
 }
 
 .container {

@@ -5,7 +5,7 @@
     "pages/test/test",
     "pages/request/request",
     "pages/user/user",
-    "pages/components/other"
+    "pages/other/other"
   ],
   "tabBar": {
     "color":"#636363",

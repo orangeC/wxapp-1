@@ -1,8 +1,4 @@
-/**
- * Douban API 模块
- * @type {Object}
- */
-var douban = require('./utils/douban.js');
+
 //app.js
 App({
   onLaunch: function () {
