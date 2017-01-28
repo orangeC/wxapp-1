@@ -1,5 +1,5 @@
 <view class="container">
-  <loading hidden="{{ !loading }}">加载中...</loading>
+  <loading hidden="{{ hidden }}">加载中...</loading>
   <view class="other-header normal">
     <image src="https://qnmob.doubanio.com/view/movie_poster_cover/lpst/public/p2351313845.jpg?imageView2/0/q/80/w/9999/h/300/format/jpg" mode="scaleToFill"></image>
     <text class="other-title">{{title}}</text>

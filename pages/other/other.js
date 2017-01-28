@@ -11,7 +11,7 @@ Page({
    */
   data: {
     title: "",
-    loading: false,
+    hidden: false,
     movie: {},
     point:{
       latitude: "23.099994",
@@ -23,9 +23,13 @@ Page({
   /**
    * 生命周期函数--监听页面加载
    */
-  onLoad: function onLoad(params) {
-    var _this = this;
-
+  onLoad: function onLoad(item) {
+    this.setData({
+      title:item.title
+      })
+    
+    // var _this = this;
+    
     // app.douban.findOne(params.id).then(function (d) {
     //   _this.setData({ title: d.title, movie: d, loading: false });
     //   wx.setNavigationBarTitle({ title: d.title + 'XX 商家' });
@@ -34,7 +38,6 @@ Page({
     //   console.error(e);
     // });
   },
-
 
   // onLoad: function() {
   //   console.log( '地图定位接口getLocation还不能正常获取用户位置！' )
@@ -68,16 +71,21 @@ Page({
    * 生命周期函数--监听页面初次渲染完成
    */
   onReady: function onReady() {
-    wx.setNavigationBarTitle({ title: this.data.title + 'XX商家' });
+    wx.setNavigationBarTitle({ title: this.data.title});
   },
 
 
   /**
    * 生命周期函数--监听页面显示
    */
-  onShow: function onShow() {
-    // TODO: onShow
-  },
+  onShow: function(){
+         var that = this;
+         setTimeout(function(){
+            that.setData({
+                hidden: true
+            });
+         }, 1500);
+    },
 
 
   /**
