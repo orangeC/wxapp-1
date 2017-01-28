@@ -10,27 +10,34 @@
 }
 
 .index-head {
-  height: 60rpx;
+  height: 40rpx;
   border-radius: 50rpx;
-  text-align: center;
-  line-height: 60rpx;
   overflow: hidden;
   white-space: nowrap;
   text-overflow: ellipsis;
+  padding: 10rpx 20rpx;
 }
-
+.index-head image{
+  float: left;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  margin-right: 10rpx;
+}
 .position {
   color: #fff;
   background-color: #9d851e;
-  width: 270rpx;
+  width: 250rpx;
 }
 
 .search {
   color: #9d851e;
   background-color: #fff;
-  width: 320rpx;
+  width: 300rpx;
 }
-
+.search input{
+  margin-top: -4rpx;
+}
 .nav {
   background-color: #fff;
   display: flex;

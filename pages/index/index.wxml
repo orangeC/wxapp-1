@@ -4,13 +4,15 @@
 <view class="content" >
   <view class="index-header">
     <view class="index-head position" bindtap="bindWeizhi">
-      {{name}}
+      <image src="https://qnmob.doubanio.com/view/movie_poster_cover/lpst/public/p2351313845.jpg?imageView2/0/q/80/w/9999/h/300/format/jpg"></image>
       <view hidden="{{name ? true : false}}">
-        点击获取位置
+        <text>点击获取位置</text>
       </view>
+      {{name}}
     </view>
     <view class="index-head search" >
-      请输入服务类型
+    <image src="https://qnmob.doubanio.com/view/movie_poster_cover/lpst/public/p2351313845.jpg?imageView2/0/q/80/w/9999/h/300/format/jpg"></image>
+      <input placeholder="服务类型" bindinput="bindKeyInput" />
     </view>
   </view>
   <view class="nav">

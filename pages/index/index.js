@@ -68,6 +68,10 @@ Page({
         userInfo: userInfo
       })
     })
+  },
+  bindKeyInput:function(e){
+    console.log(e.detail.value
+)
   }
   
 })
