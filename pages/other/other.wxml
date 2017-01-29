@@ -1,31 +1,33 @@
 <view class="container">
   <loading hidden="{{ hidden }}">加载中...</loading>
+  <block wx:for="{{showList}}">
   <view class="other-header normal">
     <image src="https://qnmob.doubanio.com/view/movie_poster_cover/lpst/public/p2351313845.jpg?imageView2/0/q/80/w/9999/h/300/format/jpg" mode="scaleToFill"></image>
-    <text class="other-title">{{title}}</text>
+    <text class="other-title">{{item.title}}</text>
     <text>|</text>
     <view class="other-zan">
       <image src="http://b2.hucdn.com//upload/hmp/1609/14/23080112334484_120x80.png!100q50.webp" mode="scaleToFill"></image>
-    <text>点赞：1</text>
+    <text>点赞：{{item.heart}}</text>
     </view>
   </view>
   <view class="other-block"></view>
   <view class="other-tel normal">
   <image src="https://qnmob.doubanio.com/view/movie_poster_cover/lpst/public/p2351313845.jpg?imageView2/0/q/80/w/9999/h/300/format/jpg"></image>
-  <text>1234567890</text>
+  <text>{{item.tel}}</text>
   <image src="https://qnmob.doubanio.com/view/movie_poster_cover/lpst/public/p2351313845.jpg?imageView2/0/q/80/w/9999/h/300/format/jpg"></image>
   </view>
   <view class="other-address normal">
   <image src="https://qnmob.doubanio.com/view/movie_poster_cover/lpst/public/p2351313845.jpg?imageView2/0/q/80/w/9999/h/300/format/jpg"></image>
-  <text>哎什么都没都没买到假的假的假的假的假的</text>
+  <text>{{item.address}}</text>
   </view>
   <map longitude="{{point.longitude}}" latitude="{{point.latitude}}" markers="{{markers}}"  scale="15" style="width: 100%; height:400rpx;"></map>
   <view class="other-service normal">
   <image src="https://qnmob.doubanio.com/view/movie_poster_cover/lpst/public/p2351313845.jpg?imageView2/0/q/80/w/9999/h/300/format/jpg"></image>
-  <text>服务类型：日常保洁</text>
+  <text>服务类型：{{item.ser}}</text>
   </view>
   <view class="other-info normal">
   <image src="https://qnmob.doubanio.com/view/movie_poster_cover/lpst/public/p2351313845.jpg?imageView2/0/q/80/w/9999/h/300/format/jpg"></image>
-  <text>服务介绍：日常保洁包括什么那种不是告诉爷爷和货币兑换兑换活动实施水水水水水水水水水水水水水水</text>
+  <text>服务介绍：{{item.content}}</text>
   </view>
+  </block>
 </view>
