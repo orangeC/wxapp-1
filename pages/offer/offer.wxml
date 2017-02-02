@@ -1,2 +1,3 @@
-<!--logs.wxml-->
-ss
+<import src="../template/template.wxml" />
+<template is="templateunit" data="{{hidden,showList,point}}" />
+<view class="last" bindtap="handlejump">编辑</view>

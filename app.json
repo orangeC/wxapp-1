@@ -5,6 +5,7 @@
     "pages/test/test",
     "pages/request/request",
     "pages/user/user",
+    "pages/edit/edit",
     "pages/other/other"
   ],
   "tabBar": {

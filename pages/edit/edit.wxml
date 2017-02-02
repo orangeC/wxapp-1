@@ -1,0 +1,21 @@
+<view class="container">
+  hhh
+  <view class="other-tel normal">
+  <image class="u243_img" src="/images/u243.png" mode="scaleToFill"></image>
+  <text>{{item.tel}}</text>
+  <image class="u249_img" src="/images/u249.png" mode="scaleToFill"></image>
+  </view>
+  <view class="other-address normal">
+  <image src="/images/u245.png" mode="scaleToFill"></image>
+  <text>{{item.address}}</text>
+  </view>
+  <view class="other-service normal">
+  <image src="/images/u263.png" mode="scaleToFill"></image>
+  <text>服务类型：{{item.ser}}</text>
+  </view>
+  <view class="other-info normal">
+  <image src="/images/u265.png" mode="scaleToFill"></image>
+  <text>服务介绍：{{item.content}}</text>
+  </view>
+</view>
+

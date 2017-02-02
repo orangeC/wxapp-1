@@ -5,10 +5,8 @@
   <view class="index-header">
     <view class="index-head position" bindtap="bindWeizhi">
       <image class="u101_img" src="/images/u101.png" mode="scaleToFill" ></image>
-      <view hidden="{{name ? true : false}}">
-        <text>点击获取位置</text>
-      </view>
-      {{name}}
+        <text class="index-head-hidden" hidden="{{name ? true : false}}">点击获取位置</text>
+      <text class="index-head-address">{{name}}</text>
       <image class="u109_img" src="/images/u109.png" mode="scaleToFill" ></image>
     </view>
     <view class="index-head search" >

@@ -44,6 +44,8 @@ Page({
             })
             console.log( "纬度 : " +that.data.latitude)   //经纬度
             console.log( "经度 : " +that.data.longitude)
+            console.log( "地点 : " +that.data.name)
+            console.log( "位置 : " +that.data.address)
           }
         })
         // wx.openLocation({

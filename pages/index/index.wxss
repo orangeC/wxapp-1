@@ -12,27 +12,40 @@
 .index-head {
   height: 40rpx;
   border-radius: 50rpx;
-  overflow: hidden;
-  white-space: nowrap;
-  text-overflow: ellipsis;
   padding: 10rpx 20rpx;
   display: flex;
   justify-content: space-between;
-  align-items: center
+  align-items: center;
 }
+
+.index-head-hidden{
+  margin-left: 10rpx;
+}
+
+.index-head-address {
+  flex: 1;
+  margin-left: 10rpx;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
 .u101_img {
   width: 15px;
   height: 21px;
 }
+
 .u109_img {
   width: 6px;
   height: 11px;
 }
+
 .u105_img {
   width: 19px;
   height: 15px;
   margin-right: 20rpx;
 }
+
 .position {
   color: #fff;
   background-color: #9d851e;
@@ -99,34 +112,39 @@
   color: #000;
 }
 
-.show-list>text{
+.show-list>text {
   margin: 2px 5px;
   font-size: 0.75em;
   line-height: 1.4;
 }
-.show-list-last{
+
+.show-list-last {
   margin: 2px 5px;
   font-size: 0.75em;
   line-height: 1.4;
   display: flex;
-  align-items: center
+  align-items: center;
 }
-.u145_img{
+
+.u145_img {
   width: 10px;
   height: 14px;
   margin-right: 10rpx;
 }
-.u151_img{
+
+.u151_img {
   width: 16px;
   height: 14px;
   margin-right: 10rpx;
   margin-left: 50rpx;
 }
+
 @media (min-width: 384px) {
   .show-list>text {
     margin: 2px 5px;
     line-height: 1.3;
   }
+
   .scroll-content {
     height: 350px;
   }
@@ -137,6 +155,7 @@
     margin: 2px 5px;
     line-height: 1.4;
   }
+
   .scroll-content {
     height: 340px;
   }
