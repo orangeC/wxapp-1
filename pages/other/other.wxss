@@ -35,8 +35,8 @@
     font-size: .75em;
 }
 .other-zan>image{
-    width: 20px;
-    height: 20px;
+    width: 17px;
+    height: 14px;
     margin: 5px auto;
 }
 .other-block{
@@ -46,17 +46,23 @@
     border-top: 1px solid #dedde2;
 }
 .other-tel>image{
-    width: 20px;
-    height: 20px;
     padding-right: 20rpx;
+}
+.u243_img{
+    width: 15px;
+    height: 15px;
+}
+.u249_img{
+    width: 19px;
+    height: 19px;
 }
 .other-tel>text{
     flex: 0.9;
     padding-left: 10rpx;
 }
 .other-address>image{
-    width: 20px;
-    height: 20px;
+    width: 11px;
+    height: 16px;
     padding-right: 20rpx;
 }
 .other-address>text{
@@ -67,8 +73,8 @@ map{
     border-bottom: 25rpx solid #eeedf3; 
 }
 .other-service>image{
-    width: 20px;
-    height: 20px;
+    width: 13px;
+    height: 15px;
     padding-right: 20rpx;
 }
 .other-info{
@@ -76,8 +82,8 @@ map{
     padding-bottom: 60rpx;
 }
 .other-info>image{
-    width: 20px;
-    height: 20px;
+    width: 15px;
+    height: 12px;
     padding-right: 20rpx;
 }
 .other-info>text{

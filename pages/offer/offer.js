@@ -1,20 +1,15 @@
 //logs.js
-var util = require('../../utils/util.js');
 var app = getApp()
 Page({
   data: {
-    logs: []
+    title:"请求过来的商家店名"
   },
   onLoad: function () {
-    this.setData({
-      logs: (wx.getStorageSync('logs') || []).map(function (log) {
-        return util.formatTime(new Date(log))
-      })
-    });
-    console.log("logs page execute: onLoad.");
+    
   },
   onReady: function() {
     console.log("logs page execute: onReady.");
+     wx.setNavigationBarTitle({ title: this.data.title});
   },
   onShow: function() {
     // Do something when page show.

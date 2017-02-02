@@ -31,15 +31,6 @@ Page({
       title:item.title
       })
     
-    // var _this = this;
-    
-    // app.douban.findOne(params.id).then(function (d) {
-    //   _this.setData({ title: d.title, movie: d, loading: false });
-    //   wx.setNavigationBarTitle({ title: d.title + 'XX 商家' });
-    // }).catch(function (e) {
-    //   _this.setData({ title: '获取数据异常', movie: {}, loading: false });
-    //   console.error(e);
-    // });
   },
 
   // onLoad: function() {

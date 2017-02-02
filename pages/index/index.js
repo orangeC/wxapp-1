@@ -14,8 +14,8 @@ Page({
     ],
     name:"",
     address:"",
-    latitude:"",
-    longitude:""
+    latitude:0,
+    longitude:0
   },
   //事件处理函数
   
@@ -42,8 +42,8 @@ Page({
               latitude:latitude,
               longitude:longitude
             })
-            console.log(that.data.latitude)   //经纬度
-            console.log(that.data.longitude)
+            console.log( "纬度 : " +that.data.latitude)   //经纬度
+            console.log( "经度 : " +that.data.longitude)
           }
         })
         // wx.openLocation({

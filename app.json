@@ -1,7 +1,7 @@
 {
   "pages":[
     "pages/index/index",
-    "pages/logs/logs",
+    "pages/offer/offer",
     "pages/test/test",
     "pages/request/request",
     "pages/user/user",
@@ -15,13 +15,13 @@
     "list": [{
       "pagePath": "pages/index/index",
       "text": "寻找服务",
-      "iconPath":"images/icon_seo.png",
-      "selectedIconPath":"images/icon_seo_HL.png"
+      "iconPath":"images/u830.png",
+      "selectedIconPath":"images/u820.png"
     }, {
-      "pagePath": "pages/logs/logs",
-      "text": "日志",
-      "iconPath":"images/icon_speed.png",
-      "selectedIconPath":"images/icon_speed_HL.png"
+      "pagePath": "pages/offer/offer",
+      "text": "提供服务",
+      "iconPath":"images/u818.png",
+      "selectedIconPath":"images/u828.png"
     }, {
       "pagePath": "pages/test/test",
       "text": "测试",

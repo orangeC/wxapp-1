@@ -16,13 +16,22 @@
   white-space: nowrap;
   text-overflow: ellipsis;
   padding: 10rpx 20rpx;
+  display: flex;
+  justify-content: space-between;
+  align-items: center
 }
-.index-head image{
-  float: left;
-  width: 20px;
-  height: 20px;
-  border-radius: 50%;
-  margin-right: 10rpx;
+.u101_img {
+  width: 15px;
+  height: 21px;
+}
+.u109_img {
+  width: 6px;
+  height: 11px;
+}
+.u105_img {
+  width: 19px;
+  height: 15px;
+  margin-right: 20rpx;
 }
 .position {
   color: #fff;
@@ -35,9 +44,7 @@
   background-color: #fff;
   width: 300rpx;
 }
-.search input{
-  margin-top: -4rpx;
-}
+
 .nav {
   background-color: #fff;
   display: flex;
@@ -92,10 +99,28 @@
   color: #000;
 }
 
-.show-list>text {
+.show-list>text{
   margin: 2px 5px;
   font-size: 0.75em;
   line-height: 1.4;
+}
+.show-list-last{
+  margin: 2px 5px;
+  font-size: 0.75em;
+  line-height: 1.4;
+  display: flex;
+  align-items: center
+}
+.u145_img{
+  width: 10px;
+  height: 14px;
+  margin-right: 10rpx;
+}
+.u151_img{
+  width: 16px;
+  height: 14px;
+  margin-right: 10rpx;
+  margin-left: 50rpx;
 }
 @media (min-width: 384px) {
   .show-list>text {
