@@ -4,7 +4,7 @@ Page({
   data: {
     title: "请求过来的商家店名",
     showList: [
-      { name: "帮家博士",tel:"18332563755",address:"滨海新区开发区第二大街与新城东路交口"}
+      { name: "帮家博士",tel:"18332563755",address:"滨海新区开发区第二大街与新城东路交口",type:"日常保洁、甲醛处理",range:"天津滨海新区",info:"日常保洁包括抽油烟机清理、户内外玻璃清洁、地板清洁、家具室内清洁等服务。价格根据具体情况会有所不同，欢迎欢迎热烈欢迎"}
     ],
     hidden: false,
     movie: {},
@@ -30,6 +30,13 @@ Page({
         hidden: true
       });
     }, 1500);
+  },
+  handlejump:function(){
+    wx.showToast({
+      title: '已提交，请等待审核',
+      icon: 'loading',
+      duration: 3000
+    });
   },
   onHide: function () {
     // Do something when page hide.
