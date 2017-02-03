@@ -5,8 +5,6 @@ page {
   width: 100%;
   overflow: hidden;
   background-color: #eeedf3;
-  font-family: -apple-system-font, 'Helvetica Neue', Helvetica, 'Microsoft YaHei', sans-serif;
-  color: red;
 }
 
 .container {
@@ -15,4 +13,5 @@ page {
   box-sizing: border-box;
   align-content: flex-start;
   color: #9a9a9a;
+  font-family: '华文细黑 Regular', '华文细黑';
 }

@@ -1,21 +1,34 @@
 <view class="container">
-  hhh
-  <view class="other-tel normal">
-  <image class="u243_img" src="/images/u243.png" mode="scaleToFill"></image>
-  <text>{{item.tel}}</text>
-  <image class="u249_img" src="/images/u249.png" mode="scaleToFill"></image>
-  </view>
-  <view class="other-address normal">
-  <image src="/images/u245.png" mode="scaleToFill"></image>
-  <text>{{item.address}}</text>
-  </view>
-  <view class="other-service normal">
-  <image src="/images/u263.png" mode="scaleToFill"></image>
-  <text>服务类型：{{item.ser}}</text>
-  </view>
-  <view class="other-info normal">
-  <image src="/images/u265.png" mode="scaleToFill"></image>
-  <text>服务介绍：{{item.content}}</text>
-  </view>
+  <block wx:for="{{showList}}">
+    <view class="edit-head normal">
+      <text class="normal-text">头像</text>
+      <image class="u249_img" src="https://qnmob.doubanio.com/view/movie_poster_cover/lpst/public/p2351313845.jpg?imageView2/0/q/80/w/9999/h/300/format/jpg" mode="scaleToFill"></image>
+    </view>
+    <view class="edit-name normal">
+      <text class="normal-text">名称</text>
+      <text class="normal-color">{{item.name}}</text>
+      <view>已认证</view>
+    </view>
+    <view class="edit-tel normal">
+      <text class="normal-text">电话</text>
+      <text class="normal-color">{{item.tel}}</text>
+    </view>
+    <view class="edit-address normal">
+      <text class="normal-text">位置</text>
+      <text class="normal-color">{{item.address}}</text>
+      <image class="u591_img" src="/images/u591.png" mode="scaleToFill"></image>
+    </view>
+    <view class="circle">
+    <image style="width:20px;height:20px;" src="/images/u612.png" mode="scaleToFill"></image>
+    <image style="width:94px;height:5px;" src="/images/u604.png" mode="scaleToFill"></image>
+    <image style="width:46px;height:46px;" src="/images/u177.png" mode="scaleToFill"></image>
+    <image style="width:94px;height:5px;" src="/images/u604.png" mode="scaleToFill"></image>
+    <image style="width:20px;height:20px;" src="/images/u612.png" mode="scaleToFill"></image>
+    </view>
+    <view class="circle-word">
+    <text>个人服务</text>
+    <text>对公服务</text>
+    <text>XX服务</text>
+    </view>
+  </block>
 </view>
-

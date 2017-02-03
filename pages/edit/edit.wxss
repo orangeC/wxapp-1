@@ -1,0 +1,77 @@
+/* pages/components/other.wxss */
+.container{
+    color: #000;
+}
+
+.normal{
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    height: 60rpx;
+    justify-content: flex-start;
+    align-items: center;
+    padding: 20rpx;
+    font-size: .8em;
+    border-bottom: 1px solid #edecf2;   
+    background-color: #fff; 
+}
+.normal-text{
+    flex: 0.9;
+    padding-left: 20rpx;
+}
+.normal-color{
+    color: #666;
+    margin-right: 30rpx;
+}
+.u249_img{
+    width: 35px;
+    height: 35px;
+    border-radius: 50%;
+}
+.edit-name>view{
+    width: 55px;
+    height: 28px;
+    background-color: #ffd200;
+    border-radius: 20px;
+    text-align: center;
+    line-height: 28px;
+    font-size: .8em;
+}
+.edit-address{
+    letter-spacing: -0.08em;
+}
+.u591_img{
+    width: 9px;
+    height: 15px;
+    margin-right: 20rpx;
+    margin-left: -8rpx;
+}
+.circle{
+    margin-top: 20rpx;
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    padding-top: 20rpx;
+    align-items: center;
+    justify-content: center;
+    border-top: 1px solid #d7d7d8;
+    background-color: #fff; 
+}
+.circle>image{
+    margin: -2rpx;
+}
+.circle-word{
+    display: flex;
+    flex-direction: row;
+    width: 97.5%;
+    align-items: center;
+    justify-content: space-around;
+    border-bottom: 1px solid #edecf2;   
+    background-color: #fff; 
+    padding: 20rpx;
+    font-size: .8em;
+    color: #666;
+}
+.circle-word>text{
+    flex-basis: 120rpx;
+}
