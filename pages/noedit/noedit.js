@@ -2,35 +2,41 @@
 var app = getApp()
 Page({
   data: {
-    title: "",
+    title: "商家入驻",
     showList: [
-      { name: "帮家博士",tel:"18332563755",address:"滨海新区开发区第二大街与新城东路交口",type:"日常保洁、甲醛处理",range:"天津滨海新区",info:"日常保洁包括抽油烟机清理、户内外玻璃清洁、地板清洁、家具室内清洁等服务。价格根据具体情况会有所不同，欢迎欢迎热烈欢迎"}
+      { name: "帮家博士", tel: "18332563755", address: "滨海新区开发区第二大街与新城东路交口", type: "请选择", range: "天津滨海新区", info: "详细描述你的服务" }
     ],
     hidden: false,
-    intro:true
+    intro: false
   },
-  onLoad: function (e) {
-    console.log(e)
-    wx.setNavigationBarTitle({ title: e.title });
+  onLoad: function () {
+
   },
   onReady: function () {
     console.log("logs page execute: onReady.");
+    wx.setNavigationBarTitle({ title: this.data.title });
   },
   onShow: function () {
-    // Do something when page show.
-    console.log("logs page execute: onShow.");
     var that = this;
-    setTimeout(function () {
+    if (this.data.title == "商家入驻") {
       that.setData({
         hidden: true
-      });
-    }, 1500);
+      })
+    }
+    console.log("logs page execute: onShow.");
+
   },
-  handlejump:function(){
+  handlejump: function () {
     wx.showToast({
       title: '已提交，请等待审核',
       icon: 'loading',
-      duration: 3000
+      duration: 5000,
+      complete: function () {
+        console.log("成功")
+        wx.switchTab({
+          url: '/pages/index/index'
+        })
+      }
     });
   },
   onHide: function () {
@@ -38,7 +44,6 @@ Page({
     console.log("logs page execute: onHide.");
   },
   onUnload: function () {
-    // Do something when page close.
     console.log("logs page execute: onUnload.");
   },
   onPullDownRefresh: function () {

@@ -2,7 +2,7 @@
 var app = getApp()
 Page({
   data: {
-    title: "请求过来的商家店名",
+    title: "",
     showList: [
       { title: "衣保姆6", ser: "保洁6", distance: "600m", heart: "6", tel: "161718", address: "第6大街", content: "contentsix" }
     ],
@@ -15,11 +15,15 @@ Page({
     markers: []
   },
   onLoad: function () {
-
+    wx.setNavigationBarTitle({ title: this.data.title });
+    if (this.data.title == "") {
+      wx.navigateTo({
+        url: '../noedit/noedit'
+      })
+    }
   },
   onReady: function () {
     console.log("logs page execute: onReady.");
-    wx.setNavigationBarTitle({ title: this.data.title });
   },
   onShow: function () {
     // Do something when page show.
@@ -31,9 +35,9 @@ Page({
       });
     }, 1500);
   },
-  handlejump:function(){
+  handlejump: function () {
     wx.navigateTo({
-      url: '../edit/edit'
+      url: '../edit/edit?title='+this.data.title
     })
   },
   onHide: function () {

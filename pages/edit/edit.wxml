@@ -1,54 +1,5 @@
 <view class="container">
-  <block wx:for="{{showList}}">
-    <view class="edit-head normal">
-      <text class="normal-text">头像</text>
-      <image class="u249_img" src="https://qnmob.doubanio.com/view/movie_poster_cover/lpst/public/p2351313845.jpg?imageView2/0/q/80/w/9999/h/300/format/jpg" mode="scaleToFill"></image>
-    </view>
-    <view class="edit-name normal">
-      <text class="normal-text">名称</text>
-      <text class="normal-color">{{item.name}}</text>
-      <view>已认证</view>
-    </view>
-    <view class="edit-tel normal">
-      <text class="normal-text">电话</text>
-      <text class="normal-color">{{item.tel}}</text>
-    </view>
-    <view class="edit-address normal">
-      <text class="normal-text">位置</text>
-      <text class="normal-color">{{item.address}}</text>
-      <image class="u591_img" src="/images/u591.png" mode="scaleToFill"></image>
-    </view>
-    <view class="circle">
-      <view>
-        <image style="width:20px;height:20px;" src="/images/u612.png" mode="scaleToFill"></image>
-        <text class="circle-text">个人服务</text>
-      </view>
-      <view class="line line-left"></view>
-      <view>
-        <image style="width:46px;height:46px;margin-top:-20rpx;" src="/images/u177.png" mode="scaleToFill"></image>
-        <text class="circle-text-center">对公服务</text>
-      </view>
-      <view class="line line-right"></view>
-      <view>
-        <image style="width:20px;height:20px;" src="/images/u612.png" mode="scaleToFill"></image>
-        <text class="circle-text">XX服务</text>
-      </view>
-    </view>
-    <view class="edit-type normal">
-      <text class="normal-text">服务类型</text>
-      <text class="normal-color">{{item.type}}</text>
-      <image class="u592_img" src="/images/u591.png" mode="scaleToFill"></image>
-    </view>
-    <view class="edit-range normal">
-      <text class="normal-text">服务范围</text>
-      <text class="normal-color">{{item.range}}</text>
-      <image class="u592_img" src="/images/u591.png" mode="scaleToFill"></image>
-    </view>
-    <view class="edit-info normal">
-      <text class="edit-info-info">服务介绍</text>
-      <text class="edit-info-text">{{item.info}}</text>
-      <image class="u592_img" src="/images/u591.png" mode="scaleToFill"></image>
-    </view>
-  </block>
+  <import src="../template/tempedit.wxml" />
+<template is="tempedit" data="{{showList,intro}}" />
   <view class="last" bindtap="handlejump">保存并重新提交审核</view>
 </view>

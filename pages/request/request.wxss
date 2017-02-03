@@ -1,4 +1,1 @@
-/**index.wxss**/
-.container {
-  padding: 0 200rpx;
-} 
+/* pages/request/request.wxss */

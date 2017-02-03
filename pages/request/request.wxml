@@ -1,10 +1,2 @@
-<!--index.wxml-->
-<view class="container">
-    <button  type="primary" bindtap="loadData">请求数据</button>
-    <view wx:for="{{newsdata}}" wx:for-item="item" wx:key="index" >
-        <image style="width:300px;height:200px" src="{{item.thumbnail_pic_s}}"></image>
-        <text>{{index+1}}</text>
-        "{{item.realtype}}"
-        <text>{{item.title}}</text>
-    </view>
-</view>
+<!--pages/request/request.wxml-->
+<text>pages/request/request.wxml</text>

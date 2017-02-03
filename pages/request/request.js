@@ -1,21 +1,19 @@
-var app = getApp();
+// pages/request/request.js
 Page({
-  data: {
-    newsdata :""
+  data:{},
+  onLoad:function(options){
+    // 页面初始化 options为页面跳转所带来的参数
   },
-  //事件处理函数
-  loadData: function () {
-    var that = this;
-    wx.request({
-      url: 'http://newsapi.gugujiankong.com/Handler.ashx?action=getnews&type=top&count=10', //仅为示例，并非真实的接口地址
-      header: {
-        'content-type': 'application/json'
-      },
-      success: function (res) {
-        that.setData({
-          newsdata:res.data
-        })
-      }
-    })
+  onReady:function(){
+    // 页面渲染完成
+  },
+  onShow:function(){
+    // 页面显示
+  },
+  onHide:function(){
+    // 页面隐藏
+  },
+  onUnload:function(){
+    // 页面关闭
   }
 })
