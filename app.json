@@ -6,6 +6,7 @@
     "pages/user/user",
     "pages/edit/edit",
     "pages/noedit/noedit",
+    "pages/address/address",
     "pages/other/other"
   ],
   "tabBar": {
@@ -40,6 +41,6 @@
     "backgroundTextStyle":"white",
     "navigationBarBackgroundColor": "#ffd300",
     "navigationBarTitleText": "周边服务",
-    "navigationBarTextStyle":"white"
+    "navigationBarTextStyle":"black"
   }
 }

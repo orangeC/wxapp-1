@@ -20,6 +20,9 @@
 
 .index-head-hidden{
   margin-left: 10rpx;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
 }
 
 .index-head-address {

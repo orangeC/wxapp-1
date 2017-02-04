@@ -125,7 +125,6 @@
 
 .edit-info-text {
   flex-basis: 69%;
-  height: 95rpx;
   letter-spacing: -0.08em;
   line-height: 1.1;
   overflow: hidden;

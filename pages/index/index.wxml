@@ -1,7 +1,6 @@
 
 <!--index.wxml-->
 <view class="container">
-<view class="content" >
   <view class="index-header">
     <view class="index-head position" bindtap="bindWeizhi">
       <image class="u101_img" src="/images/u101.png" mode="scaleToFill" ></image>
@@ -33,7 +32,6 @@
     </view>
   </view>
   <view class="index-home">附近商家</view>
-</view>
   <scroll-view scroll-y="true" class="scroll-content">
     <block wx:for="{{showList}}" wx:key="i">
       <navigator class="show" url="../other/other?title={{item.title}}" hover-class="navigator-hover">

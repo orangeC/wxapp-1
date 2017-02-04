@@ -1,0 +1,19 @@
+
+<!--index.wxml-->
+<view class="container">
+  <view class="index-header">
+    
+    <view class="search" >
+    <image class="u105_img" src="/images/u105.png" mode="scaleToFill"></image>
+    <input wx:if="{{hidden}}" placeholder="请输入位置" />
+      <text wx:else >{{name}}</text>
+    </view>
+    <view class="button">搜索</view>
+  </view>
+  <view class="position" bindtap="bindKeyInput">
+  <image class="u469_img" src="/images/u469.png" mode="scaleToFill"></image>点击定位当前位置</view>
+
+  <map longitude="{{longitude}}" latitude="{{latitude}}" markers="{{markers}}"  scale="15" style="width: 100%; height:400rpx;"></map>
+  
+  
+</view>
