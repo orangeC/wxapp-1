@@ -4,43 +4,11 @@ var app = getApp();
 var common = require("../../utils/common.js")
 Page({
     data: {
-        markers: [{
-            id: 0,
-            latitude: 39.0446,
-            longitude: 117.71206,
-            width: 15,
-            height: 20,
-            alpha: 10
-        },
-        {
-            id: 1,
-            latitude: 39.0646,
-            longitude: 117.71406,
-            width: 15,
-            height: 20,
-            alpha: 10
-        },
-        {
-            id: 2,
-            latitude: 39.0846,
-            longitude: 117.71606,
-            width: 15,
-            height: 20,
-            alpha: 10
-        },
-        {
-            id: 3,
-            latitude: 39.1046,
-            longitude: 117.71806,
-            width: 30,
-            height: 30,
-            alpha: 10
-        }
-        ],
+        markers: [],
         name: "",
         address: "",
-        latitude: 39.0246,
-        longitude: 117.71006,
+        latitude: 0,
+        longitude: 0,
         hidden: true
     },
     //事件处理函数
