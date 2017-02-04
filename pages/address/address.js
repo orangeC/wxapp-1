@@ -5,36 +5,33 @@ var common = require("../../utils/common.js")
 Page({
     data: {
         markers: [{
-            iconPath: "/images/u145.png",
             id: 0,
-            latitude: 39.084199,
-            longitude: 117.200999,
+            latitude: 39.0446,
+            longitude: 117.71206,
             width: 15,
             height: 20,
             alpha: 10
         },
         {
-            iconPath: "/images/u145.png",
             id: 1,
-            latitude: 39.084935,
-            longitude: 117.200167,
+            latitude: 39.0646,
+            longitude: 117.71406,
             width: 15,
             height: 20,
             alpha: 10
         },
         {
-            iconPath: "/images/u145.png",
             id: 2,
-            latitude: 39.084535,
-            longitude: 117.200567,
+            latitude: 39.0846,
+            longitude: 117.71606,
             width: 15,
             height: 20,
             alpha: 10
         },
         {
             id: 3,
-            latitude: 39.083535,
-            longitude: 117.201567,
+            latitude: 39.1046,
+            longitude: 117.71806,
             width: 30,
             height: 30,
             alpha: 10
@@ -42,8 +39,8 @@ Page({
         ],
         name: "",
         address: "",
-        latitude: 0,
-        longitude: 0,
+        latitude: 39.0246,
+        longitude: 117.71006,
         hidden: true
     },
     //事件处理函数
