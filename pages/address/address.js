@@ -51,7 +51,48 @@ Page({
                 // })
             }
         })
+    },
+    //移动地图时发生
+    regionchange(e) {
+        if (e.type == 'end') {
+            this.showmarkers()
+        }
+    },
+
+    //点击搜索获取附近的点
+    bindBtn: function () {
+        this.showmarkers()
+    },
+
+    showmarkers: function () {
+        var that = this;
+
+        //数据加载完成之前，显示加载中提示框
+        wx.showToast({
+            title: '正在请求附近的点。。。',
+            icon: 'loading',
+            duration: 5000
+        });
+
+        //输入框没有输入的判断
+        if (that.data.inputValue == '') {
+            wx.hideToast();
+            return;
+        };
+        wx.request({
+            url: 'https://raw.githubusercontent.com/orangeC/wxapp-1/master/data/data.json', //仅为示例，并非真实的接口地址
+
+            header: {
+                'content-type': 'application/json'
+            },
+            success: function (res) {
+                var data = res.data;
+                console.log(data)
+                that.setData({
+                    markers: data
+                })
+                wx.hideToast();
+            }
+        })
     }
-
-
 })
