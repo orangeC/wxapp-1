@@ -13,6 +13,9 @@
   <view class="position" bindtap="bindKeyInput">
   <image class="u469_img" src="/images/u469.png" mode="scaleToFill"></image>点击定位当前位置</view>
 
-  <map longitude="{{longitude}}" latitude="{{latitude}}" markers="{{markers}}" scale="16" bindcontroltap="controltap"     bindmarkertap="markertap" bindregionchange="regionchange" style="width: 100%; height:400rpx;"></map>
+  <map id="myMap" show-location longitude="{{longitude}}" latitude="{{latitude}}" markers="{{markers}}" scale="16" bindcontroltap="controltap"     bindmarkertap="markertap" bindregionchange="regionchange" style="width:100%;height:500rpx"></map>
+  <button type="primary" bindtap="getCenterLocation">获取地图中心位置</button>
+<button type="primary" bindtap="moveToLocation">移动到当前位置</button>
+<button type="primary" bindtap="bindtel">获取系统信息</button>
   
 </view>

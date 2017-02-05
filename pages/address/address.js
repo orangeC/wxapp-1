@@ -4,7 +4,8 @@ var app = getApp();
 var common = require("../../utils/common.js")
 Page({
     data: {
-        markers: [],
+        map_width: 300,
+        map_height: 300,
         name: "",
         address: "",
         latitude: 0,
@@ -12,13 +13,16 @@ Page({
         hidden: true
     },
     //事件处理函数
+    onReady: function (e) {
+        // 使用 wx.createMapContext 获取 map 上下文 
+        this.mapCtx = wx.createMapContext('myMap')
+    },
 
     //获取位置
     bindKeyInput: function () {
-        console.log(1)
         var that = this;
         wx.getLocation({
-            type: 'wgs84',
+            type: 'gcj02',
             success: function (res) {
                 var latitude = res.latitude
                 var longitude = res.longitude
@@ -36,7 +40,16 @@ Page({
                             address: address,
                             latitude: latitude,
                             longitude: longitude,
-                            hidden: false
+                            hidden: false,
+                            markers: [
+                                {
+                                    id: 7
+                                    , longitude: longitude
+                                    , latitude: latitude
+                                    , width: 30
+                                    , height: 30
+                                }
+                            ]
                         })
                         console.log("纬度 : " + that.data.latitude)   //经纬度
                         console.log("经度 : " + that.data.longitude)
@@ -51,6 +64,24 @@ Page({
                 // })
             }
         })
+        // 获取定位，并把位置标示出来
+        // app.getLocationInfo(function (locationInfo) {
+        //     console.log('map', locationInfo);
+        //     that.setData({
+        //         longitude: locationInfo.longitude
+        //         , latitude: locationInfo.latitude
+        //         , markers: [
+        //             {
+        //                 id: 7
+        //                 , longitude: locationInfo.longitude
+        //                 , latitude: locationInfo.latitude
+        //                 , width: 30
+        //                 , height: 30
+        //             }
+        //         ]
+        //     })
+        // })
+
     },
     //移动地图时发生
     regionchange(e) {
@@ -58,12 +89,18 @@ Page({
             this.showmarkers()
         }
     },
+    getCenterLocation: function () {
+        this.getLngLat()
+    },
+    moveToLocation: function () {
+        this.mapCtx.moveToLocation()
+    },
 
     //点击搜索获取附近的点
     bindBtn: function () {
         this.showmarkers()
     },
-
+    //请求附近的点
     showmarkers: function () {
         var that = this;
 
@@ -75,10 +112,10 @@ Page({
         });
 
         //输入框没有输入的判断
-        if (that.data.inputValue == '') {
-            wx.hideToast();
-            return;
-        };
+        // if (that.data.inputValue == '') {
+        //     wx.hideToast();
+        //     return;
+        // };
         wx.request({
             url: 'https://raw.githubusercontent.com/orangeC/wxapp-1/master/data/data.json', //仅为示例，并非真实的接口地址
 
@@ -94,5 +131,45 @@ Page({
                 wx.hideToast();
             }
         })
+    },
+    //获取中间点的经纬度，并mark出来
+    getLngLat: function () {
+        var that = this;
+        this.mapCtx.getCenterLocation({
+            success: function (res) {
+
+                that.setData({
+                    longitude: res.longitude
+                    , latitude: res.latitude
+                    , markers: [
+                        {
+                            id: 6
+                            , iconPath: "/images/u147.png"
+                            , longitude: res.longitude
+                            , latitude: res.latitude
+                            , width: 30
+                            , height: 30
+                            , alpha: 10
+                        }
+                    ]
+                })
+                console.log("经度" + that.data.longitude)
+                console.log("纬度" + that.data.latitude)
+            }
+        })
+    },
+    bindtel: function () {
+        wx.getSystemInfo({
+            success: function (res) {
+                console.log("手机型号 "+res.model)
+                console.log("设备像素比 " +res.pixelRatio)
+                console.log("窗口宽度 "+res.windowWidth)
+                console.log("窗口高度 "+res.windowHeight)
+                console.log("微信设置的语言 "+res.language)
+                console.log("微信版本号 "+res.version)
+                console.log("客户端平台 "+res.platform)
+            }
+        })
     }
+
 })
