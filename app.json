@@ -1,9 +1,7 @@
 {
   "pages":[
-    "pages/address/address",
+    "pages/index/index",
     "pages/offer/offer",
-    "pages/test/test",
-    "pages/user/user",
     "pages/edit/edit",
     "pages/noedit/noedit",
     "pages/address/address",
@@ -24,16 +22,6 @@
       "text": "提供服务",
       "iconPath":"images/u818.png",
       "selectedIconPath":"images/u828.png"
-    }, {
-      "pagePath": "pages/test/test",
-      "text": "测试",
-      "iconPath":"images/icon_seo.png",
-      "selectedIconPath":"images/icon_seo_HL.png"
-    }, {
-      "pagePath": "pages/user/user",
-      "text": "用户中心",
-      "iconPath":"images/icon_seo.png",
-      "selectedIconPath":"images/icon_seo_HL.png"
     }]
   },
   "window":{

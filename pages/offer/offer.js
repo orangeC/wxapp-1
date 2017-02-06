@@ -2,7 +2,8 @@
 var app = getApp()
 Page({
   data: {
-    title: "s",
+    title: "商家入驻",
+    shopStatus:false,
     showList: [
       { title: "衣保姆6", ser: "保洁6", distance: "600m", heart: "6", tel: "161718", address: "第6大街", content: "contentsix" }
     ],
@@ -16,7 +17,7 @@ Page({
   },
   onLoad: function () {
     wx.setNavigationBarTitle({ title: this.data.title });
-    if (this.data.title == "") {
+    if (!this.data.shopStatus) {
       wx.navigateTo({
         url: '../noedit/noedit'
       })
