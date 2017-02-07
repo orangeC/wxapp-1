@@ -1,5 +1,5 @@
 <view class="container">
   <import src="../template/tempedit.wxml" />
-<template is="tempedit" data="{{showList,intro}}" />
+<template is="tempedit" data="{{showList,img,intro}}" />
   <view class="last" bindtap="handlejump">保存并重新提交审核</view>
 </view>

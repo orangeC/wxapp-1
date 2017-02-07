@@ -1,5 +1,6 @@
 {
   "pages":[
+    "pages/noedit/noedit",
     "pages/index/index",
     "pages/offer/offer",
     "pages/edit/edit",
@@ -18,7 +19,7 @@
       "iconPath":"images/u830.png",
       "selectedIconPath":"images/u820.png"
     }, {
-      "pagePath": "pages/offer/offer",
+      "pagePath": "pages/noedit/noedit",
       "text": "提供服务",
       "iconPath":"images/u818.png",
       "selectedIconPath":"images/u828.png"
@@ -30,5 +31,6 @@
     "navigationBarBackgroundColor": "#ffd300",
     "navigationBarTitleText": "周边服务",
     "navigationBarTextStyle":"black"
-  }
+  },
+  "debug":"true"
 }

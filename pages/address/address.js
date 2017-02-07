@@ -1,7 +1,6 @@
 //index.js
 //获取应用实例
 var app = getApp();
-var common = require("../../utils/common.js")
 Page({
     data: {
         map_width: 300,
@@ -116,6 +115,14 @@ Page({
         //     wx.hideToast();
         //     return;
         // };
+        // app.send("data/data.json",{ },"GET",function(res){
+        //     var data = res.data;
+        //         console.log(data)
+        //         that.setData({
+        //             markers: data
+        //         })
+        //         wx.hideToast();
+        // })
         wx.request({
             url: 'https://raw.githubusercontent.com/orangeC/wxapp-1/master/data/data.json', //仅为示例，并非真实的接口地址
 
@@ -161,13 +168,13 @@ Page({
     bindtel: function () {
         wx.getSystemInfo({
             success: function (res) {
-                console.log("手机型号 "+res.model)
-                console.log("设备像素比 " +res.pixelRatio)
-                console.log("窗口宽度 "+res.windowWidth)
-                console.log("窗口高度 "+res.windowHeight)
-                console.log("微信设置的语言 "+res.language)
-                console.log("微信版本号 "+res.version)
-                console.log("客户端平台 "+res.platform)
+                console.log("手机型号 " + res.model)
+                console.log("设备像素比 " + res.pixelRatio)
+                console.log("窗口宽度 " + res.windowWidth)
+                console.log("窗口高度 " + res.windowHeight)
+                console.log("微信设置的语言 " + res.language)
+                console.log("微信版本号 " + res.version)
+                console.log("客户端平台 " + res.platform)
             }
         })
     }

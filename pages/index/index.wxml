@@ -13,29 +13,55 @@
       <input placeholder="家政服务" bindinput="bindKeyInput" />
     </view>
   </view>
-  <view class="nav">
+  <!--<view class="nav">
     <view>
-      <image src="http://b2.hucdn.com//upload/hmp/1609/14/23080112334484_120x80.png!100q50.webp" mode="scaleToFill" class="nav-img"></image>
+      <image src="../../images/u177.png" mode="scaleToFill" class="nav-img"></image>
       <text>个人服务</text>
     </view>
     <view>
-      <image src="http://b2.hucdn.com//upload/hmp/1609/14/23080112334484_120x80.png!100q50.webp" mode="scaleToFill" class="nav-img"></image>
+      <image src="../../images/u179.png" mode="scaleToFill" class="nav-img"></image>
       <text>对公服务</text>
     </view>
     <view>
-      <image src="http://b2.hucdn.com//upload/hmp/1609/14/23080112334484_120x80.png!100q50.webp" mode="scaleToFill" class="nav-img"></image>
+      <image src="../../images/u181.png" mode="scaleToFill" class="nav-img"></image>
       <text>XX服务</text>
     </view>
     <view>
-      <image src="http://b2.hucdn.com//upload/hmp/1609/14/23080112334484_120x80.png!100q50.webp" mode="scaleToFill" class="nav-img"></image>
+      <image src="../../images/u183.png" mode="scaleToFill" class="nav-img"></image>
       <text>全部商家</text>
     </view>
-  </view>
+  </view>-->
+  <view class="selector">
+    <navigator url="url" class="selectorNav">
+        <view class="selectorNavT">
+            <image src="../../images/u177.png" class="selectorImg"></image>
+            <text>个人服务</text>
+        </view>  
+    </navigator>
+    <view class="selectorNav">
+        <view class="selectorNavT">
+            <image src="../../images/u179.png" class="selectorImg"></image>
+            <text>对公服务</text>
+        </view>  
+    </view>
+    <view class="selectorNav">
+        <view class="selectorNavT">
+            <image src="../../images/u181.png" class="selectorImg"></image>
+            <text>其他服务</text>
+        </view>  
+    </view>
+    <navigator url="../fenlei/fenlei" class="selectorNav">
+        <view class="selectorNavT">
+            <image src="../../images/u183.png" class="selectorImg"></image>
+            <text>全部商家</text>
+        </view>  
+    </navigator>
+</view>
   <view class="index-home">附近商家</view>
   <scroll-view scroll-y="true" class="scroll-content">
     <block wx:for="{{showList}}" wx:key="i">
       <navigator class="show" url="../other/other?title={{item.title}}" hover-class="navigator-hover">
-      <image style="width:80px;height:80px" src="http://h0.hucdn.com/images/201639/8a92f3b3c7f9d255_132x122.png"></image>
+      <image style="width:80px;height:80px" src="{{item.src}}"></image>
         <view class="show-list">
           <text class="title">{{item.title}}</text>
           <text>服务类型：{{item.ser}}</text>

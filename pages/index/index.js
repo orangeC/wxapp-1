@@ -5,12 +5,12 @@ var common = require("../../utils/common.js")
 Page({
   data: {
     showList:[
-      {title:"帮家博士",ser:"保洁1",distance:"100m",heart:"1"},
-      {title:"帮家博士2",ser:"保洁2",distance:"200m",heart:"2"},
-      {title:"帮家博士3",ser:"保洁3",distance:"300m",heart:"3"},
-      {title:"涂家换新4",ser:"保洁4",distance:"400m",heart:"4"},
-      {title:"帮家博士5",ser:"保洁5",distance:"500m",heart:"5"},
-      {title:"衣保姆6",ser:"保洁6",distance:"600m",heart:"6"}
+      {title:"帮家博士",ser:"保洁1",distance:"100m",heart:"1",src:"../../images/b.jpg"},
+      {title:"帮家博士2",ser:"保洁2",distance:"200m",heart:"2",src:"../../images/t.png"},
+      {title:"帮家博士3",ser:"保洁3",distance:"300m",heart:"3",src:"../../images/y.png"},
+      {title:"涂家换新4",ser:"保洁4",distance:"400m",heart:"4",src:"../../images/b.jpg"},
+      {title:"帮家博士5",ser:"保洁5",distance:"500m",heart:"5",src:"../../images/t.png"},
+      {title:"衣保姆6",ser:"保洁6",distance:"600m",heart:"6",src:"../../images/y.png"}
     ],
     name:"",
     address:"",

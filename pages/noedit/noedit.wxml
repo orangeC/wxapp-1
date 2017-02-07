@@ -1,5 +1,5 @@
 <view class="container">
   <import src="../template/tempedit.wxml" />
-<template is="tempedit" data="{{showList,hidden,intro}}" />
+<template is="tempedit" data="{{showList,img,hidden,intro}}" />
   <view class="last" bindtap="handlejump">提交申请</view>
 </view>

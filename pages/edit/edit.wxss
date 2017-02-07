@@ -33,6 +33,19 @@
   border-radius: 50%;
 }
 
+.u567_img {
+  width: 40px;
+  height: 40px;
+  position: relative;
+}
+.u569_img {
+  width: 17px;
+  height: 17px;
+  position: absolute;
+  top: 25%;
+  left: 30%;
+}
+
 .edit-name>view {
   width: 55px;
   height: 28px;
@@ -95,6 +108,16 @@
   right: 20%;
 }
 
+.u177_img {
+  position: relative;
+}
+
+.u187_img {
+  position: absolute;
+  top: 25%;
+  left: 28%;
+}
+
 .circle-text {
   margin-top: 40rpx;
   color: #666;
@@ -141,15 +164,23 @@
   width: 9px;
   height: 15px;
 }
-.last{
-    width: 75%;
-    height: 90rpx;
-    margin: 30rpx auto;
-    border-radius: 10px;
-    background-color: #ffd200;
-    color: #000;
-    font-size: .86em;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+
+.last {
+  width: 75%;
+  height: 90rpx;
+  margin: 30rpx auto;
+  border-radius: 10px;
+  background-color: #ffd200;
+  color: #000;
+  font-size: 0.86em;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+@media (min-width: 375px) {
+  .u187_img {
+    position: absolute;
+    left: 29.5%;
+  }
 }

@@ -2,7 +2,19 @@
   <block wx:for="{{showList}}">
     <view class="edit-head normal">
       <text class="normal-text">头像</text>
-      <image class="u249_img" src="https://qnmob.doubanio.com/view/movie_poster_cover/lpst/public/p2351313845.jpg?imageView2/0/q/80/w/9999/h/300/format/jpg" mode="scaleToFill"></image>
+      <view bindtap="upload" wx:if="{{img}}">
+        <image class="u249_img" src="https://qnmob.doubanio.com/view/movie_poster_cover/lpst/public/p2351313845.jpg?imageView2/0/q/80/w/9999/h/300/format/jpg" mode="scaleToFill"></image>
+      </view>
+      <view bindtap="upload" wx:else>
+        <view wx:if="{{myPic == null}}">
+          <image class="u567_img" src="/images/u567.png" mode="scaleToFill">
+            <image class="u569_img" src="/images/u569.png" mode="scaleToFill"></image>
+          </image>
+        </view>
+        <view wx:else>1
+          <image src="{{myPic}}"></image>
+        </view>
+      </view>
     </view>
     <view class="edit-name normal">
       <text class="normal-text">名称</text>
@@ -25,7 +37,9 @@
       </view>
       <view class="line line-left"></view>
       <view>
-        <image style="width:46px;height:46px;margin-top:-20rpx;" src="/images/u177.png" mode="scaleToFill"></image>
+        <image class="u177_img" style="width:46px;height:46px;margin-top:-20rpx;" src="/images/u177.png" mode="scaleToFill">
+          <image class="u187_img" style="width:20px;height:19px;" src="/images/u187.png" mode="scaleToFill"></image>
+        </image>
         <text class="circle-text-center">对公服务</text>
       </view>
       <view class="line line-right"></view>
@@ -46,7 +60,7 @@
     </view>
     <view wx:if="{{intro}}" class="edit-info normal">
       <text class="edit-info-info">服务介绍</text>
-      <text  class="edit-info-text">{{item.info}}</text>
+      <text class="edit-info-text">{{item.info}}</text>
       <image class="u592_img" src="/images/u591.png" mode="scaleToFill"></image>
     </view>
     <view wx:else class="edit-range normal">

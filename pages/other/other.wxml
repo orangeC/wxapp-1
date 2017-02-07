@@ -1,4 +1,2 @@
 <import src="../template/template.wxml" />
 <template is="templateunit" data="{{hidden,showList,point}}" />
-
-

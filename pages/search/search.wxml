@@ -1,0 +1,74 @@
+<view class="menu">
+    <!--一级菜单-->
+    <view class="storeType" data-index="0" bindtap="showOne">美食</view>
+    <view class="{{subMenuDisplay[0]}}">
+        <!--二级菜单-->
+        <view class="">内容1111</view>
+        <ul class="{{subMenuDisplay[0]}}" bindtap="showOne">
+            <!--三级菜单-->
+            <li>1111111</li>
+            <li>1111111</li>
+            <li>1111111</li>
+        </ul>
+
+        <!--二级菜单-->
+        <view class="storeType3">内容2222</view>
+        <ul class="storeType4">
+            <!--三级菜单-->
+            <li>2222222</li>
+            <li>2222222</li>
+            <li>2222222</li>
+        </ul>
+
+        <!--二级菜单-->
+        <view class="storeType3">内容3333</view>
+        <ul class="storeType4">
+            <!--三级菜单-->
+            <li>3333333</li>
+            <li>3333333</li>
+            <li>3333333</li>
+        </ul>
+    </view>
+
+    <!--一级菜单-->
+    <view class="storeType" >住宿</view>
+    <view class="storeType2">
+        <!--二级菜单-->
+        <view class="storeType3">内容1111</view>
+        <ul class="storeType4">
+            <!--三级菜单-->
+            <li>1111111</li>
+            <li>1111111</li>
+            <li>1111111</li>
+        </ul>
+
+        <!--二级菜单-->
+        <view class="storeType3">内容2222</view>
+        <ul class="storeType4">
+            <!--三级菜单-->
+            <li>2222222</li>
+            <li>2222222</li>
+            <li>2222222</li>
+        </ul>
+
+        <!--二级菜单-->
+        <view class="storeType3">内容3333</view>
+        <ul class="storeType4">
+            <!--三级菜单-->
+            <li>3333333</li>
+            <li>3333333</li>
+            <li>3333333</li>
+        </ul>
+    </view>
+
+
+
+
+
+
+
+
+
+
+
+</view>
