@@ -3,7 +3,6 @@
 .container {
   color: #000;
 }
-
 .normal {
   display: flex;
   flex-direction: row;
@@ -60,13 +59,6 @@
   letter-spacing: -0.08em;
 }
 
-.u591_img {
-  width: 9px;
-  height: 15px;
-  margin-right: 20rpx;
-  margin-left: -8rpx;
-}
-
 .circle {
   margin-top: 20rpx;
   display: flex;
@@ -81,7 +73,7 @@
   position: relative;
 }
 
-.circle>view {
+.circle-view {
   width: 170rpx;
   margin: 0 20rpx;
   display: flex;
@@ -110,6 +102,7 @@
 
 .u177_img {
   position: relative;
+  z-index: 10;  
 }
 
 .u187_img {
@@ -177,7 +170,62 @@
   justify-content: center;
   align-items: center;
 }
+.normal-input-address{
+  width: 85%;
+  text-align: right;
+  margin-right: -20rpx;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.normal-input-range{
+  width: 80%;
+  text-align: right;
+  margin-right: -50rpx;
+}
+.normal-input-info{
+  width: 80%;
+  text-align: right;
+  margin-right: -50rpx;
+}
 
+/*model*/
+
+.modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    background: rgba(0, 0, 0, .5);
+    z-index: 99999;
+    opacity: 0;
+    transition: opacity 100ms ease-in;
+    pointer-events: none;
+    display: flex;
+    flex-direction: row;
+}
+.nav-list{
+  width:33%;
+  height:auto;
+  display: flex;
+  flex-direction: column;
+}
+.nav-list>view{
+  background-color: #e5e5e5;
+  padding: 25rpx;
+  font-size: .7em;
+}
+.nav-list-center{
+  width:33%;
+  height:auto;
+  display: flex;
+  flex-direction: column;
+}
+.nav-list-center navigator{
+  background-color: #f7f7f7;
+  padding: 25rpx;
+  font-size: .7em;
+}
 @media (min-width: 375px) {
   .u187_img {
     position: absolute;

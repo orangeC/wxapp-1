@@ -8,7 +8,10 @@ Page({
     ],
     hidden: false,
     img:true,
-    intro: true
+    intro: true,
+    tab:true,
+    src: "https://qnmob.doubanio.com/view/movie_poster_cover/lpst/public/p2351313845.jpg?imageView2/0/q/80/w/9999/h/300/format/jpg/",
+    switchTab : 1
   },
   onLoad: function (e) {
     console.log(e)
@@ -20,12 +23,12 @@ Page({
   onShow: function () {
     // Do something when page show.
     console.log("logs page execute: onShow.");
-    var that = this;
-    setTimeout(function () {
-      that.setData({
-        hidden: true
-      });
-    }, 1500);
+    // var that = this;
+    // setTimeout(function () {
+    //   that.setData({
+    //     hidden: true
+    //   });
+    // }, 1500);
   },
   handlejump: function () {
     wx.showToast({
@@ -39,6 +42,16 @@ Page({
         url: '/pages/index/index'
       })
     }, 3000)
+  },
+  //切换服务状态
+  serviceOne: function () {
+    this.setData({switchTab:1})
+  },
+  serviceTwo: function () {
+    this.setData({switchTab:2})
+  },
+  serviceThree: function () {
+    this.setData({switchTab:3})
   },
   onHide: function () {
     // Do something when page hide.

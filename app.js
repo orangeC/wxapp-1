@@ -16,77 +16,11 @@ App({
     var logs = wx.getStorageSync('logs') || []
     logs.unshift(Date.now())
     wx.setStorageSync('logs', logs)
-    //初始化user
-    var user = wx.getStorageSync('user') || {};
-    // 获取当前时间戳(以s为单位)
-    var timestamp = Date.parse(new Date());
-    timestamp = timestamp / 1000;
+    this.getClientData()
 
-    console.log("当前时间戳为：" + timestamp);
-    console.log("到期时间戳为：" + user.ExpiredTime)
-    var time = user.ExpiredTime - timestamp
-    console.log("时间差为：" + time)
-
-    //获取小程序登录凭证
-    if (!user.ClientCode || (timestamp > user.ExpiredTime)) {
-      wx.login({
-        success: function (res) {
-          if (res.code) {
-            console.log("code " + res.code)
-            var code = res.code
-            that.send("http://radar.3vcar.com/wechat/token", { code }, "GET", function (res) {
-              console.log(res)
-              console.log(res.data.ClientCode)
-              console.log(res.data.ExpiredTime)
-              console.log(res.errMsg)
-
-
-              // 获取到期的时间戳
-              var stringTime = res.data.ExpiredTime;
-              var timestamp2 = Date.parse(new Date(stringTime));
-              timestamp2 = timestamp2 / 1000;
-              // 
-              console.log(stringTime + "的时间戳为：" + timestamp2);
-              var obj = {};
-              obj.ClientCode = res.data.ClientCode;
-              obj.ExpiredTime = timestamp2;
-              console.log(obj);
-              wx.setStorageSync('user', obj);//存储openid
-            })
-            // wx.request({
-            //   url: "http://radar.3vcar.com/wechat/token/",
-            //   data: { code },
-            //   method: 'GET',
-            //   header: {
-            //     'content-type': 'application/json'
-            //   },
-            //   success: function (res) {
-            //     console.log(res)
-            //     console.log(res.data.ClientCode)
-            //     console.log(res.data.ExpiredTime)
-            //     console.log(res.errMsg)
-
-
-            //     // 获取到期的时间戳
-            //     var stringTime = res.data.ExpiredTime;
-            //     var timestamp2 = Date.parse(new Date(stringTime));
-            //     timestamp2 = timestamp2 / 1000;
-            //     // 
-            //     console.log(stringTime + "的时间戳为：" + timestamp2);
-            //     var obj = {};
-            //     obj.ClientCode = res.data.ClientCode;
-            //     obj.ExpiredTime = timestamp2;
-            //     console.log(obj);
-            //     wx.setStorageSync('user', obj);//存储openid    
-            //   }
-
-          }
-        }
-      });
-    }
   },
   onShow: function () {
-    console.log("老子又回来了")
+    
   },
   onHide: function () {
     console.log("我去干点别的")
@@ -130,8 +64,66 @@ App({
       })
     }
   },
+
+  //获取小程序登录凭证并缓存
+  getClientData: function () {
+    var that = this;
+    //初始化user
+    var user = wx.getStorageSync('user') || {};
+    // 获取当前时间戳(以s为单位)
+    var timestamp = Date.parse(new Date());
+    timestamp = timestamp / 1000;
+
+    console.log("当前时间戳为：" + timestamp);
+    console.log("到期时间戳为：" + user.ExpiredTime)
+    var time = user.ExpiredTime - timestamp
+    console.log("时间差为：" + time)
+    console.log(user.ClientCode)
+
+    //获取小程序登录凭证
+    if (!user.ClientCode || (timestamp > user.ExpiredTime)) {
+      wx.login({
+        success: function (res) {
+          if (res.code) {
+            console.log("code " + res.code)
+            var code = res.code
+            that.send("http://radar.3vcar.com/wechat/token", { code }, "GET", function (res) {
+              console.log(res)
+              console.log(res.data.ClientCode)
+              console.log(res.data.ExpiredTime)
+              console.log(res.errMsg)
+
+
+              // 获取到期的时间戳
+              var stringTime = res.data.ExpiredTime;
+              var timestamp2 = Date.parse(new Date(stringTime));
+              timestamp2 = timestamp2 / 1000;
+              // 
+              console.log(stringTime + "的时间戳为：" + timestamp2);
+              var obj = {};
+              obj.ClientCode = res.data.ClientCode;
+              obj.ExpiredTime = timestamp2;
+              console.log(obj);
+              wx.setStorageSync('user', obj);//存储openid
+            })
+          }
+        }
+      });
+    }
+    return user
+  },
+  //请求店家服务类型
+  sendCategory: function ( ) {
+    var that =this;
+    this.send("http://radar.3vcar.com/category/all/", {}, "GET", function (res) {
+      that.globalData.category = res.data;
+      console.log("sskdjdh"+that.globalData.category)
+    })
+  },
   globalData: {
     userInfo: null,
-    locationInfo: null
+    locationInfo: null,
+    category:[]
   }
+  
 })
