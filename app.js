@@ -17,10 +17,11 @@ App({
     logs.unshift(Date.now())
     wx.setStorageSync('logs', logs)
     this.getClientData()
+    // console.log("上一行是onLaunch中执行的缓存user")
 
   },
   onShow: function () {
-    
+    console.log("onshow")
   },
   onHide: function () {
     console.log("我去干点别的")
@@ -68,6 +69,7 @@ App({
   //获取小程序登录凭证并缓存
   getClientData: function () {
     var that = this;
+
     //初始化user
     var user = wx.getStorageSync('user') || {};
     // 获取当前时间戳(以s为单位)
@@ -105,25 +107,29 @@ App({
               obj.ExpiredTime = timestamp2;
               console.log(obj);
               wx.setStorageSync('user', obj);//存储openid
+              that.globalData.user.ClientCode = obj.ClientCode;
+              that.globalData.user.ExpiredTime = obj.ExpiredTime;
+
+              console.log(obj)
+              console.log(that.globalData.user)
+              console.log("上一行是已经缓存的")
             })
           }
         }
       });
     }
-    return user
   },
   //请求店家服务类型
-  sendCategory: function ( ) {
-    var that =this;
+  sendCategory: function () {
+    var that = this;
     this.send("http://radar.3vcar.com/category/all/", {}, "GET", function (res) {
       that.globalData.category = res.data;
-      console.log("sskdjdh"+that.globalData.category)
     })
   },
   globalData: {
-    userInfo: null,
+    user: {},
     locationInfo: null,
-    category:[]
+    category: []
   }
-  
+
 })

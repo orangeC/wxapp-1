@@ -1,6 +1,5 @@
 {
   "pages":[
-    "pages/noedit/noedit",
     "pages/index/index",
     "pages/offer/offer",
     "pages/edit/edit",

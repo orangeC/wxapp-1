@@ -33,7 +33,6 @@
           <image style="width:20px;height:20px;margin-top:5rpx;" src="/images/u612.png" mode="scaleToFill"></image>
           <text class="circle-text">个人服务</text>
         </view>
-
         <view wx:else class="circle-view">
           <image class="u177_img" style="width:46px;height:46px;margin-top:-20rpx;" src="/images/u177a.png" mode="scaleToFill">
             <image class="u187_img" style="width:20px;height:19px;" src="/images/u187.png" mode="scaleToFill"></image>
@@ -47,7 +46,6 @@
           <image style="width:20px;height:20px;margin-top:5rpx;" src="/images/u612.png" mode="scaleToFill"></image>
           <text class="circle-text">对公服务</text>
         </view>
-
         <view wx:else class="circle-view">
           <image class="u177_img" style="width:46px;height:46px;margin-top:-20rpx;" src="/images/u177a.png" mode="scaleToFill">
             <image class="u187_img" style="width:20px;height:19px;" src="/images/u187.png" mode="scaleToFill"></image>
@@ -61,7 +59,6 @@
           <image style="width:20px;height:20px;margin-top:5rpx;" src="/images/u612.png" mode="scaleToFill"></image>
           <text class="circle-text">XX服务</text>
         </view>
-
         <view wx:else class="circle-view">
           <image class="u177_img" style="width:46px;height:46px;margin-top:-20rpx;" src="/images/u177a.png" mode="scaleToFill">
             <image class="u187_img" style="width:20px;height:19px;" src="/images/u187.png" mode="scaleToFill"></image>

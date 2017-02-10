@@ -4,7 +4,7 @@ Page({
   data: {
     title: "商家入驻",
     shopStatus: true,
-    showList: [
+     showList: [
       { type: "请选择", range: "天津滨海新区", info: "详细描述你的服务" }
     ],
     name: "啊啊啊",
@@ -33,23 +33,42 @@ Page({
     storeTwo: "日常保洁",
   },
   onLoad: function () {
+    var that = this;
+    //调用缓存获得clientcode
+    wx.getStorage({
+      key: 'user',
+      success: function (res) {
+        that.setData({ clientid: res.data.ClientCode });
+        console.log(that.data.clientid)
+        console.log("上一行商家页面拿到的缓存中的user")
+      }
+    })
+
+
+    //请求category
     app.send("http://radar.3vcar.com/category/all/", {}, "GET", function (res) {
       console.log(res.data)
     })
-    var openClient = app.getClientData()
-    this.setData({ clientid: openClient.ClientCode })
-    var that = this
-    if (!this.data.shopStatus) {
-      wx.navigateTo({
-        url: '../offer/offer'
-      })
-    }
+
+
+    // if (!this.data.shopStatus) {
+    //   wx.navigateTo({
+    //     url: '../offer/offer'
+    //   })
+    // }
   },
   onReady: function () {
     wx.setNavigationBarTitle({ title: this.data.title });
   },
   onShow: function () {
     var that = this;
+
+    //获得某个商家
+    app.send("http://radar.3vcar.com/shop/load/", { code: that.data.clientid }, "GET", function (res) {
+      console.log(res.data);
+      
+      console.log("看上一行")
+    })
     if (this.data.title == "商家入驻") {
       that.setData({
         hidden: true
