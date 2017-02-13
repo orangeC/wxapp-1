@@ -1,5 +1,4 @@
 <view class="container">
   <import src="../template/tempedit.wxml" />
-  <template is="tempedit" data="{{showList,name,phone,address,scope,description,img,src,tab,switchTab,hidden,intro,modalShowStyle,navShowStyleOne,navShowStyleTwo,navShowStyleThree,navShowStyleFour,switchOne,switchTwo,switchThree,switchFour,option,storeOne,storeTwo}}" />
-  <view class="last" bindtap="handlejump">提交申请</view>
+  <template is="tempedit" data="{{category,name,phone,address,scope,description,img,src,tab,switchTab,hidden,intro,modalShowStyle,navShowStyleOne,navShowStyleTwo,navShowStyleThree,navShowStyleFour,switchOne,switchTwo,switchThree,switchFour,option,storeOne,storeTwo}}" />
 </view>

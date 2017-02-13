@@ -4,9 +4,7 @@ Page({
   data: {
     title: "商家入驻",
     shopStatus: true,
-     showList: [
-      { type: "请选择", range: "天津滨海新区", info: "详细描述你的服务" }
-    ],
+    category: "请选择1",
     name: "啊啊啊",
     phone: "1234567890",
     address: "地址",
@@ -28,7 +26,6 @@ Page({
     switchTwo: false,
     switchThree: false,
     switchFour: false,
-    option: "请选择",
     storeOne: "全部商家1",
     storeTwo: "日常保洁",
   },
@@ -58,17 +55,39 @@ Page({
     // }
   },
   onReady: function () {
+    var that = this;
+
     wx.setNavigationBarTitle({ title: this.data.title });
+    //获得某个商家
+    app.send("http://radar.3vcar.com/shop/load/", { code: that.data.clientid }, "GET", function (res) {
+      var data = res.data;
+      console.log(data)
+      that.setData({ tab: true, src: data.Head, name: data.Name, phone: data.Phone, address: data.Address, scope: data.Scope, description: data.Description, code: data.Code, type: data.Type })
+      console.log(that.data.type)
+      console.log("看上一行")
+      //设置type
+      if (that.data.type == "Business") {
+        console.log(that.data.type)
+        that.setData({ switchTab: 1 })
+      } 
+      else if (that.data.type == "Client") {
+        that.setData({ switchTab: 2 })
+        console.log(that.data.type)
+        console.log(that.data.switchTab)
+      } 
+      else {
+        that.setData({ switchTab: 3 })
+        console.log(that.data.type)
+        console.log(that.data.switchTab)
+      }
+    })
+    
+
   },
   onShow: function () {
     var that = this;
 
-    //获得某个商家
-    app.send("http://radar.3vcar.com/shop/load/", { code: that.data.clientid }, "GET", function (res) {
-      console.log(res.data);
-      
-      console.log("看上一行")
-    })
+
     if (this.data.title == "商家入驻") {
       that.setData({
         hidden: true
@@ -115,6 +134,7 @@ Page({
       duration: 3000,
       success: function (res) {
         var apply = that.data
+        console.log("code : " + apply.code)
         console.log("名字： " + apply.name)
         console.log("图片： " + apply.src)
         console.log("电话： " + apply.phone)
@@ -127,7 +147,7 @@ Page({
         console.log("范围： " + apply.scope)
         app.send("http://radar.3vcar.com/shop/save/",
           {
-            code: 0,
+            code: apply.code,
             name: apply.name,
             head: apply.src,
             phone: apply.phone,

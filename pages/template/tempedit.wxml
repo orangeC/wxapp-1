@@ -1,5 +1,5 @@
 <template name="tempedit">
-  <block wx:for="{{showList}}">
+  <!--<block wx:for="{{showList}}">-->
     <view class="edit-head normal">
       <text class="normal-text">头像</text>
       <view wx:if="{{tab}}" bindtap="upload">
@@ -69,7 +69,7 @@
     </view>
     <view class="edit-type normal">
       <text class="normal-text">服务类型</text>
-      <text class="normal-color" bindtap="touchlist">{{option}}</text>
+      <text class="normal-color" bindtap="touchlist">{{category}}</text>
       <image class="u592_img" src="/images/u591.png" mode="scaleToFill"></image>
     </view>
     <view class="modal" bindtap="touchlisthide" style="{{modalShowStyle}}">
@@ -168,5 +168,8 @@
       <!--<text class="normal-color">{{item.info}}</text>-->
       <image class="u592_img" src="/images/u591.png" mode="scaleToFill"></image>
     </view>
-  </block>
+    
+  <view wx:if="{{tab}}" class="last" bindtap="handlejump">保存并重新提交审核</view>
+  <view wx:else  class="last" bindtap="handlejump">提交申请</view>
+  <!--</block>-->
 </template>

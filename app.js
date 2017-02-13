@@ -2,9 +2,9 @@ var send = require('./utils/request.js');
 //app.js
 App({
   // 接口地址
-  api: {
-    category: "http://radar.3vcar.com/category/all/",//获取分类
-  },
+  // api: {
+  //   category: "http://radar.3vcar.com/category/all/",//获取分类
+  // },
   /**
    * request API
    */
