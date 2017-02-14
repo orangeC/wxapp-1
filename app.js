@@ -5,15 +5,16 @@ App({
   send: send.send,
   onLaunch: function () {
     var that = this;
-    console.log(send)
+    console.log(send);
     //调用API从本地缓存中获取数据
-    var logs = wx.getStorageSync('logs') || []
-    logs.unshift(Date.now())
-    wx.setStorageSync('logs', logs)
-    this.getClientData()
-    
+    var logs = wx.getStorageSync('logs') || [];
+    logs.unshift(Date.now());
+    wx.setStorageSync('logs', logs);
+    this.getClientData();
+    //请求店家服务类型
+    this.sendCategory()
   },
-  
+
   onShow: function () {
     console.log("onshow")
   },
@@ -116,9 +117,29 @@ App({
   //请求店家服务类型
   sendCategory: function () {
     var that = this;
-    this.send("http://radar.3vcar.com/category/all/", {}, "GET", function (res) {
-      that.globalData.category = res.data;
-    })
+    //初始化缓存data
+    var data = wx.getStorageSync('data') || {};
+    // 获取当前时间戳(以s为单位)
+    var time = Date.parse(new Date());
+
+    console.log("当前时间戳为：" + time);
+
+    console.log(data);
+    if (!data.RequestData || (time > data.ExpiredTime)) {
+      this.send("http://radar.3vcar.com/category/all/", {}, "GET", function (res) {
+        console.log(res.data);
+        // 获取一天后到期的时间戳
+        var time2 = Date.parse(new Date()) + 86400000;
+        console.log("一天后时间戳：" + time2);
+
+        var data = {};
+        data.RequestData = res.data;
+        data.ExpiredTime = time2;
+        console.log(data);
+        wx.setStorageSync('data', data);//存储请求来的category
+      })
+    }
+
   },
   globalData: {
 

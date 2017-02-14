@@ -10,7 +10,7 @@ Page({
    * 页面的初始数据
    */
   data: {
-    head: "",
+    Head: "",
     Name: "",
     LikedAmount: 0,
     Phone: "",
@@ -44,11 +44,31 @@ Page({
       }
     })
 
+
+
     app.send("http://radar.3vcar.com/shop/get/?code=" + 42956288
       , {}, "GET", function (res) {
         var data = res.data;
         console.log(data);
-        that.setData({ title: data.Name, head: data.Head, Name: data.Name, LikedAmount: data.LikedAmount, Phone: data.Phone, Address: data.Address, Longitude: data.Longitude, Latitude: data.Latitude, Category: data.Category, Description: data.Description })
+        that.setData({ title: data.Name, Head: data.Head, Name: data.Name, LikedAmount: data.LikedAmount, Phone: data.Phone, Address: data.Address, Longitude: data.Longitude, Latitude: data.Latitude, Category: data.Category, Description: data.Description })
+
+        //请求category
+        wx.getStorage({
+          key: 'data',
+          success: function (res) {
+            var getData = res.data.RequestData;
+            console.log(getData.length)
+            console.log(that.data.Category)
+            for(var i=0;i<getData.length;i++){
+              if(getData[i].code == that.data.Category){
+                that.setData({
+                  Category:getData[i].name
+                })
+              }
+            };
+            console.log("上一行商家页面拿到的缓存中的data")
+          }
+        })
       })
 
     // this.setData({
@@ -96,6 +116,7 @@ Page({
     var that = this;
     console.log(that.data.clientid)
     app.send("http://radar.3vcar.com/shop/like/", { client: that.data.clientid, code: 42956288 }, "POST", function (res) {
+      console.log(res)
       wx.showToast({
         title: '点赞中。。。',
         icon: 'loading',
@@ -114,7 +135,7 @@ Page({
       }
       else {
         wx.showToast({
-          title: '别点了SB',
+          title: '你已经点过了',
           icon: 'loading',
           duration: 1000
         })

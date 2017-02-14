@@ -69,7 +69,7 @@
     </view>
     <view class="edit-type normal">
       <text class="normal-text">服务类型</text>
-      <text class="normal-color" bindtap="touchlist">{{category}}</text>
+      <text class="normal-color" bindtap="touchlist">{{Category}}</text>
       <image class="u592_img" src="/images/u591.png" mode="scaleToFill"></image>
     </view>
     <view class="modal" bindtap="touchlisthide" style="{{modalShowStyle}}">

@@ -4,7 +4,7 @@ Page({
   data: {
     title: "商家入驻",
     shopStatus: true,
-    category: "请选择1",
+    Category: "",
     name: "啊啊啊",
     phone: "1234567890",
     address: "地址",
@@ -29,7 +29,7 @@ Page({
   },
   onLoad: function () {
     var that = this;
-    
+
     //调用缓存获得clientcode
     wx.getStorage({
       key: 'user',
@@ -38,12 +38,6 @@ Page({
         console.log(that.data.clientid)
         console.log("上一行商家页面拿到的缓存中的user")
       }
-    })
-
-
-    //请求category
-    app.send("http://radar.3vcar.com/category/all/", {}, "GET", function (res) {
-      console.log(res.data)
     })
 
 
@@ -61,29 +55,44 @@ Page({
     app.send("http://radar.3vcar.com/shop/load/", { code: that.data.clientid }, "GET", function (res) {
       var data = res.data;
       console.log(data)
-      that.setData({ tab: true, src: data.Head, name: data.Name, phone: data.Phone, address: data.Address,Latitude:data.Latitude,Longitude:data.Longitude,scope: data.Scope, description: data.Description, code: data.Code, type: data.Type })
-      console.log(that.data.type)
-      console.log(that.data.Longitude)
-      console.log(that.data.Latitude)
-      
+      that.setData({ tab: true, src: data.Head, name: data.Name, phone: data.Phone, address: data.Address, Latitude: data.Latitude, Longitude: data.Longitude, Category: data.Category, scope: data.Scope, description: data.Description, code: data.Code, type: data.Type })
+      console.log(that.data.Category)
+      //请求category
+      wx.getStorage({
+        key: 'data',
+        success: function (res) {
+          var getData = res.data.RequestData;
+          console.log(getData.length)
+          console.log(that.data.Category)
+          for (var i = 0; i < getData.length; i++) {
+            if (getData[i].code == that.data.Category) {
+              that.setData({
+                Category: getData[i].name
+              })
+            }
+          };
+          console.log("上一行商家页面拿到的缓存中的data")
+        }
+      })
+
       console.log("看上一行")
       //设置type
       if (that.data.type == "Business") {
         console.log(that.data.type)
         that.setData({ switchTab: 1 })
-      } 
+      }
       else if (that.data.type == "Client") {
         that.setData({ switchTab: 2 })
         console.log(that.data.type)
         console.log(that.data.switchTab)
-      } 
+      }
       else {
         that.setData({ switchTab: 3 })
         console.log(that.data.type)
         console.log(that.data.switchTab)
       }
     })
-    
+
 
   },
   onShow: function () {
@@ -271,7 +280,60 @@ Page({
       }
     })
   },
-  
+  // 点击显示模拟框按钮
+  touchlist: function (event) {
+    this.setData({
+      modalShowStyle: "opacity:1;pointer-events:auto;"
+    })
+  },
+  tapNameOne: function (event) {
+    this.setData({
+      switchOne: true,
+      switchTwo: false,
+      switchThree: false,
+      switchFour: false,
+      navShowStyleOne: "background-color: #f7f7f7;",
+      navShowStyleTwo: "background-color: #e5e5e5;",
+      navShowStyleThree: "background-color: #e5e5e5;",
+      navShowStyleFour: "background-color: #e5e5e5;"
+    })
+  },
+  tapNameTwo: function (event) {
+    this.setData({
+      switchOne: false,
+      switchTwo: true,
+      switchThree: false,
+      switchFour: false,
+      navShowStyleTwo: "background-color: #f7f7f7;",
+      navShowStyleOne: "background-color: #e5e5e5;",
+      navShowStyleThree: "background-color: #e5e5e5;",
+      navShowStyleFour: "background-color: #e5e5e5;"
+    })
+  },
+  tapNameThree: function (event) {
+    this.setData({
+      switchOne: false,
+      switchTwo: false,
+      switchThree: true,
+      switchFour: false,
+      navShowStyleThree: "background-color: #f7f7f7;",
+      navShowStyleOne: "background-color: #e5e5e5;",
+      navShowStyleTwo: "background-color: #e5e5e5;",
+      navShowStyleFour: "background-color: #e5e5e5;"
+    })
+  },
+  tapNameFour: function (event) {
+    this.setData({
+      switchOne: false,
+      switchTwo: false,
+      switchThree: false,
+      switchFour: true,
+      navShowStyleFour: "background-color: #f7f7f7;",
+      navShowStyleThree: "background-color: #e5e5e5;",
+      navShowStyleOne: "background-color: #e5e5e5;",
+      navShowStyleTwo: "background-color: #e5e5e5;"
+    })
+  },
   testbind: function (e) {
     console.log(e.currentTarget.id)
     this.setData({
