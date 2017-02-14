@@ -1,59 +1,110 @@
-function initSubMenuDisplay() {
-	return ['hidden', 'hidden', 'hidden'];
-}
-
-var app = getApp()
-var $=require('../../utils/util.js')
+//获取应用实例
+var app = getApp();
+var common = require("../../utils/common.js");
 Page({
-  data:{
-      subMenuDisplay:initSubMenuDisplay()
+  data: {
+      obj:{},
+      listOne:{},
+      listTwo:{},
+      listThree:{},
+      arr:[],
+      arr2:[],
+      id:0,
+      option:'全部商家'
+  },
+  onLoad: function () {
+      console.log("onLoad");
+      var that = this;
+      wx.request( {
+              url:"http://radar.3vcar.com/category/all/",//获取分类
+              data: {
+              },
+              header: {
+                  'Content-Type': 'application/json'
+              },
+              method:'GET',
+              success: function (res) {
+                  that.setData({
+                    obj: res.data
+                  })
+                  console.log(res)
+              }
+      });
+      console.log('初始化完成');
+  },
+
+  // 隐藏模态框
+  hideModal() {
+    this.setData({ modalShowStyle: "" });
   },
   
-  onReady: function() {
-        //初始化数据
-        this.getData();
-    },
-    //加载数据
-  getData:function(callback){
-        var self=this;
-        
-        // wx.showToast({
-        //   title: '加载中...',
-        //   icon: 'loading',
-        //   duration:10000
-        // });
-        wx.request( {
-            url:app.api.category,
-            data: {
-                
-            },
-            method: 'GET',
-            header: {
-                'Content-Type': 'application/json'
-            },
-            success: function( res ) {
-                // console.log(res);
-                self.setData( {
-                    data:res.data.data
-                });
-                wx.hideToast();
-            }
+  bindKeyInput: function (e) {
+    console.log(e.detail.value
+    )
+  },
+
+  // 点击显示模拟框按钮
+  touchlist: function (e) {
+    var that=this;
+    this.setData({
+      modalShowStyle: "opacity:1;pointer-events:auto;"
+    });
+    var arr=new Array();
+    for(var i=0;i<60;i++){
+      if(this.data.obj[i].code.length==3){
+          arr.push(this.data.obj[i])
+          console.log(this.data.obj[i])
+      }else{
+
+      }
+      var listOne=new Array();
+      this.setData({listOne:arr})
+    };
+    
+  },
+
+  touchlisthide: function () {
+    // this.hideModal();
+  },
+
+  touchList2:function(e){
+    var that=this;
+    var arr2=new Array();
+    for(var i=0;i<60;i++){
+      if(this.data.obj[i].code.length==6 && this.data.obj[i].code.substring(0,3)==e.currentTarget.dataset.id){
+        arr2.push(this.data.obj[i])
+      };
+      var listTwo=new Array();
+      console.log("arr2"+arr2)
+      this.setData({
+        listTwo:arr2,
+        switchOne: true,
         })
-    },
-    showOne:function(e){
-        // 获取当前显示的一级菜单标识
-		var index = parseInt(e.currentTarget.dataset.index);
-		// 生成数组，全为hidden的，只对当前的进行显示
-		var newSubMenuDisplay = initSubMenuDisplay();
-        // 如果目前是显示则隐藏，反之亦反之。同时要隐藏其他的菜单
-		if(this.data.subMenuDisplay[index] == 'hidden') {
-			newSubMenuDisplay[index] == 'show';
-		} else {
-			newSubMenuDisplay[index] == 'hidden';
-		}
-		// 设置为新的数组
-		this.setData({
-			subMenuDisplay: newSubMenuDisplay
-		});
+    };
+  },
+
+  touchList3:function(e){
+    var that=this;
+    var arr3=new Array();
+    for(var i=0;i<60;i++){
+      if(this.data.obj[i].code.length==9 && this.data.obj[i].code.substring(0,6)==e.currentTarget.dataset.gid){
+        arr3.push(this.data.obj[i])
+      };
+      var listTwo=new Array();
+      console.log("arr3"+arr3)
+      this.setData({
+        listThree:arr3,
+        switchTwo: true,
+        })
     }
+  },
+  testbind: function (e) {
+    // console.log(e.currentTarget.id)
+    this.setData({
+      option: e.currentTarget.id
+    }),
+      this.hideModal();
+
+  }
+
 })

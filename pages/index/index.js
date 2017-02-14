@@ -5,7 +5,7 @@ var common = require("../../utils/common.js")
 Page({
   data: {
     showList:[
-      {title:"帮家博士",ser:"保洁1",distance:"100m",heart:"1",src:"../../images/b.jpg"},
+      {title:"帮家博士1",ser:"保洁1",distance:"100m",heart:"1",src:"../../images/b.jpg"},
       {title:"帮家博士2",ser:"保洁2",distance:"200m",heart:"2",src:"../../images/t.png"},
       {title:"帮家博士3",ser:"保洁3",distance:"300m",heart:"3",src:"../../images/y.png"},
       {title:"涂家换新4",ser:"保洁4",distance:"400m",heart:"4",src:"../../images/b.jpg"},
@@ -60,10 +60,9 @@ Page({
     // })
   },
   onLoad: function () {
-    console.log('onLoad')
-    var that = this
-    //调用应用实例的方法获取全局数据
-    
+    console.log('onLoad');
+    var that = this;
+    // app.send("http://radar.3vcar.com//shop/search/")
   },
   bindKeyInput:function(e){
     console.log(e.detail.value

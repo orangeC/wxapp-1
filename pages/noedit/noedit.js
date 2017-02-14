@@ -8,8 +8,6 @@ Page({
     name: "啊啊啊",
     phone: "1234567890",
     address: "地址",
-    latitude: 0,
-    longitude: 0,
     scope: "天津大港",
     description: "详细的描述",
     hidden: false,
@@ -31,6 +29,7 @@ Page({
   },
   onLoad: function () {
     var that = this;
+    
     //调用缓存获得clientcode
     wx.getStorage({
       key: 'user',
@@ -62,8 +61,11 @@ Page({
     app.send("http://radar.3vcar.com/shop/load/", { code: that.data.clientid }, "GET", function (res) {
       var data = res.data;
       console.log(data)
-      that.setData({ tab: true, src: data.Head, name: data.Name, phone: data.Phone, address: data.Address, scope: data.Scope, description: data.Description, code: data.Code, type: data.Type })
+      that.setData({ tab: true, src: data.Head, name: data.Name, phone: data.Phone, address: data.Address,Latitude:data.Latitude,Longitude:data.Longitude,scope: data.Scope, description: data.Description, code: data.Code, type: data.Type })
       console.log(that.data.type)
+      console.log(that.data.Longitude)
+      console.log(that.data.Latitude)
+      
       console.log("看上一行")
       //设置type
       if (that.data.type == "Business") {
@@ -139,8 +141,8 @@ Page({
         console.log("图片： " + apply.src)
         console.log("电话： " + apply.phone)
         console.log("地址： " + apply.address)
-        console.log("纬度： " + apply.latitude)
-        console.log("经度： " + apply.longitude)
+        console.log("纬度： " + apply.Latitude)
+        console.log("经度： " + apply.Longitude)
         console.log("type： " + apply.type)
         console.log("编码： " + apply.clientid)
         console.log("描述： " + apply.description)
@@ -152,8 +154,8 @@ Page({
             head: apply.src,
             phone: apply.phone,
             address: apply.address,
-            longitude: apply.longitude,
-            latitude: apply.latitude,
+            longitude: apply.Longitude,
+            latitude: apply.Latitude,
             category: "001001001",
             type: apply.type,
             client: apply.clientid,
@@ -269,64 +271,7 @@ Page({
       }
     })
   },
-  // 点击显示模拟框按钮
-  touchlist: function (event) {
-    this.setData({
-      modalShowStyle: "opacity:1;pointer-events:auto;"
-    })
-  },
-  tapNameOne: function (event) {
-
-    this.setData({
-      switchOne: true,
-      switchTwo: false,
-      switchThree: false,
-      switchFour: false,
-      navShowStyleOne: "background-color: #f7f7f7;",
-      navShowStyleTwo: "background-color: #e5e5e5;",
-      navShowStyleThree: "background-color: #e5e5e5;",
-      navShowStyleFour: "background-color: #e5e5e5;"
-    })
-  },
-  tapNameTwo: function (event) {
-
-    this.setData({
-      switchOne: false,
-      switchTwo: true,
-      switchThree: false,
-      switchFour: false,
-      navShowStyleTwo: "background-color: #f7f7f7;",
-      navShowStyleOne: "background-color: #e5e5e5;",
-      navShowStyleThree: "background-color: #e5e5e5;",
-      navShowStyleFour: "background-color: #e5e5e5;"
-    })
-  },
-  tapNameThree: function (event) {
-
-    this.setData({
-      switchOne: false,
-      switchTwo: false,
-      switchThree: true,
-      switchFour: false,
-      navShowStyleThree: "background-color: #f7f7f7;",
-      navShowStyleOne: "background-color: #e5e5e5;",
-      navShowStyleTwo: "background-color: #e5e5e5;",
-      navShowStyleFour: "background-color: #e5e5e5;"
-    })
-  },
-  tapNameFour: function (event) {
-
-    this.setData({
-      switchOne: false,
-      switchTwo: false,
-      switchThree: false,
-      switchFour: true,
-      navShowStyleFour: "background-color: #f7f7f7;",
-      navShowStyleThree: "background-color: #e5e5e5;",
-      navShowStyleOne: "background-color: #e5e5e5;",
-      navShowStyleTwo: "background-color: #e5e5e5;"
-    })
-  },
+  
   testbind: function (e) {
     console.log(e.currentTarget.id)
     this.setData({

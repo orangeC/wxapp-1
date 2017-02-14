@@ -1,0 +1,16 @@
+/* pages/fenlei/fenlei.wxss */
+.nav {
+  background-color: #fff;
+  display: flex;
+  border: #ddd solid 1px;
+  padding: 15rpx;
+  justify-content: space-around;
+}
+.nav-center{
+  flex-basis: 0.1rpx
+}
+
+.nav>view {
+  padding: 3rpx;
+  font-size: 14px;
+}

@@ -1,2 +1,2 @@
 <import src="../template/template.wxml" />
-<template is="templateunit" data="{{hidden,showList,point}}" />
+<template is="templateunit" data="{{hidden,head,Name,LikedAmount,Phone,Address,Longitude,Latitude,Category,Description,point}}" />

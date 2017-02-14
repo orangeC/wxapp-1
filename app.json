@@ -1,6 +1,8 @@
 {
-  "pages":[
-    "pages/index/index",
+  "pages":[  
+    "pages/index/index",    
+    "pages/search/search",
+    "pages/fenlei/fenlei",
     "pages/offer/offer",
     "pages/noedit/noedit",
     "pages/address/address",
@@ -29,6 +31,5 @@
     "navigationBarBackgroundColor": "#ffd300",
     "navigationBarTitleText": "周边服务",
     "navigationBarTextStyle":"black"
-  },
-  "debug":"true"
+  }
 }

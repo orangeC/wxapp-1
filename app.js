@@ -1,13 +1,7 @@
 var send = require('./utils/request.js');
 //app.js
 App({
-  // 接口地址
-  // api: {
-  //   category: "http://radar.3vcar.com/category/all/",//获取分类
-  // },
-  /**
-   * request API
-   */
+
   send: send.send,
   onLaunch: function () {
     var that = this;
@@ -17,9 +11,9 @@ App({
     logs.unshift(Date.now())
     wx.setStorageSync('logs', logs)
     this.getClientData()
-    // console.log("上一行是onLaunch中执行的缓存user")
-
+    
   },
+  
   onShow: function () {
     console.log("onshow")
   },
@@ -127,6 +121,7 @@ App({
     })
   },
   globalData: {
+
     user: {},
     locationInfo: null,
     category: []

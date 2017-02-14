@@ -1,74 +1,29 @@
-<view class="menu">
-    <!--一级菜单-->
-    <view class="storeType" data-index="0" bindtap="showOne">美食</view>
-    <view class="{{subMenuDisplay[0]}}">
-        <!--二级菜单-->
-        <view class="">内容1111</view>
-        <ul class="{{subMenuDisplay[0]}}" bindtap="showOne">
-            <!--三级菜单-->
-            <li>1111111</li>
-            <li>1111111</li>
-            <li>1111111</li>
-        </ul>
-
-        <!--二级菜单-->
-        <view class="storeType3">内容2222</view>
-        <ul class="storeType4">
-            <!--三级菜单-->
-            <li>2222222</li>
-            <li>2222222</li>
-            <li>2222222</li>
-        </ul>
-
-        <!--二级菜单-->
-        <view class="storeType3">内容3333</view>
-        <ul class="storeType4">
-            <!--三级菜单-->
-            <li>3333333</li>
-            <li>3333333</li>
-            <li>3333333</li>
-        </ul>
+   <view class="nav">
+      <view bindtap="touchlist" >{{option}} ∨</view>
+      <view class="nav-center">|</view>
+      <view>综合排序 ∨</view>
     </view>
+    
+    <view class="modal" bindtap="touchlisthide" style="{{modalShowStyle}}">
+      <view class="nav-list">
+          <view wx:for="{{listOne}}" wx:key="">
+             <view bindtap="touchList2" style="{{navShowStyleOne}}" data-id="{{item.code}}">{{item.name}}</view>
+          </view>
+      </view>
 
-    <!--一级菜单-->
-    <view class="storeType" >住宿</view>
-    <view class="storeType2">
-        <!--二级菜单-->
-        <view class="storeType3">内容1111</view>
-        <ul class="storeType4">
-            <!--三级菜单-->
-            <li>1111111</li>
-            <li>1111111</li>
-            <li>1111111</li>
-        </ul>
+      <view class="nav-list-center">
+        <view wx:if="{{switchOne}}">
+          <navigator style="{{listStyleOne}}" bindtap="touchList3" wx:for="{{listTwo}}"  data-gid="{{item.code}}" wx:key="">
+            <view>{{item.name}}</view>
+          </navigator>
+        </view>
+      </view>
 
-        <!--二级菜单-->
-        <view class="storeType3">内容2222</view>
-        <ul class="storeType4">
-            <!--三级菜单-->
-            <li>2222222</li>
-            <li>2222222</li>
-            <li>2222222</li>
-        </ul>
-
-        <!--二级菜单-->
-        <view class="storeType3">内容3333</view>
-        <ul class="storeType4">
-            <!--三级菜单-->
-            <li>3333333</li>
-            <li>3333333</li>
-            <li>3333333</li>
-        </ul>
+      <view class="nav-list-right">
+        <view wx:if="{{switchTwo}}">
+          <navigator hover-class="navigator-hover" style="{{listStyleOne}}" bindtap="listNameOne" wx:for="{{listThree}}" wx:key="">
+            <view bindtap="testbind" id="{{item.name}}">{{item.name}}</view>
+          </navigator>  
+        </view>
+      </view>
     </view>
-
-
-
-
-
-
-
-
-
-
-
-</view>

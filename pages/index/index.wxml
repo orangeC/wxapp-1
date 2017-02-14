@@ -50,7 +50,7 @@
             <text>其他服务</text>
         </view>  
     </view>
-    <navigator url="../fenlei/fenlei" class="selectorNav">
+    <navigator url="../search/search" class="selectorNav">
         <view class="selectorNavT">
             <image src="../../images/u183.png" class="selectorImg"></image>
             <text>全部商家</text>

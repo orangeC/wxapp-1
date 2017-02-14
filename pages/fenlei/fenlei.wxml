@@ -1,0 +1,29 @@
+<!--pages/fenlei/fenlei.wxml-->
+<!--<view class="nav-list">
+    <input value="{{levelThree}}" focus="{{focus}}" bindfocus="open" disabled="true"/>
+</view>
+<view>
+    <view wx:if="{{condition}}">
+        <picker indicator-style="height: 50px;" style="width: 100%; height: 300px;" value="{{value}}" bindchange="bindChange">
+            <view class="cityheader">
+                <view bindtap="open" class="city-cancel">取消</view>
+                <view bindtap="open" class="city-true">确定</view>
+            </view>
+            <picker-view-column>
+                <view wx:for="{{levelOneList}}" wx:key="item">{{item}}</view>
+            </picker-view-column>
+            <picker-view-column>
+                <view wx:for="{{levelTwoList}}" wx:key="item">{{item}}</view>            
+            </picker-view-column>
+            <picker-view-column>
+                <view wx:for="{{levelThreeList}}" wx:key="item">{{item}}</view>
+            </picker-view-column>
+        </picker>
+    </view>
+</view>-->
+<view bindtap="bindtap">11111</view>
+<view wx:for="{{listOne}}" wx:key="">
+    <navigator  data-code="{{item.code}}">
+        {{item.code}} {{item.name}}
+    </navigator>
+</view>
