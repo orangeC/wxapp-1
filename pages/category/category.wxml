@@ -1,0 +1,61 @@
+   <view class="nav">
+      <view bindtap="touchlist" >{{option}} ∨</view>
+      <view class="nav-center">|</view>
+      <view bindtap="sort">{{option2}} ∨</view>
+    </view>
+    
+    <view class="modal" bindtap="touchlisthide" style="{{modalShowStyle}}" wx:if="{{cat}}">
+      
+      <view class="nav-list">
+          <view wx:for="{{listOne}}" wx:key="">
+            <view bindtap="touchList2" style="{{navShowStyleOne}}" data-id="{{item.code}}">{{item.name}}</view>
+          </view>
+      </view>
+
+      <view class="nav-list-center">
+        <view wx:if="{{switchOne}}">
+          <navigator style="{{listStyleOne}}" bindtap="touchList3" wx:for="{{listTwo}}"  data-gid="{{item.code}}" wx:key="">
+            <view>{{item.name}}</view>
+          </navigator>
+        </view>
+      </view>
+
+      <view class="nav-list-right">
+        <view wx:if="{{switchTwo}}">
+          <navigator hover-class="navigator-hover" style="{{listStyleOne}}" bindtap="listNameOne" wx:for="{{listThree}}" wx:key="">
+            <view bindtap="testbind" id="{{item.name}}" data-code="{{item.code}}">{{item.name}}</view>
+          </navigator>  
+        </view>
+      </view>
+     
+    </view>
+      
+
+    <view class="modal" style="{{modalShowStyle}}" wx:if="{{sort}}">
+      <view class="sort-list">
+        <view bindtap="testbind2" id="{{distance}}">距离最近</view>
+        <view bindtap="testbind2" id="{{likeAmount}}">点赞最多</view>
+      </view>
+    </view>
+
+<view class="hr"></view>
+
+<view>
+  <view>
+    <block wx:for="{{shop}}" wx:key="i">
+        <navigator class="show" url="../other/other?title={{item.code}}" hover-class="navigator-hover">
+        <image style="width:80px;height:80px" src="{{item.head}}"></image>
+          <view class="show-list">
+            <text class="title">{{item.name}}</text>
+            <text>服务类型：{{item.type}}</text>
+            <view class="show-list-last">
+            <image class="u145_img" src="/images/u145.png"  mode="scaleToFill"></image>
+            {{item.distance}} 
+            <image class="u151_img" src="/images/u151.png" mode="scaleToFill"></image>
+              {{item.likedAmount}}
+              </view>
+          </view>
+        </navigator>
+    </block>
+  </view>
+</view>

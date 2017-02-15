@@ -5,16 +5,17 @@ Page({
     title: "商家入驻",
     shopStatus: true,
     Category: "",
-    name: "啊啊啊",
-    phone: "1234567890",
-    address: "地址",
-    scope: "天津大港",
-    description: "详细的描述",
+    name: "请输入名称",
+    phone: "请输入电话",
+    address: "您的地理位置",
+    scope: "服务范围",
+    description: "请详细的描述",
     hidden: false,
     intro: false,
     tab: false,
-    src: "",
+    Head: "",
     switchTab: 1,
+    arr:[{name:"哈"},{name:"喽"}],
     modalShowStyle: "",
     navShowStyleOne: "",
     navShowStyleTwo: "",
@@ -55,15 +56,21 @@ Page({
     app.send("http://radar.3vcar.com/shop/load/", { code: that.data.clientid }, "GET", function (res) {
       var data = res.data;
       console.log(data)
-      that.setData({ tab: true, src: data.Head, name: data.Name, phone: data.Phone, address: data.Address, Latitude: data.Latitude, Longitude: data.Longitude, Category: data.Category, scope: data.Scope, description: data.Description, code: data.Code, type: data.Type })
+      that.setData({ tab: true, Head: data.Head, name: data.Name, phone: data.Phone, address: data.Address, Latitude: data.Latitude, Longitude: data.Longitude, Category: data.Category, scope: data.Scope, description: data.Description, code: data.Code, type: data.Type })
       console.log(that.data.Category)
       //请求category
       wx.getStorage({
         key: 'data',
         success: function (res) {
           var getData = res.data.RequestData;
-          console.log(getData.length)
-          console.log(that.data.Category)
+          console.log(getData)
+          //将获取到的category编码插入wxml
+          for (var i = 0; i < getData.length; i++) {
+            if(getData[i].code.length == 3){
+              // that.data.arr.push(getData[i])
+            }
+          }
+          //将获取到的category编码换成对应的name
           for (var i = 0; i < getData.length; i++) {
             if (getData[i].code == that.data.Category) {
               that.setData({
@@ -291,11 +298,7 @@ Page({
       switchOne: true,
       switchTwo: false,
       switchThree: false,
-      switchFour: false,
-      navShowStyleOne: "background-color: #f7f7f7;",
-      navShowStyleTwo: "background-color: #e5e5e5;",
-      navShowStyleThree: "background-color: #e5e5e5;",
-      navShowStyleFour: "background-color: #e5e5e5;"
+      switchFour: false
     })
   },
   tapNameTwo: function (event) {

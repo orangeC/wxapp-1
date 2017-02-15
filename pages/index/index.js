@@ -4,18 +4,14 @@ var app = getApp();
 var common = require("../../utils/common.js")
 Page({
   data: {
-    showList:[
-      {title:"帮家博士1",ser:"保洁1",distance:"100m",heart:"1",src:"../../images/b.jpg"},
-      {title:"帮家博士2",ser:"保洁2",distance:"200m",heart:"2",src:"../../images/t.png"},
-      {title:"帮家博士3",ser:"保洁3",distance:"300m",heart:"3",src:"../../images/y.png"},
-      {title:"涂家换新4",ser:"保洁4",distance:"400m",heart:"4",src:"../../images/b.jpg"},
-      {title:"帮家博士5",ser:"保洁5",distance:"500m",heart:"5",src:"../../images/t.png"},
-      {title:"衣保姆6",ser:"保洁6",distance:"600m",heart:"6",src:"../../images/y.png"}
-    ],
     name:"",
     address:"",
     latitude:0,
-    longitude:0
+    longitude:0,
+    address:"定位当前位置",
+    show:true,
+    shop:{},
+    arr:[]
   },
   //事件处理函数
   
@@ -60,13 +56,76 @@ Page({
     // })
   },
   onLoad: function () {
-    console.log('onLoad');
-    var that = this;
+    console.log('onLoad')
+    var that = this
+    //调用应用实例的方法获取全局数据
+    wx.request({
+      url: "http://radar.3vcar.com/shop/search/", //获取所有商家
+      data: {
+        name: this.data.name,
+        longitude: 117.52412,
+        latitude: 38.98755,
+        category: "",
+        distance: 100000
+      },
+      header: {
+          'content-type': 'application/json'
+      },
+      method:"GET",
+      success: function(res) {
+        that.setData({
+          shop:res.data
+        })
+        console.log(res.data)
+      }
+    })
     // app.send("http://radar.3vcar.com//shop/search/")
   },
+
+  // onReady:function(){
+  //   this.getData()
+  // },
+
+  // getData:function(){
+  //   var that=this;
+  //   this.setData({
+  //     name:app.globalData.name
+  //   })
+  // },
+
   bindKeyInput:function(e){
     console.log(e.detail.value
-)
+    )
+  },
+
+  formSubmit: function(e) {
+    var that = this
+    //调用应用实例的方法获取全局数据
+    wx.request({
+      url: "http://radar.3vcar.com/shop/search/", //获取所有商家
+      data: {
+        name: e.detail.value.input,
+        longitude: 117.52412,
+        latitude: 38.98755,
+        category: "",
+        distance: 100000
+      },
+      header: {
+          'content-type': 'application/json'
+      },
+      method:"GET",
+      success: function(res) {
+        that.setData({
+          shopSearch:res.data,
+          show:false,
+        })
+        console.log(e.detail.value.input)
+      }
+    })
   }
   
+
+
+
+
 })

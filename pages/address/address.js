@@ -97,7 +97,15 @@ Page({
 
     //点击搜索获取附近的点
     bindBtn: function () {
-        this.showmarkers()
+        this.showmarkers(),
+        app.globalData.name=this.data.name,
+        console.log("当前地址为"+this.data.name),
+        console.log("当前地址为"+app.globalData.name),
+        setTimeout(function () {
+            wx.switchTab({
+                url: '/pages/index/index'
+            })
+        }, 1500);
     },
     //请求附近的点
     showmarkers: function () {

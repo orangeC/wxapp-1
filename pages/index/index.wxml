@@ -4,33 +4,20 @@
   <view class="index-header">
     <view class="index-head position" bindtap="bindWeizhi">
       <image class="u101_img" src="/images/u101.png" mode="scaleToFill" ></image>
-        <text class="index-head-hidden" hidden="{{name ? true : false}}">点击获取位置</text>
+        <text class="index-head-hidden" hidden="{{name ? true : false}}">{{address}}</text>
       <text class="index-head-address">{{name}}</text>
       <image class="u109_img" src="/images/u109.png" mode="scaleToFill" ></image>
     </view>
-    <view class="index-head search" >
-    <image class="u105_img" src="/images/u105.png" mode="scaleToFill"></image>
-      <input placeholder="家政服务" bindinput="bindKeyInput" />
-    </view>
+    
+      <form bindsubmit="formSubmit" bindreset="formReset">
+        <view class="index-head search" >
+          <input placeholder="家政服务" bindinput="bindKeyInput" name="input"/>
+          <button form-type="submit" style="width:20px;height:30px;">1
+            <!--<image class="u105_img" src="/images/u105.png" mode="scaleToFill"></image>-->
+          </button>
+        </view>
+      </form>
   </view>
-  <!--<view class="nav">
-    <view>
-      <image src="../../images/u177.png" mode="scaleToFill" class="nav-img"></image>
-      <text>个人服务</text>
-    </view>
-    <view>
-      <image src="../../images/u179.png" mode="scaleToFill" class="nav-img"></image>
-      <text>对公服务</text>
-    </view>
-    <view>
-      <image src="../../images/u181.png" mode="scaleToFill" class="nav-img"></image>
-      <text>XX服务</text>
-    </view>
-    <view>
-      <image src="../../images/u183.png" mode="scaleToFill" class="nav-img"></image>
-      <text>全部商家</text>
-    </view>
-  </view>-->
   <view class="selector">
     <navigator url="url" class="selectorNav">
         <view class="selectorNavT">
@@ -50,7 +37,7 @@
             <text>其他服务</text>
         </view>  
     </view>
-    <navigator url="../search/search" class="selectorNav">
+    <navigator url="../category/category" class="selectorNav">
         <view class="selectorNavT">
             <image src="../../images/u183.png" class="selectorImg"></image>
             <text>全部商家</text>
@@ -58,22 +45,39 @@
     </navigator>
 </view>
   <view class="index-home">附近商家</view>
-  <scroll-view scroll-y="true" class="scroll-content">
-    <block wx:for="{{showList}}" wx:key="i">
-      <navigator class="show" url="../other/other?title={{item.title}}" hover-class="navigator-hover">
-      <image style="width:80px;height:80px" src="{{item.src}}"></image>
+  <scroll-view scroll-y="true" class="scroll-content" wx:if="{{show}}">
+    <block wx:for="{{shop}}" wx:key="i">
+      <navigator class="show" url="../other/other?title={{item.code}}" hover-class="navigator-hover">
+      <image style="width:80px;height:80px" src="{{item.head}}"></image>
         <view class="show-list">
-          <text class="title">{{item.title}}</text>
-          <text>服务类型：{{item.ser}}</text>
+          <text class="title">{{item.name}}</text>
+          <text>服务类型：{{item.type}}</text>
           <view class="show-list-last">
           <image class="u145_img" src="/images/u145.png"  mode="scaleToFill"></image>
            {{item.distance}} 
            <image class="u151_img" src="/images/u151.png" mode="scaleToFill"></image>
-            {{item.heart}}
+            {{item.likedAmount}}
             </view>
         </view>
       </navigator>
     </block>
   </scroll-view>
-  
+
+  <scroll-view scroll-y="true" class="scroll-content" wx:else>
+    <block wx:for="{{shopSearch}}" wx:key="i">
+      <navigator class="show" url="../other/other?title={{item.code}}" hover-class="navigator-hover">
+      <image style="width:80px;height:80px" src="{{item.head}}"></image>
+        <view class="show-list">
+          <text class="title">{{item.name}}</text>
+          <text>服务类型：{{item.type}}</text>
+          <view class="show-list-last">
+          <image class="u145_img" src="/images/u145.png"  mode="scaleToFill"></image>
+           {{item.distance}} 
+           <image class="u151_img" src="/images/u151.png" mode="scaleToFill"></image>
+            {{item.likedAmount}}
+            </view>
+        </view>
+      </navigator>
+    </block>
+  </scroll-view>
 </view>

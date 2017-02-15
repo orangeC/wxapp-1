@@ -142,7 +142,6 @@ App({
 
   },
   globalData: {
-
     user: {},
     locationInfo: null,
     category: []

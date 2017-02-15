@@ -1,110 +1,19 @@
-//获取应用实例
-var app = getApp();
-var common = require("../../utils/common.js");
+// pages/search/search.js
 Page({
-  data: {
-      obj:{},
-      listOne:{},
-      listTwo:{},
-      listThree:{},
-      arr:[],
-      arr2:[],
-      id:0,
-      option:'全部商家'
+  data:{},
+  onLoad:function(options){
+    // 页面初始化 options为页面跳转所带来的参数
   },
-  onLoad: function () {
-      console.log("onLoad");
-      var that = this;
-      wx.request( {
-              url:"http://radar.3vcar.com/category/all/",//获取分类
-              data: {
-              },
-              header: {
-                  'Content-Type': 'application/json'
-              },
-              method:'GET',
-              success: function (res) {
-                  that.setData({
-                    obj: res.data
-                  })
-                  console.log(res)
-              }
-      });
-      console.log('初始化完成');
+  onReady:function(){
+    // 页面渲染完成
   },
-
-  // 隐藏模态框
-  hideModal() {
-    this.setData({ modalShowStyle: "" });
+  onShow:function(){
+    // 页面显示
   },
-  
-  bindKeyInput: function (e) {
-    console.log(e.detail.value
-    )
+  onHide:function(){
+    // 页面隐藏
   },
-
-  // 点击显示模拟框按钮
-  touchlist: function (e) {
-    var that=this;
-    this.setData({
-      modalShowStyle: "opacity:1;pointer-events:auto;"
-    });
-    var arr=new Array();
-    for(var i=0;i<60;i++){
-      if(this.data.obj[i].code.length==3){
-          arr.push(this.data.obj[i])
-          console.log(this.data.obj[i])
-      }else{
-
-      }
-      var listOne=new Array();
-      this.setData({listOne:arr})
-    };
-    
-  },
-
-  touchlisthide: function () {
-    // this.hideModal();
-  },
-
-  touchList2:function(e){
-    var that=this;
-    var arr2=new Array();
-    for(var i=0;i<60;i++){
-      if(this.data.obj[i].code.length==6 && this.data.obj[i].code.substring(0,3)==e.currentTarget.dataset.id){
-        arr2.push(this.data.obj[i])
-      };
-      var listTwo=new Array();
-      console.log("arr2"+arr2)
-      this.setData({
-        listTwo:arr2,
-        switchOne: true,
-        })
-    };
-  },
-
-  touchList3:function(e){
-    var that=this;
-    var arr3=new Array();
-    for(var i=0;i<60;i++){
-      if(this.data.obj[i].code.length==9 && this.data.obj[i].code.substring(0,6)==e.currentTarget.dataset.gid){
-        arr3.push(this.data.obj[i])
-      };
-      var listTwo=new Array();
-      console.log("arr3"+arr3)
-      this.setData({
-        listThree:arr3,
-        switchTwo: true,
-        })
-    }
-  },
-  testbind: function (e) {
-    // console.log(e.currentTarget.id)
-    this.setData({
-      option: e.currentTarget.id
-    }),
-      this.hideModal();
-
+  onUnload:function(){
+    // 页面关闭
   }
-
 })

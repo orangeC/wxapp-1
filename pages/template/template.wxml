@@ -1,7 +1,7 @@
 <template name="templateunit" >
 <view class="container">
   <loading hidden="{{ hidden }}">加载中...</loading>
-  <!--<block wx:for="{{showList}}">-->
+  <!--<block wx:for="{{showList}}" wx:key="">-->
   <view class="other-header normal">
     <image src="{{head}}" mode="scaleToFill"></image>
     <text class="other-title">{{Name}}</text>

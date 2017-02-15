@@ -6,7 +6,7 @@
     <view class="search" >
     <image class="u105_img" src="/images/u105.png" mode="scaleToFill"></image>
     <input wx:if="{{hidden}}" placeholder="请输入位置" />
-      <input wx:else placeholder="{{name}}" />
+    <input wx:else placeholder="{{name}}" data-name="{{name}}"/>
     </view>
     <view class="button" bindtap="bindBtn">搜索</view>
   </view>

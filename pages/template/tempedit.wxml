@@ -1,85 +1,90 @@
 <template name="tempedit">
-  <!--<block wx:for="{{showList}}">-->
-    <view class="edit-head normal">
-      <text class="normal-text">头像</text>
-      <view wx:if="{{tab}}" bindtap="upload">
-        <image class="u249_img" src="{{src}}" mode="scaleToFill" />
+  <view class="edit-head normal">
+    <text class="normal-text">头像</text>
+    <view wx:if="{{tab}}" bindtap="upload">
+      <image class="u249_img" src="{{Head}}" mode="scaleToFill" />
+    </view>
+    <view wx:else bindtap="upload">
+      <image class="u567_img" src="/images/u567.png" mode="scaleToFill">
+        <image class="u569_img" src="/images/u569.png" mode="scaleToFill"></image>
+      </image>
+    </view>
+  </view>
+  <view class="edit-name normal">
+    <text class="normal-text">名称</text>
+
+    <!--<text class="normal-color">{{item.name}}</text>-->
+    <input type="text" class="normal-input-address" bindinput="getInputName" placeholder="{{name}}" />
+    <view hidden="{{hidden}}">已认证</view>
+  </view>
+  <view class="edit-tel normal">
+    <text class="normal-text">电话</text>
+
+    <!--<text class="normal-color">{{item.tel}}</text>-->
+    <input type="text" class="normal-input-address" bindinput="getInputPhone" placeholder="{{phone}}" />
+  </view>
+  <view class="edit-address normal">
+    <text class="normal-text">位置</text>
+    <input type="text" class="normal-input-address" placeholder="{{address}}" bindtap="bindPosition" />
+    <image class="u592_img" src="/images/u591.png" mode="scaleToFill"></image>
+  </view>
+  <view class="circle">
+    <view bindtap="serviceOne">
+      <view wx:if="{{switchTab != 1}}" class="circle-view">
+        <image style="width:20px;height:20px;margin-top:5rpx;" src="/images/u612.png" mode="scaleToFill"></image>
+        <text class="circle-text">个人服务</text>
       </view>
-      <view wx:else bindtap="upload">
-        <image class="u567_img" src="/images/u567.png" mode="scaleToFill">
-          <image class="u569_img" src="/images/u569.png" mode="scaleToFill"></image>
+      <view wx:else class="circle-view">
+        <image class="u177_img" style="width:46px;height:46px;margin-top:-20rpx;" src="/images/u177a.png" mode="scaleToFill">
+          <image class="u187_img" style="width:20px;height:19px;" src="/images/u187.png" mode="scaleToFill"></image>
         </image>
+        <text class="circle-text-center">个人服务</text>
       </view>
     </view>
-    <view class="edit-name normal">
-      <text class="normal-text">名称</text>
-      <!--<text class="normal-color">{{item.name}}</text>-->
-      <input type="text" class="normal-input-address" bindinput="getInputName" placeholder="{{name}}" />
-      <view hidden="{{hidden}}">已认证</view>
-    </view>
-    <view class="edit-tel normal">
-      <text class="normal-text">电话</text>
-      <!--<text class="normal-color">{{item.tel}}</text>-->
-      <input type="text" class="normal-input-address" bindinput ="getInputPhone" placeholder="{{phone}}" />
-    </view>
-    <view class="edit-address normal">
-      <text class="normal-text">位置</text>
-      <input type="text" class="normal-input-address" placeholder="{{address}}" bindtap="bindPosition" />
-      <image class="u592_img" src="/images/u591.png" mode="scaleToFill"></image>
-    </view>
-    <view class="circle">
-      <view bindtap="serviceOne">
-        <view wx:if="{{switchTab != 1}}" class="circle-view">
-          <image style="width:20px;height:20px;margin-top:5rpx;" src="/images/u612.png" mode="scaleToFill"></image>
-          <text class="circle-text">个人服务</text>
-        </view>
-        <view wx:else class="circle-view">
-          <image class="u177_img" style="width:46px;height:46px;margin-top:-20rpx;" src="/images/u177a.png" mode="scaleToFill">
-            <image class="u187_img" style="width:20px;height:19px;" src="/images/u187.png" mode="scaleToFill"></image>
-          </image>
-          <text class="circle-text-center">个人服务</text>
-        </view>
+    <view class="circle-view line line-left"></view>
+    <view bindtap="serviceTwo">
+      <view wx:if="{{switchTab != 2}}" class="circle-view">
+        <image style="width:20px;height:20px;margin-top:5rpx;" src="/images/u612.png" mode="scaleToFill"></image>
+        <text class="circle-text">对公服务</text>
       </view>
-      <view class="circle-view line line-left"></view>
-      <view bindtap="serviceTwo">
-        <view wx:if="{{switchTab != 2}}" class="circle-view">
-          <image style="width:20px;height:20px;margin-top:5rpx;" src="/images/u612.png" mode="scaleToFill"></image>
-          <text class="circle-text">对公服务</text>
-        </view>
-        <view wx:else class="circle-view">
-          <image class="u177_img" style="width:46px;height:46px;margin-top:-20rpx;" src="/images/u177a.png" mode="scaleToFill">
-            <image class="u187_img" style="width:20px;height:19px;" src="/images/u187.png" mode="scaleToFill"></image>
-          </image>
-          <text class="circle-text-center">对公服务</text>
-        </view>
-      </view>
-      <view class="circle-view line line-right"></view>
-      <view bindtap="serviceThree">
-        <view wx:if="{{switchTab != 3}}" class="circle-view">
-          <image style="width:20px;height:20px;margin-top:5rpx;" src="/images/u612.png" mode="scaleToFill"></image>
-          <text class="circle-text">XX服务</text>
-        </view>
-        <view wx:else class="circle-view">
-          <image class="u177_img" style="width:46px;height:46px;margin-top:-20rpx;" src="/images/u177a.png" mode="scaleToFill">
-            <image class="u187_img" style="width:20px;height:19px;" src="/images/u187.png" mode="scaleToFill"></image>
-          </image>
-          <text class="circle-text-center">XX服务</text>
-        </view>
+      <view wx:else class="circle-view">
+        <image class="u177_img" style="width:46px;height:46px;margin-top:-20rpx;" src="/images/u177a.png" mode="scaleToFill">
+          <image class="u187_img" style="width:20px;height:19px;" src="/images/u187.png" mode="scaleToFill"></image>
+        </image>
+        <text class="circle-text-center">对公服务</text>
       </view>
     </view>
-    <view class="edit-type normal">
-      <text class="normal-text">服务类型</text>
-      <text class="normal-color" bindtap="touchlist">{{Category}}</text>
-      <image class="u592_img" src="/images/u591.png" mode="scaleToFill"></image>
+    <view class="circle-view line line-right"></view>
+    <view bindtap="serviceThree">
+      <view wx:if="{{switchTab != 3}}" class="circle-view">
+        <image style="width:20px;height:20px;margin-top:5rpx;" src="/images/u612.png" mode="scaleToFill"></image>
+        <text class="circle-text">XX服务</text>
+      </view>
+      <view wx:else class="circle-view">
+        <image class="u177_img" style="width:46px;height:46px;margin-top:-20rpx;" src="/images/u177a.png" mode="scaleToFill">
+          <image class="u187_img" style="width:20px;height:19px;" src="/images/u187.png" mode="scaleToFill"></image>
+        </image>
+        <text class="circle-text-center">XX服务</text>
+      </view>
     </view>
-    <view class="modal" bindtap="touchlisthide" style="{{modalShowStyle}}">
-      <view class="nav-list">
-          <view bindtap="tapNameOne" style="{{navShowStyleOne}}">全部商家</view>
-          <view bindtap="tapNameTwo" style="{{navShowStyleTwo}}">个人服务</view>
+  </view>
+  <view class="edit-type normal">
+    <text class="normal-text">服务类型</text>
+    <text class="normal-color" bindtap="touchlist">{{Category}}</text>
+    <image class="u592_img" src="/images/u591.png" mode="scaleToFill"></image>
+  </view>
+  <view class="modal" bindtap="touchlisthide" style="{{modalShowStyle}}">
+    <view>
+      <view class="nav-list" wx:for="{{arr}}" wx:for-item="item" wx:key="i" wx:for-index="i">
+        <view bindtap="tapNameOne" style="{{navShowStyleOne}}">{{item.name}}</view>
+
+        <!--<view bindtap="tapNameTwo" style="{{navShowStyleTwo}}">个人服务</view>
           <view bindtap="tapNameThree" style="{{navShowStyleThree}}">对公服务</view>
-          <view bindtap="tapNameFour" style="{{navShowStyleFour}}">其他服务</view>
+          <view bindtap="tapNameFour" style="{{navShowStyleFour}}">其他服务</view>-->
       </view>
-      <view class="nav-list-center">
+    </view>
+
+    <!--<view class="nav-list-center">
         <view wx:if="{{switchOne}}">
           <navigator hover-class="navigator-hover" bindtap="testbind" id="{{storeOne}}">
             <view>全部商家1</view>
@@ -148,28 +153,25 @@
             <view>其他服务5</view>
           </navigator>
         </view>
-      </view>
-    </view>
-    <view class="edit-range normal">
-      <text class="normal-text">服务范围</text>
-      <input class="normal-input-range" bindinput="getInputScope" placeholder="{{scope}}" />
-      <!--<text class="normal-color">{{item.range}}</text>-->
-      <image class="u592_img" src="/images/u591.png" mode="scaleToFill"></image>
-    </view>
-    <view wx:if="{{intro}}" class="edit-info normal">
-      <text class="normal-text">服务介绍</text>
-      <input class="normal-input-info" placeholder="{{description}}" bindinput="getInputDes" />
-      <!--<text class="edit-info-text">{{item.info}}</text>-->
-      <image class="u592_img" src="/images/u591.png" mode="scaleToFill"></image>
-    </view>
-    <view wx:else class="edit-range normal">
-      <text class="normal-text">服务介绍</text>
-      <input class="normal-input-info" placeholder="{{description}}" bindinput="getInputDes" />
-      <!--<text class="normal-color">{{item.info}}</text>-->
-      <image class="u592_img" src="/images/u591.png" mode="scaleToFill"></image>
-    </view>
-    
+      </view>-->
+  </view>
+  <view class="edit-range normal">
+    <text class="normal-text">服务范围</text>
+    <input class="normal-input-range" bindinput="getInputScope" placeholder="{{scope}}" />
+
+    <!--<text class="normal-color">{{item.range}}</text>-->
+    <image class="u592_img" src="/images/u591.png" mode="scaleToFill"></image>
+  </view>
+  <view wx:if="{{intro}}" class="edit-info normal">
+    <text class="normal-text">服务介绍</text>
+    <input class="normal-input-info" placeholder="{{description}}" bindinput="getInputDes" />
+    <image class="u592_img" src="/images/u591.png" mode="scaleToFill"></image>
+  </view>
+  <view wx:else class="edit-range normal">
+    <text class="normal-text">服务介绍</text>
+    <input class="normal-input-info" placeholder="{{description}}" bindinput="getInputDes" />
+    <image class="u592_img" src="/images/u591.png" mode="scaleToFill"></image>
+  </view>
   <view wx:if="{{tab}}" class="last" bindtap="handlejump">保存并重新提交审核</view>
-  <view wx:else  class="last" bindtap="handlejump">提交申请</view>
-  <!--</block>-->
+  <view wx:else class="last" bindtap="handlejump">提交申请</view>
 </template>

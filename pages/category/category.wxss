@@ -1,0 +1,175 @@
+
+.nav {
+  background-color: #fff;
+  display: flex;
+  border: #ddd solid 1px;
+  padding: 15rpx;
+  justify-content: space-around;
+}
+.nav-center{
+  flex-basis: 0.1rpx
+}
+
+.nav>view {
+  padding: 3rpx;
+  font-size: 14px;
+}
+
+.modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    background: rgba(0, 0, 0, .5);
+    z-index: 99999;
+    opacity: 0;
+    transition: opacity 100ms ease-in;
+    pointer-events: none;
+    display: flex;
+    flex-direction: row;
+    margin-top:65rpx
+}
+
+.nav-list{
+  width:33.3%;
+  height:auto;
+  display: flex;
+  flex-direction: column;
+}
+.nav-list>view{
+  background-color: #e5e5e5;
+  padding: 25rpx;
+  font-size: .7em;
+  border-bottom: 1rpx solid #ddd;
+}
+.nav-list-center{
+  width:33.3%;
+  height:auto;
+  display: flex;
+  flex-direction: column;
+}
+.nav-list-center navigator{
+  background-color: #f7f7f7;
+  padding: 25rpx;
+  font-size: .7em;
+  border-bottom: 1rpx solid #ddd;
+}
+.nav-list-right{
+  width:33.3%;
+  height:auto;
+  display: flex;
+  flex-direction: column;
+}
+
+.nav-list-right navigator{
+  background-color: #e5e5e5;
+  font-size: .7em;
+  padding: 25rpx;
+  border-bottom: 1rpx solid #ddd;
+}
+
+.hr{
+  width: 100%;
+  height: 10px;
+  background-color: #ededf3
+}
+
+.show {
+  display: flex;
+  margin: 1rpx;
+  padding: 30rpx 5rpx;
+  border: 1px solid #ededf3;
+  border-top: none;
+}
+
+.show-list {
+  display: flex;
+  flex-direction: column;
+  padding: 7rpx;
+}
+
+.show-list .title {
+  font-size: 0.9em;
+  font-weight: 600;
+  color: #000;
+}
+
+.show-list>text {
+  margin: 2px 5px;
+  font-size: 0.75em;
+  line-height: 1.4;
+}
+
+.show-list-last {
+  margin: 2px 5px;
+  font-size: 0.75em;
+  line-height: 1.4;
+  display: flex;
+  align-items: center;
+}
+
+.u145_img {
+  width: 10px;
+  height: 14px;
+  margin-right: 10rpx;
+}
+
+.u151_img {
+  width: 16px;
+  height: 14px;
+  margin-right: 10rpx;
+  margin-left: 50rpx;
+}
+
+@media (min-width: 384px) {
+  .show-list>text {
+    margin: 2px 5px;
+    line-height: 1.3;
+  }
+
+  .scroll-content {
+    height: 350px;
+  }
+}
+
+@media (max-width: 360px) {
+  .show-list>text {
+    margin: 2px 5px;
+    line-height: 1.4;
+  }
+
+  .scroll-content {
+    height: 340px;
+  }
+}
+
+@media (max-width: 320px) {
+  .show-list>text {
+    margin: 3px 5px;
+    line-height: 1.4;
+  }
+
+  .nav-img {
+    height: 50px;
+    width: 100%;
+    margin-bottom: 15rpx;
+  }
+
+  .scroll-content {
+    height: 200px;
+  }
+}
+
+.sort-list{
+  width:49%;
+  height:auto;
+  display: flex;
+  flex-direction: column;
+}
+
+.sort-list>view{
+  background-color: #e5e5e5;
+  padding: 25rpx;
+  font-size: .7em;
+}
