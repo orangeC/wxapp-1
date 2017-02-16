@@ -1,10 +1,10 @@
 {
   "pages":[  
     "pages/index/index",  
+    "pages/noedit/noedit",  
     "pages/category/category",  
     "pages/search/search",
     "pages/offer/offer",
-    "pages/noedit/noedit",
     "pages/address/address",
     "pages/other/other"
   ],
@@ -30,6 +30,7 @@
     "backgroundTextStyle":"white",
     "navigationBarBackgroundColor": "#ffd300",
     "navigationBarTitleText": "周边服务",
-    "navigationBarTextStyle":"black"
+    "navigationBarTextStyle":"black",
+    "enablePullDownRefresh":"true"
   }
 }

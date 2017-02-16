@@ -4,22 +4,22 @@ var app = getApp();
 var common = require("../../utils/common.js")
 Page({
   data: {
-    name:"",
-    address:"",
-    latitude:0,
-    longitude:0,
-    address:"定位当前位置",
-    show:true,
-    shop:{},
-    arr:[]
+    name: "",
+    address: "",
+    latitude: 0,
+    longitude: 0,
+    address: "定位当前位置",
+    show: true,
+    shop: {},
+    arr: []
   },
   //事件处理函数
-  
+
   //获取位置
   bindWeizhi: function () {
     wx.navigateTo({
-        url: '../address/address'
-      })
+      url: '../address/address'
+    })
     // var that = this;
     // wx.getLocation({
     //   type: 'wgs84',
@@ -69,19 +69,27 @@ Page({
         distance: 100000
       },
       header: {
-          'content-type': 'application/json'
+        'content-type': 'application/json'
       },
-      method:"GET",
-      success: function(res) {
-        that.setData({
-          shop:res.data
-        })
-        console.log(res.data)
+      method: "GET",
+      success: function (res) {
+        var arr = [];
+        for(var i=0;i<res.data.length;i++){
+          arr.push(res.data[i].code)
+        }
+          that.setData({
+            shop: res.data,arr:arr
+          })
       }
     })
     // app.send("http://radar.3vcar.com//shop/search/")
   },
-
+  bindKeyJump:function(e){
+    var i = e.target.id;
+    wx.navigateTo({
+      url: '/pages/other/other?data='+this.data.arr[i]
+    })
+  },
   // onReady:function(){
   //   this.getData()
   // },
@@ -92,13 +100,16 @@ Page({
   //     name:app.globalData.name
   //   })
   // },
-
-  bindKeyInput:function(e){
+  onReady: function () {
+    console.log("onshow")
+    console.log(this.data.arr)
+  },
+  bindKeyInput: function (e) {
     console.log(e.detail.value
     )
   },
 
-  formSubmit: function(e) {
+  formSubmit: function (e) {
     var that = this
     //调用应用实例的方法获取全局数据
     wx.request({
@@ -111,19 +122,49 @@ Page({
         distance: 100000
       },
       header: {
-          'content-type': 'application/json'
+        'content-type': 'application/json'
       },
-      method:"GET",
-      success: function(res) {
+      method: "GET",
+      success: function (res) {
         that.setData({
-          shopSearch:res.data,
-          show:false,
+          shopSearch: res.data,
+          show: false,
         })
         console.log(e.detail.value.input)
       }
     })
+  },
+
+  onPullDownRefresh: function(){
+    console.log('onLoad')
+    var that = this
+    //调用应用实例的方法获取全局数据
+    wx.request({
+      url: "http://radar.3vcar.com/shop/search/", //获取所有商家
+      data: {
+        name: this.data.name,
+        longitude: 117.52412,
+        latitude: 38.98755,
+        category: "",
+        distance: 100000
+      },
+      header: {
+        'content-type': 'application/json'
+      },
+      method: "GET",
+      success: function (res) {
+        var arr = [];
+        for(var i=0;i<res.data.length;i++){
+          arr.push(res.data[i].code)
+        }
+          that.setData({
+            shop: res.data,arr:arr
+          })
+      }
+    })
+    wx.stopPullDownRefresh()
   }
-  
+
 
 
 

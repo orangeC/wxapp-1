@@ -33,7 +33,10 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function onLoad(item) {
+    console.log("item");
     var that = this;
+    that.setData({item:item.data})
+    console.log(this.data.item);    
     //调用缓存获得clientcode
     wx.getStorage({
       key: 'user',
@@ -45,8 +48,7 @@ Page({
     })
 
 
-
-    app.send("http://radar.3vcar.com/shop/get/?code=" + 42956288
+    app.send("http://radar.3vcar.com/shop/get/?code=" + that.data.item
       , {}, "GET", function (res) {
         var data = res.data;
         console.log(data);

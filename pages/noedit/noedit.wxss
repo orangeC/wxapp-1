@@ -171,21 +171,23 @@
   align-items: center;
 }
 .normal-input-address{
-  width: 85%;
+  width:500rpx;
+  position: absolute;
+  right: 6.5%;
   text-align: right;
-  margin-right: -20rpx;
   overflow: hidden;
+  white-space: nowrap;
   text-overflow: ellipsis;
 }
 .normal-input-range{
-  width: 80%;
+  position: absolute;
+  right: 9%;
   text-align: right;
-  margin-right: -50rpx;
 }
 .normal-input-info{
-  width: 80%;
+  position: absolute;
+  right: 9%;
   text-align: right;
-  margin-right: -50rpx;
 }
 
 /*model*/

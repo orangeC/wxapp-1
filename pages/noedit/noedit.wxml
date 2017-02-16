@@ -1,4 +1,4 @@
 <view class="container">
   <import src="../template/tempedit.wxml" />
-  <template is="tempedit" data="{{Category,name,phone,address,Latitude,Longitude,scope,description,img,Head,tab,switchTab,hidden,intro,arr,modalShowStyle,navShowStyleOne,navShowStyleTwo,navShowStyleThree,navShowStyleFour,switchOne,switchTwo,switchThree,switchFour,option,storeOne,storeTwo}}" />
+  <template is="tempedit" data="{{Category,name,phone,address,Latitude,Longitude,scope,description,img,Head,tab,switchTab,hidden,intro,arr,modalShowStyle,navShowStyleOne,navShowStyleTwo,navShowStyleThree,navShowStyleFour,switchOne,switchTwo,switchThree,switchFour,option,storeOne,storeTwo,submit}}" />
 </view>

@@ -3,7 +3,7 @@
   <loading hidden="{{ hidden }}">加载中...</loading>
   <!--<block wx:for="{{showList}}" wx:key="">-->
   <view class="other-header normal">
-    <image src="{{head}}" mode="scaleToFill"></image>
+    <image src="{{Head}}" mode="scaleToFill"></image>
     <text class="other-title">{{Name}}</text>
     <text>|</text>
     <view class="other-zan" >
@@ -21,7 +21,7 @@
   <image src="/images/u245.png" mode="scaleToFill"></image>
   <text>{{Address}}</text>
   </view>
-  <map longitude="{{Longitude}}" latitude="{{Latitude}}" markers="{{markers}}"  scale="15" style="width: 100%; height:400rpx;"></map>
+  <map longitude="{{Longitude}}" latitude="{{Latitude}}" markers="{{markers}}"  scale="15" style="width: 100%; height:400rpx;" controls="{{controls}}"></map>
   <view class="other-service normal">
   <image src="/images/u263.png" mode="scaleToFill"></image>
   <text>服务类型：{{Category}}</text>

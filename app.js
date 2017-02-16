@@ -12,7 +12,8 @@ App({
     wx.setStorageSync('logs', logs);
     this.getClientData();
     //请求店家服务类型
-    this.sendCategory()
+    this.sendCategory();
+   
   },
 
   onShow: function () {

@@ -2,20 +2,21 @@
 var app = getApp()
 Page({
   data: {
-    title: "商家入驻",
+    title: "",
     shopStatus: true,
-    Category: "",
+    Category: "请选择服务类型",
     name: "请输入名称",
     phone: "请输入电话",
     address: "您的地理位置",
     scope: "服务范围",
     description: "请详细的描述",
-    hidden: false,
+    hidden: true,
     intro: false,
     tab: false,
     Head: "",
+    submit: false,
     switchTab: 1,
-    arr:[{name:"哈"},{name:"喽"}],
+    arr: [{ name: "哈" }, { name: "喽" }],
     modalShowStyle: "",
     navShowStyleOne: "",
     navShowStyleTwo: "",
@@ -29,6 +30,7 @@ Page({
     storeTwo: "日常保洁",
   },
   onLoad: function () {
+
     var that = this;
 
     //调用缓存获得clientcode
@@ -51,11 +53,11 @@ Page({
   onReady: function () {
     var that = this;
 
-    wx.setNavigationBarTitle({ title: this.data.title });
+
     //获得某个商家
     app.send("http://radar.3vcar.com/shop/load/", { code: that.data.clientid }, "GET", function (res) {
       var data = res.data;
-      console.log(data)
+      console.log(that.data.clientid)
       that.setData({ tab: true, Head: data.Head, name: data.Name, phone: data.Phone, address: data.Address, Latitude: data.Latitude, Longitude: data.Longitude, Category: data.Category, scope: data.Scope, description: data.Description, code: data.Code, type: data.Type })
       console.log(that.data.Category)
       //请求category
@@ -63,13 +65,7 @@ Page({
         key: 'data',
         success: function (res) {
           var getData = res.data.RequestData;
-          console.log(getData)
-          //将获取到的category编码插入wxml
-          for (var i = 0; i < getData.length; i++) {
-            if(getData[i].code.length == 3){
-              // that.data.arr.push(getData[i])
-            }
-          }
+
           //将获取到的category编码换成对应的name
           for (var i = 0; i < getData.length; i++) {
             if (getData[i].code == that.data.Category) {
@@ -81,7 +77,13 @@ Page({
           console.log("上一行商家页面拿到的缓存中的data")
         }
       })
+      if (that.data.Head) {
+        that.setData({ submit: true });
+        wx.setNavigationBarTitle({ title: "编辑信息" });
 
+      } else {
+        that.setData({ submit: false })
+      }
       console.log("看上一行")
       //设置type
       if (that.data.type == "Business") {
@@ -104,14 +106,30 @@ Page({
   },
   onShow: function () {
     var that = this;
-
-
-    if (this.data.title == "商家入驻") {
-      that.setData({
-        hidden: true
-      })
-    }
+    console.log(this.data.title)
+    // if (this.data.title == "商家入驻") {
+    //   that.setData({
+    //     hidden: true
+    //   })
+    // }
     console.log("logs page execute: onShow.");
+    //请求category
+    wx.getStorage({
+      key: 'data',
+      success: function (res) {
+        var getData = res.data.RequestData;
+
+        //将获取到的category编码换成对应的name
+        for (var i = 0; i < getData.length; i++) {
+          if (getData[i].code == that.data.Category) {
+            that.setData({
+              Category: getData[i].name
+            })
+          }
+        };
+        console.log("上一行商家页面拿到的缓存中的data")
+      }
+    })
 
   },
   //获取输入框名字
@@ -154,11 +172,12 @@ Page({
         var apply = that.data
         console.log("code : " + apply.code)
         console.log("名字： " + apply.name)
-        console.log("图片： " + apply.src)
+        console.log("图片： " + apply.Head)
         console.log("电话： " + apply.phone)
         console.log("地址： " + apply.address)
         console.log("纬度： " + apply.Latitude)
         console.log("经度： " + apply.Longitude)
+        console.log("类型： " + apply.Category)
         console.log("type： " + apply.type)
         console.log("编码： " + apply.clientid)
         console.log("描述： " + apply.description)
@@ -167,12 +186,12 @@ Page({
           {
             code: apply.code,
             name: apply.name,
-            head: apply.src,
+            head: apply.Head,
             phone: apply.phone,
             address: apply.address,
             longitude: apply.Longitude,
             latitude: apply.Latitude,
-            category: "001001001",
+            category: apply.Category,
             type: apply.type,
             client: apply.clientid,
             description: apply.description,
@@ -223,7 +242,7 @@ Page({
               var a = JSON.parse(data)[0].origin;
               console.log(a)
               that.setData({  //上传成功修改显示头像
-                src: "http://image.3vcar.com" + a,
+                Head: "http://image.3vcar.com" + a,
                 tab: true
               })
               console.log(that.data.src)
@@ -289,9 +308,13 @@ Page({
   },
   // 点击显示模拟框按钮
   touchlist: function (event) {
-    this.setData({
-      modalShowStyle: "opacity:1;pointer-events:auto;"
+    wx.navigateTo({
+      url: '/pages/category/category'
     })
+    console.log(2)
+    // this.setData({
+    //   modalShowStyle: "opacity:1;pointer-events:auto;"
+    // })
   },
   tapNameOne: function (event) {
     this.setData({

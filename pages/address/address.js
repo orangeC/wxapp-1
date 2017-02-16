@@ -9,12 +9,14 @@ Page({
         address: "",
         latitude: 0,
         longitude: 0,
-        hidden: true
+        hidden: true,
+        
     },
     //事件处理函数
     onReady: function (e) {
         // 使用 wx.createMapContext 获取 map 上下文 
         this.mapCtx = wx.createMapContext('myMap')
+        
     },
 
     //获取位置
@@ -118,7 +120,7 @@ Page({
             duration: 5000
         });
 
-        //输入框没有输入的判断
+        // 输入框没有输入的判断
         // if (that.data.inputValue == '') {
         //     wx.hideToast();
         //     return;

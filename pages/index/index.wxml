@@ -45,9 +45,9 @@
     </navigator>
 </view>
   <view class="index-home">附近商家</view>
-  <scroll-view scroll-y="true" class="scroll-content" wx:if="{{show}}">
-    <block wx:for="{{shop}}" wx:key="i">
-      <navigator class="show" url="../other/other?title={{item.code}}" hover-class="navigator-hover">
+  <view class="scroll-content" wx:if="{{show}}">
+    <block wx:for="{{shop}}" wx:key="i" wx:for-index="i">
+      <view bindtap="bindKeyJump" class="show" hover-class="navigator-hover" id="{{i}}">
       <image style="width:80px;height:80px" src="{{item.head}}"></image>
         <view class="show-list">
           <text class="title">{{item.name}}</text>
@@ -59,13 +59,13 @@
             {{item.likedAmount}}
             </view>
         </view>
-      </navigator>
+      </view>
     </block>
-  </scroll-view>
+  </view>
 
-  <scroll-view scroll-y="true" class="scroll-content" wx:else>
-    <block wx:for="{{shopSearch}}" wx:key="i">
-      <navigator class="show" url="../other/other?title={{item.code}}" hover-class="navigator-hover">
+  <view class="scroll-content" wx:else>
+    <block wx:for="{{shopSearch}}" wx:key="i" wx:for-index="i">
+      <view class="show" hover-class="navigator-hover">
       <image style="width:80px;height:80px" src="{{item.head}}"></image>
         <view class="show-list">
           <text class="title">{{item.name}}</text>
@@ -77,7 +77,7 @@
             {{item.likedAmount}}
             </view>
         </view>
-      </navigator>
+      </view>
     </block>
-  </scroll-view>
+  </view>
 </view>
