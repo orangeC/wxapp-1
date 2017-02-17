@@ -3,7 +3,6 @@
     "pages/index/index",  
     "pages/noedit/noedit",  
     "pages/category/category",  
-    "pages/search/search",
     "pages/offer/offer",
     "pages/address/address",
     "pages/other/other"

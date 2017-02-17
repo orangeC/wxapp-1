@@ -21,11 +21,6 @@ Page({
     Description: "",
     title: "",
     hidden: false,
-    movie: {},
-    point: {
-      latitude: "23.099994",
-      longitude: "113.324520"
-    },
     markers: []
   },
 
@@ -35,17 +30,14 @@ Page({
   onLoad: function onLoad(item) {
     console.log("item");
     var that = this;
-    that.setData({item:item.data})
-    console.log(this.data.item);    
-    //调用缓存获得clientcode
-    wx.getStorage({
-      key: 'user',
-      success: function (res) {
-        that.setData({ clientid: res.data.ClientCode });
-        console.log(that.data.clientid)
-        console.log("上一行商家页面拿到的缓存中的user")
-      }
-    })
+    that.setData({ item: item.data })
+    console.log(this.data.item);
+    //获取内存中user 的 ClientCode
+    var ClientCode = app.globalData.user.ClientCode;
+    console.log(ClientCode);
+    that.setData({
+      clientid: ClientCode
+    });
 
 
     app.send("http://radar.3vcar.com/shop/get/?code=" + that.data.item
@@ -54,28 +46,19 @@ Page({
         console.log(data);
         that.setData({ title: data.Name, Head: data.Head, Name: data.Name, LikedAmount: data.LikedAmount, Phone: data.Phone, Address: data.Address, Longitude: data.Longitude, Latitude: data.Latitude, Category: data.Category, Description: data.Description })
 
-        //请求category
-        wx.getStorage({
-          key: 'data',
-          success: function (res) {
-            var getData = res.data.RequestData;
-            console.log(getData.length)
-            console.log(that.data.Category)
-            for(var i=0;i<getData.length;i++){
-              if(getData[i].code == that.data.Category){
-                that.setData({
-                  Category:getData[i].name
-                })
-              }
-            };
-            console.log("上一行商家页面拿到的缓存中的data")
+        //获取内存中data 的 RequestData
+        var RequestData = app.globalData.data.RequestData;
+        console.log(RequestData);
+        //将获取到的 RequestData 编码换成对应的name
+        for (var i = 0; i < RequestData.length; i++) {
+          if (RequestData[i].code == that.data.Category) {
+            that.setData({
+              Category: RequestData[i].name
+            });
+            break;
           }
-        })
+        };
       })
-
-    // this.setData({
-    //   title:item.title
-    //   })
 
   },
 
@@ -113,11 +96,17 @@ Page({
   onReady: function onReady() {
     wx.setNavigationBarTitle({ title: this.data.title });
   },
+  //打电话
+  callPhone: function () {
+    wx.makePhoneCall({
+      phoneNumber: this.data.Phone
+    })
+  },
   //点赞
   bindClicklike: function () {
     var that = this;
     console.log(that.data.clientid)
-    app.send("http://radar.3vcar.com/shop/like/", { client: that.data.clientid, code: 42956288 }, "POST", function (res) {
+    app.send("http://radar.3vcar.com/shop/like/", { client: that.data.clientid, code: that.data.item }, "POST", function (res) {
       console.log(res)
       wx.showToast({
         title: '点赞中。。。',
@@ -155,37 +144,8 @@ Page({
         hidden: true
       });
     }, 1500);
-  },
-
-
-  /**
-   * 生命周期函数--监听页面隐藏
-   */
-  onHide: function onHide() {
-    // TODO: onHide
-  },
-
-
-  /**
-   * 生命周期函数--监听页面卸载
-   */
-  onUnload: function onUnload() {
-    // TODO: onUnload
-  },
-
-
-  /**
-   * 页面相关事件处理函数--监听用户下拉动作
-   */
-  onPullDownRefresh: function onPullDownRefresh() {
-    // TODO: onPullDownRefresh
-  },
-  onShareAppMessage: function onShareAppMessage() {
-    // return {
-    //   title: '自定义分享标题',
-    //   desc: '自定义分享描述',
-    //   path: '/pages/item?id=' + this.data.id
-    // };
   }
+
+
 });
 //# sourceMappingURL=item.js.map

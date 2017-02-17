@@ -3,7 +3,6 @@ var app = getApp()
 Page({
   data: {
     title: "",
-    shopStatus: true,
     Category: "请选择服务类型",
     name: "请输入名称",
     phone: "请输入电话",
@@ -15,40 +14,17 @@ Page({
     tab: false,
     Head: "",
     submit: false,
-    switchTab: 1,
-    arr: [{ name: "哈" }, { name: "喽" }],
-    modalShowStyle: "",
-    navShowStyleOne: "",
-    navShowStyleTwo: "",
-    navShowStyleThree: "",
-    navShowStyleFour: "",
-    switchOne: true,
-    switchTwo: false,
-    switchThree: false,
-    switchFour: false,
-    storeOne: "全部商家1",
-    storeTwo: "日常保洁",
+    switchTab: 1
   },
   onLoad: function () {
 
     var that = this;
-
-    //调用缓存获得clientcode
-    wx.getStorage({
-      key: 'user',
-      success: function (res) {
-        that.setData({ clientid: res.data.ClientCode });
-        console.log(that.data.clientid)
-        console.log("上一行商家页面拿到的缓存中的user")
-      }
-    })
-
-
-    // if (!this.data.shopStatus) {
-    //   wx.navigateTo({
-    //     url: '../offer/offer'
-    //   })
-    // }
+    //获取内存中user 的 ClientCode
+    var ClientCode = app.globalData.user.ClientCode;
+    console.log(ClientCode);
+    that.setData({
+      clientid: ClientCode
+    });
   },
   onReady: function () {
     var that = this;
@@ -56,80 +32,89 @@ Page({
 
     //获得某个商家
     app.send("http://radar.3vcar.com/shop/load/", { code: that.data.clientid }, "GET", function (res) {
-      var data = res.data;
-      console.log(that.data.clientid)
-      that.setData({ tab: true, Head: data.Head, name: data.Name, phone: data.Phone, address: data.Address, Latitude: data.Latitude, Longitude: data.Longitude, Category: data.Category, scope: data.Scope, description: data.Description, code: data.Code, type: data.Type })
-      console.log(that.data.Category)
-      //请求category
-      wx.getStorage({
-        key: 'data',
-        success: function (res) {
-          var getData = res.data.RequestData;
-
-          //将获取到的category编码换成对应的name
-          for (var i = 0; i < getData.length; i++) {
-            if (getData[i].code == that.data.Category) {
-              that.setData({
-                Category: getData[i].name
-              })
-            }
-          };
-          console.log("上一行商家页面拿到的缓存中的data")
-        }
-      })
-      if (that.data.Head) {
-        that.setData({ submit: true });
+      if (res) {
+        var data = res.data;
+        console.log(that.data.clientid)
+        console.log(data)
+        that.setData({
+          tab: true,
+          Head: data.Head,
+          name: data.Name,
+          phone: data.Phone,
+          address: data.Address,
+          Latitude: data.Latitude,
+          Longitude: data.Longitude,
+          Category: data.Category,
+          scope: data.Scope,
+          description: data.Description,
+          code: data.Code,
+          type: data.Type,
+          submit: true
+        })
         wx.setNavigationBarTitle({ title: "编辑信息" });
-
       } else {
         that.setData({ submit: false })
+        wx.showToast({
+          title: '您还未注册',
+          icon: 'loading',
+          duration: 3000,
+        })
       }
-      console.log("看上一行")
+
+
+      //获取内存中data 的 RequestData
+      var RequestData = app.globalData.data.RequestData;
+      console.log(RequestData);
+      //将获取到的 RequestData 编码换成对应的name
+      for (var i = 0; i < RequestData.length; i++) {
+        if (RequestData[i].code == that.data.Category) {
+          that.setData({
+            Category: RequestData[i].name
+          });
+          break;
+        }
+      };
+
       //设置type
-      if (that.data.type == "Business") {
-        console.log(that.data.type)
-        that.setData({ switchTab: 1 })
-      }
-      else if (that.data.type == "Client") {
-        that.setData({ switchTab: 2 })
-        console.log(that.data.type)
-        console.log(that.data.switchTab)
-      }
-      else {
-        that.setData({ switchTab: 3 })
-        console.log(that.data.type)
-        console.log(that.data.switchTab)
-      }
+      var types = { "Business": 1, "Client": 2, "Other": 3 };
+      that.setData({ switchTab: types[that.data.type] })
+      // if (that.data.type == "Business") {
+      //   console.log(that.data.type)
+      //   that.setData({ switchTab: 1 })
+      // }
+      // else if (that.data.type == "Client") {
+      //   that.setData({ switchTab: 2 })
+      //   console.log(that.data.type)
+      //   console.log(that.data.switchTab)
+      // }
+      // else {
+      //   that.setData({ switchTab: 3 })
+      //   console.log(that.data.type)
+      //   console.log(that.data.switchTab)
+      // }
     })
 
 
   },
   onShow: function () {
     var that = this;
-    console.log(this.data.title)
     // if (this.data.title == "商家入驻") {
     //   that.setData({
     //     hidden: true
     //   })
     // }
-    console.log("logs page execute: onShow.");
-    //请求category
-    wx.getStorage({
-      key: 'data',
-      success: function (res) {
-        var getData = res.data.RequestData;
-
-        //将获取到的category编码换成对应的name
-        for (var i = 0; i < getData.length; i++) {
-          if (getData[i].code == that.data.Category) {
-            that.setData({
-              Category: getData[i].name
-            })
-          }
-        };
-        console.log("上一行商家页面拿到的缓存中的data")
+    //获取内存中data 的 RequestData
+    var RequestData = app.globalData.data.RequestData;
+    console.log(RequestData);
+    //将获取到的 RequestData 编码换成对应的name
+    for (var i = 0; i < RequestData.length; i++) {
+      if (RequestData[i].code == that.data.Category) {
+        that.setData({
+          Category: RequestData[i].name
+        });
+        break;
       }
-    })
+    };
 
   },
   //获取输入框名字
@@ -159,6 +144,12 @@ Page({
       description: e.detail.value
     })
     console.log(this.data.description)
+  },
+   // 点击选择类型
+  touchlist: function (event) {
+    wx.navigateTo({
+      url: '/pages/category/category'
+    })
   },
 
   //提交申请
@@ -245,7 +236,6 @@ Page({
                 Head: "http://image.3vcar.com" + a,
                 tab: true
               })
-              console.log(that.data.src)
             },
 
             fail: function (e) {
@@ -295,102 +285,15 @@ Page({
             var longitude = res.longitude
             that.setData({
               address: address,
-              latitude: latitude,
-              longitude: longitude
+              Latitude: latitude,
+              Longitude: longitude
             })
-            console.log("纬度" + that.data.latitude)   //经纬度
-            console.log("经度" + that.data.longitude)
+            console.log("纬度" + that.data.Latitude)   //经纬度
+            console.log("经度" + that.data.Longitude)
             console.log("地址" + that.data.address)
           }
         })
       }
     })
-  },
-  // 点击显示模拟框按钮
-  touchlist: function (event) {
-    wx.navigateTo({
-      url: '/pages/category/category'
-    })
-    console.log(2)
-    // this.setData({
-    //   modalShowStyle: "opacity:1;pointer-events:auto;"
-    // })
-  },
-  tapNameOne: function (event) {
-    this.setData({
-      switchOne: true,
-      switchTwo: false,
-      switchThree: false,
-      switchFour: false
-    })
-  },
-  tapNameTwo: function (event) {
-    this.setData({
-      switchOne: false,
-      switchTwo: true,
-      switchThree: false,
-      switchFour: false,
-      navShowStyleTwo: "background-color: #f7f7f7;",
-      navShowStyleOne: "background-color: #e5e5e5;",
-      navShowStyleThree: "background-color: #e5e5e5;",
-      navShowStyleFour: "background-color: #e5e5e5;"
-    })
-  },
-  tapNameThree: function (event) {
-    this.setData({
-      switchOne: false,
-      switchTwo: false,
-      switchThree: true,
-      switchFour: false,
-      navShowStyleThree: "background-color: #f7f7f7;",
-      navShowStyleOne: "background-color: #e5e5e5;",
-      navShowStyleTwo: "background-color: #e5e5e5;",
-      navShowStyleFour: "background-color: #e5e5e5;"
-    })
-  },
-  tapNameFour: function (event) {
-    this.setData({
-      switchOne: false,
-      switchTwo: false,
-      switchThree: false,
-      switchFour: true,
-      navShowStyleFour: "background-color: #f7f7f7;",
-      navShowStyleThree: "background-color: #e5e5e5;",
-      navShowStyleOne: "background-color: #e5e5e5;",
-      navShowStyleTwo: "background-color: #e5e5e5;"
-    })
-  },
-  testbind: function (e) {
-    console.log(e.currentTarget.id)
-    this.setData({
-      option: e.currentTarget.id
-    }),
-      this.hideModal();
-
-  },
-  // 隐藏模态框
-  hideModal() {
-    this.setData({ modalShowStyle: "" });
-  },
-  //请求店家服务类型
-  // sendCategory: function () {
-  //   this.send("http://radar.3vcar.com/category/all/", {}, "GET", function (res) {
-  //     console.log(res)
-  //   })
-  // },
-  onHide: function () {
-    // Do something when page hide.
-    console.log("logs page execute: onHide.");
-  },
-  onUnload: function () {
-    console.log("logs page execute: onUnload.");
-  },
-  onPullDownRefresh: function () {
-    // Do something when pull down.
-    console.log("logs page execute: onPullDownRefresh.");
-  },
-  onReachBottom: function () {
-    // Do something when page reach bottom.
-    console.log("logs page execute: onReachBottom.");
   }
 })

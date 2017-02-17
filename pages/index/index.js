@@ -62,7 +62,7 @@ Page({
     wx.request({
       url: "http://radar.3vcar.com/shop/search/", //获取所有商家
       data: {
-        name: this.data.name,
+        name: '',
         longitude: 117.52412,
         latitude: 38.98755,
         category: "",
@@ -77,9 +77,9 @@ Page({
         for(var i=0;i<res.data.length;i++){
           arr.push(res.data[i].code)
         }
-          that.setData({
-            shop: res.data,arr:arr
-          })
+        that.setData({
+          shop: res.data,arr:arr
+        })
       }
     })
     // app.send("http://radar.3vcar.com//shop/search/")
@@ -105,8 +105,7 @@ Page({
     console.log(this.data.arr)
   },
   bindKeyInput: function (e) {
-    console.log(e.detail.value
-    )
+    console.log(e.detail.value)
   },
 
   formSubmit: function (e) {
@@ -136,6 +135,11 @@ Page({
   },
 
   onPullDownRefresh: function(){
+    wx.showToast({
+      title: '拼命加载中',
+      icon: 'loading',
+      duration: 10000
+    })
     console.log('onLoad')
     var that = this
     //调用应用实例的方法获取全局数据
@@ -160,13 +164,16 @@ Page({
           that.setData({
             shop: res.data,arr:arr
           })
+        wx.hideToast()
       }
     })
     wx.stopPullDownRefresh()
+  },
+
+  bindtap:function(){
+    wx.navigateTo({
+       url: 'pages/category/category'
+    })
   }
-
-
-
-
 
 })

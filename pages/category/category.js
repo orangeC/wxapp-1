@@ -83,7 +83,6 @@ Page({
       } else {
 
       }
-      var listOne = new Array();
       this.setData({
         listOne: arr,
         sort: false,
@@ -112,7 +111,6 @@ Page({
       if (this.data.obj[i].code.length == 6 && this.data.obj[i].code.substring(0, 3) == e.currentTarget.dataset.id) {
         arr2.push(this.data.obj[i])
       };
-      var listTwo = new Array();
       console.log("arr2" + arr2)
       this.setData({
         listTwo: arr2,
@@ -129,7 +127,6 @@ Page({
       if (this.data.obj[i].code.length == 9 && this.data.obj[i].code.substring(0, 6) == e.currentTarget.dataset.gid) {
         arr3.push(this.data.obj[i])
       };
-      var listTwo = new Array();
       console.log("arr3" + arr3)
       this.setData({
         listThree: arr3,

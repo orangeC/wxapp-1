@@ -12,26 +12,26 @@
       <form bindsubmit="formSubmit" bindreset="formReset">
         <view class="index-head search" >
           <input placeholder="家政服务" bindinput="bindKeyInput" name="input"/>
-          <button form-type="submit" style="width:20px;height:30px;">1
-            <!--<image class="u105_img" src="/images/u105.png" mode="scaleToFill"></image>-->
-          </button>
+          <!--<button form-type="submit" style="width:20px;height:30px;">
+          </button>-->
+          <icon type="search" form-type="submit" size="20"></icon><button form-type="submit">1</button>
         </view>
       </form>
   </view>
   <view class="selector">
-    <navigator url="url" class="selectorNav">
+    <view class="selectorNav" bindtap="bindtap">
         <view class="selectorNavT">
             <image src="../../images/u177.png" class="selectorImg"></image>
             <text>个人服务</text>
         </view>  
-    </navigator>
-    <view class="selectorNav">
+    </view>
+    <view class="selectorNav" bindtap="bindtap">
         <view class="selectorNavT">
             <image src="../../images/u179.png" class="selectorImg"></image>
             <text>对公服务</text>
         </view>  
     </view>
-    <view class="selectorNav">
+    <view class="selectorNav" bindtap="bindtap">
         <view class="selectorNavT">
             <image src="../../images/u181.png" class="selectorImg"></image>
             <text>其他服务</text>

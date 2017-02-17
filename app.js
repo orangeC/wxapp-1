@@ -1,65 +1,29 @@
 var send = require('./utils/request.js');
 //app.js
 App({
-
   send: send.send,
   onLaunch: function () {
     var that = this;
-    console.log(send);
-    //调用API从本地缓存中获取数据
-    var logs = wx.getStorageSync('logs') || [];
-    logs.unshift(Date.now());
-    wx.setStorageSync('logs', logs);
+
+    //获取小程序登录凭证并缓存
     this.getClientData();
     //请求店家服务类型
     this.sendCategory();
-   
-  },
 
-  onShow: function () {
-    console.log("onshow")
-  },
-  onHide: function () {
-    console.log("我去干点别的")
-  },
-  getUserInfo: function (cb) {
-    var that = this
-    if (this.globalData.userInfo) {
-      typeof cb == "function" && cb(this.globalData.userInfo)
-    } else {
-      //调用登录接口
-      wx.login({
-        success: function () {
-          wx.getUserInfo({
-            success: function (res) {
-              that.globalData.userInfo = res.userInfo
-              typeof cb == "function" && cb(that.globalData.userInfo)
-            }
-          })
-        }
-      })
-    }
-  },
-  //get locationInfo   定位获取当前位置
-  getLocationInfo: function (cb) {
-    var that = this;
-    if (this.globalData.locationInfo) {
-      cb(this.globalData.locationInfo)
-    } else {
-      wx.getLocation({
-        type: 'gcj02', // 默认为 wgs84 返回 gps 坐标，gcj02 返回可用于 wx.openLocation 的坐标
-        success: function (res) {
-          that.globalData.locationInfo = res;
-          cb(that.globalData.locationInfo)
-        },
-        fail: function () {
-          // fail
-        },
-        complete: function () {
-          // complete
-        }
-      })
-    }
+    //调用API从本地缓存中获取数据user
+    wx.getStorage({
+      key: 'user',
+      success: function (res) {
+        that.globalData.user = res.data;
+      }
+    })
+    //调用API从本地缓存中获取数据data
+    wx.getStorage({
+      key: 'data',
+      success: function (res) {
+        that.globalData.data = res.data;
+      }
+    })
   },
 
   //获取小程序登录凭证并缓存
@@ -98,17 +62,13 @@ App({
               timestamp2 = timestamp2 / 1000;
               // 
               console.log(stringTime + "的时间戳为：" + timestamp2);
-              var obj = {};
-              obj.ClientCode = res.data.ClientCode;
-              obj.ExpiredTime = timestamp2;
+              var obj = {
+                ClientCode: res.data.ClientCode,
+                ExpiredTime: timestamp2
+              };
               console.log(obj);
               wx.setStorageSync('user', obj);//存储openid
-              that.globalData.user.ClientCode = obj.ClientCode;
-              that.globalData.user.ExpiredTime = obj.ExpiredTime;
 
-              console.log(obj)
-              console.log(that.globalData.user)
-              console.log("上一行是已经缓存的")
             })
           }
         }
@@ -133,19 +93,20 @@ App({
         var time2 = Date.parse(new Date()) + 86400000;
         console.log("一天后时间戳：" + time2);
 
-        var data = {};
-        data.RequestData = res.data;
-        data.ExpiredTime = time2;
+        var data = {
+          RequestData: res.data,
+          ExpiredTime: time2
+        };
         console.log(data);
         wx.setStorageSync('data', data);//存储请求来的category
       })
     }
 
   },
+
   globalData: {
     user: {},
-    locationInfo: null,
-    category: []
+    data: {}
   }
 
 })

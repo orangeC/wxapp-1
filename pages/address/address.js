@@ -133,21 +133,21 @@ Page({
         //         })
         //         wx.hideToast();
         // })
-        wx.request({
-            url: 'https://raw.githubusercontent.com/orangeC/wxapp-1/master/data/data.json', //仅为示例，并非真实的接口地址
+        // wx.request({
+        //     url: 'https://raw.githubusercontent.com/orangeC/wxapp-1/master/data/data.json', //仅为示例，并非真实的接口地址
 
-            header: {
-                'content-type': 'application/json'
-            },
-            success: function (res) {
-                var data = res.data;
-                console.log(data)
-                that.setData({
-                    markers: data
-                })
-                wx.hideToast();
-            }
-        })
+        //     header: {
+        //         'content-type': 'application/json'
+        //     },
+        //     success: function (res) {
+        //         var data = res.data;
+        //         console.log(data)
+        //         that.setData({
+        //             markers: data
+        //         })
+        //         wx.hideToast();
+        //     }
+        // })
     },
     //获取中间点的经纬度，并mark出来
     getLngLat: function () {
