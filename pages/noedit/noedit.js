@@ -4,11 +4,11 @@ Page({
   data: {
     title: "",
     Category: "请选择服务类型",
-    name: "请输入名称",
-    phone: "请输入电话",
+    name: "",
+    phone: "",
     address: "您的地理位置",
-    scope: "服务范围",
-    description: "请详细的描述",
+    scope: "",
+    description: "",
     hidden: true,
     intro: false,
     tab: false,
@@ -25,6 +25,13 @@ Page({
     that.setData({
       clientid: ClientCode
     });
+     //调用API从本地缓存中获取数据user
+    wx.getStorage({
+      key: 'user',
+      success: function (res) {
+        that.setData({ clientid:res.data.ClientCode })
+      }
+    });
   },
   onReady: function () {
     var that = this;
@@ -32,7 +39,8 @@ Page({
 
     //获得某个商家
     app.send("http://radar.3vcar.com/shop/load/", { code: that.data.clientid }, "GET", function (res) {
-      if (res) {
+      if (res.data) {
+        console.log(res);
         var data = res.data;
         console.log(that.data.clientid)
         console.log(data)
@@ -77,21 +85,10 @@ Page({
 
       //设置type
       var types = { "Business": 1, "Client": 2, "Other": 3 };
-      that.setData({ switchTab: types[that.data.type] })
-      // if (that.data.type == "Business") {
-      //   console.log(that.data.type)
-      //   that.setData({ switchTab: 1 })
-      // }
-      // else if (that.data.type == "Client") {
-      //   that.setData({ switchTab: 2 })
-      //   console.log(that.data.type)
-      //   console.log(that.data.switchTab)
-      // }
-      // else {
-      //   that.setData({ switchTab: 3 })
-      //   console.log(that.data.type)
-      //   console.log(that.data.switchTab)
-      // }
+      that.setData({
+        switchTab: types[that.data.type]
+      })
+
     })
 
 
@@ -145,7 +142,7 @@ Page({
     })
     console.log(this.data.description)
   },
-   // 点击选择类型
+  // 点击选择类型
   touchlist: function (event) {
     wx.navigateTo({
       url: '/pages/category/category'

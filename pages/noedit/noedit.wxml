@@ -14,14 +14,14 @@
     <text class="normal-text">名称</text>
 
     <!--<text class="normal-color">{{item.name}}</text>-->
-    <input type="text" class="normal-input-address" bindinput="getInputName" placeholder="{{name}}" />
+    <input type="text" class="normal-input-address" bindinput="getInputName" value="{{name}}" placeholder="请输入名称" />
     <view hidden="{{hidden}}">已认证</view>
   </view>
   <view class="edit-tel normal">
     <text class="normal-text">电话</text>
 
     <!--<text class="normal-color">{{item.tel}}</text>-->
-    <input type="number" class="normal-input-address" bindinput="getInputPhone" placeholder="{{phone}}" />
+    <input type="number" class="normal-input-address" bindinput="getInputPhone" value="{{phone}}" placeholder="请输入电话" />
   </view>
   <view class="edit-address normal">
     <text class="normal-text">位置</text>
@@ -75,19 +75,19 @@
   </view>
   <view class="edit-range normal">
     <text class="normal-text">服务范围</text>
-    <input class="normal-input-range" bindinput="getInputScope" placeholder="{{scope}}" />
+    <input class="normal-input-range" bindinput="getInputScope" value="{{scope}}" placeholder="服务范围" />
 
     <!--<text class="normal-color">{{item.range}}</text>-->
     <image class="u592_img" src="/images/u591.png" mode="scaleToFill"></image>
   </view>
   <view wx:if="{{intro}}" class="edit-info normal">
     <text class="normal-text">服务介绍</text>
-    <input class="normal-input-info" placeholder="{{description}}" bindinput="getInputDes" />
+    <input class="normal-input-info" placeholder="请详细的描述" value="{{description}}" bindinput="getInputDes" />
     <image class="u592_img" src="/images/u591.png" mode="scaleToFill"></image>
   </view>
   <view wx:else class="edit-range normal">
     <text class="normal-text">服务介绍</text>
-    <input class="normal-input-info" placeholder="{{description}}" bindinput="getInputDes" />
+    <input class="normal-input-info" placeholder="请详细的描述" value="{{description}}" bindinput="getInputDes" />
     <image class="u592_img" src="/images/u591.png" mode="scaleToFill"></image>
   </view>
   <view wx:if="{{submit}}" class="last" bindtap="handlejump">保存并重新提交审核</view>

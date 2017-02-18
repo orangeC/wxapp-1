@@ -61,26 +61,15 @@
   width: 300rpx;
 }
 
-/*.nav {
-  background-color: #fff;
-  display: flex;
-  border: #ddd solid 1px;
-  padding: 25rpx;
-  justify-content: space-around;
+.search button{
+  width: 20px;
+  height: 30px;
+  border-color: white
 }
+.search button icon{
+  margin-left: -10px;
 
-.nav>view {
-  width: 90px;
-  text-align: center;
-  padding: 3rpx;
-  font-size: 14px;
 }
-
-.nav-img {
-  height: 46px;
-  width: 46px;
-  margin-bottom: 15rpx;
-}*/
 
 /*
 **selector**

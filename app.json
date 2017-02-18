@@ -5,6 +5,7 @@
     "pages/category/category",  
     "pages/offer/offer",
     "pages/address/address",
+    "pages/empty/empty",
     "pages/other/other"
   ],
   "tabBar": {
@@ -15,13 +16,13 @@
     "list": [{
       "pagePath": "pages/index/index",
       "text": "寻找服务",
-      "iconPath":"images/u830.png",
-      "selectedIconPath":"images/u820.png"
+      "iconPath":"images/2.png",
+      "selectedIconPath":"images/1.png"
     }, {
-      "pagePath": "pages/noedit/noedit",
+      "pagePath": "pages/empty/empty",
       "text": "提供服务",
-      "iconPath":"images/u818.png",
-      "selectedIconPath":"images/u828.png"
+      "iconPath":"images/4.png",
+      "selectedIconPath":"images/3.png"
     }]
   },
   "window":{

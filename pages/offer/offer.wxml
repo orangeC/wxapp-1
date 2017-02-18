@@ -1,3 +1,3 @@
 <import src="../template/template.wxml" />
-<template is="templateunit" data="{{hidden,showList,point}}" />
+<template is="templateunit" data="{{hidden,Head,Name,LikedAmount,Phone,Address,Longitude,Latitude,markers,Category,Description,point,controls}}" />
 <view class="last" bindtap="handlejump">编辑</view>

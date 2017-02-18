@@ -1,4 +1,4 @@
 <import src="../template/template.wxml" />
-<template is="templateunit" data="{{hidden,Head,Name,LikedAmount,Phone,Address,Longitude,Latitude,Category,Description,point,controls}}" />
+<template is="templateunit" data="{{hidden,Head,Name,LikedAmount,Phone,Address,Longitude,Latitude,markers,Category,Description,point,controls}}" />
 
 

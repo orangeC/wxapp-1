@@ -1,14 +1,15 @@
 //index.js
+var QQMapWX = require('../../utils/qqmap-wx-jssdk.min.js');
+var qqmapsdk;
 //获取应用实例
 var app = getApp();
 var common = require("../../utils/common.js")
 Page({
   data: {
     name: "",
-    address: "",
     latitude: 0,
     longitude: 0,
-    address: "定位当前位置",
+    address: "获取周边位置",
     show: true,
     shop: {},
     arr: []
@@ -20,44 +21,14 @@ Page({
     wx.navigateTo({
       url: '../address/address'
     })
-    // var that = this;
-    // wx.getLocation({
-    //   type: 'wgs84',
-    //   success: function (res) {
-    //     var latitude = res.latitude
-    //     var longitude = res.longitude
-    //     wx.chooseLocation({
-    //       fail:function(){
-    //         console.log("地图没出来")
-    //       },
-    //       success:function(res){
-    //         var name = res.name
-    //         var address = res.address
-    //         var latitude = res.latitude
-    //         var longitude = res.longitude
-    //         that.setData({
-    //           name: name,
-    //           address: address,
-    //           latitude:latitude,
-    //           longitude:longitude
-    //         })
-    //         console.log( "纬度 : " +that.data.latitude)   //经纬度
-    //         console.log( "经度 : " +that.data.longitude)
-    //         console.log( "地点 : " +that.data.name)
-    //         console.log( "位置 : " +that.data.address)
-    //       }
-    //     })
-    //     // wx.openLocation({
-    //     //   latitude: latitude,
-    //     //   longitude: longitude,
-    //     //   scale: 28
-    //     // })
-    //   }
-    // })
   },
+
   onLoad: function () {
-    console.log('onLoad')
-    var that = this
+    console.log('onLoad');
+    var that = this;
+    qqmapsdk = new QQMapWX({
+			key: '3PGBZ-GMYKI-ZL752-5T752-BAAZZ-NBFMZ'
+		});
     //调用应用实例的方法获取全局数据
     wx.request({
       url: "http://radar.3vcar.com/shop/search/", //获取所有商家
@@ -81,25 +52,34 @@ Page({
           shop: res.data,arr:arr
         })
       }
-    })
-    // app.send("http://radar.3vcar.com//shop/search/")
+    });
+
+    	// 调用接口
+    	qqmapsdk.reverseGeocoder({
+    		poi_options: 'policy=2',
+    		get_poi: 1,
+		    success: function(res) {
+				console.log(res);
+				that.setData({
+					address: res.result.address
+				});
+		    },
+		    fail: function(res) {
+		//console.log(res);
+		    },
+		    complete: function(res) {
+		//console.log(res);
+		    }
+    	});
   },
+
   bindKeyJump:function(e){
     var i = e.target.id;
     wx.navigateTo({
       url: '/pages/other/other?data='+this.data.arr[i]
     })
   },
-  // onReady:function(){
-  //   this.getData()
-  // },
-
-  // getData:function(){
-  //   var that=this;
-  //   this.setData({
-  //     name:app.globalData.name
-  //   })
-  // },
+  
   onReady: function () {
     console.log("onshow")
     console.log(this.data.arr)
@@ -172,7 +152,7 @@ Page({
 
   bindtap:function(){
     wx.navigateTo({
-       url: 'pages/category/category'
+       url: '/pages/category/category'
     })
   }
 

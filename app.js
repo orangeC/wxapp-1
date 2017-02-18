@@ -9,21 +9,30 @@ App({
     this.getClientData();
     //请求店家服务类型
     this.sendCategory();
-
+    //获取商家列表
+    this.getShopList();
     //调用API从本地缓存中获取数据user
     wx.getStorage({
       key: 'user',
       success: function (res) {
         that.globalData.user = res.data;
       }
-    })
+    });
     //调用API从本地缓存中获取数据data
     wx.getStorage({
       key: 'data',
       success: function (res) {
         that.globalData.data = res.data;
       }
-    })
+    });
+    //调用API从本地缓存中获取数据shop
+    wx.getStorage({
+      key: 'shop',
+      success: function (res) {
+        that.globalData.shop = res.data;
+      }
+    });
+    console.log(this.globalData)    
   },
 
   //获取小程序登录凭证并缓存
@@ -82,9 +91,7 @@ App({
     var data = wx.getStorageSync('data') || {};
     // 获取当前时间戳(以s为单位)
     var time = Date.parse(new Date());
-
     console.log("当前时间戳为：" + time);
-
     console.log(data);
     if (!data.RequestData || (time > data.ExpiredTime)) {
       this.send("http://radar.3vcar.com/category/all/", {}, "GET", function (res) {
@@ -101,7 +108,36 @@ App({
         wx.setStorageSync('data', data);//存储请求来的category
       })
     }
+  },
 
+  //获取商家列表
+  getShopList:function(){
+    var that=this;
+    wx.request({
+      url: 'http://radar.3vcar.com/shop/search/',//获取所有商家
+      data: {
+        name: '',
+        longitude: 117.52412,
+        latitude: 38.98755,
+        category: "",
+        distance: 100000
+      },
+      method: 'GET', // OPTIONS, GET, HEAD, POST, PUT, DELETE, TRACE, CONNECT
+      header: {
+        'Content-Type': 'application/json'
+      },    // 设置请求的 header
+      success: function(res){
+        var shop=res.data;
+        wx.setStorageSync('shop', shop);
+        console.log('获取到的商店：',shop)
+      },
+      fail: function() {
+        console.log('error!')
+      },
+      complete: function() {
+        // complete
+      }
+    })
   },
 
   globalData: {

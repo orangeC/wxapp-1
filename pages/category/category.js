@@ -3,7 +3,7 @@ var app = getApp();
 var common = require("../../utils/common.js");
 Page({
   data: {
-    obj: {},
+    shop: {},
     listOne: {},
     listTwo: {},
     listThree: {},
@@ -36,26 +36,12 @@ Page({
         console.log(res)
       }
     });
-    wx.request({
-      url: "http://radar.3vcar.com/shop/search/", //获取所有商家
-      data: {
-        name: "",
-        longitude: 117.52412,
-        latitude: 38.98755,
-        category: '',
-        distance: 100000
-      },
-      header: {
-        'content-type': 'application/json'
-      },
-      method: "GET",
-      success: function (res) {
-        that.setData({
-          shop: res.data
-        })
-        console.log("附近的店为" + res.data)
-      }
-    })
+    //获取从API中缓存的shop
+    var shop = app.globalData.shop;
+    console.log(shop);
+    that.setData({
+      shop:shop
+    });
     console.log('初始化完成');
   },
 
@@ -152,7 +138,7 @@ Page({
         Category: this.data.category
       })
       wx.navigateBack({
-        url: '/pages/noedit/noedit'
+        delta: 1
       })
     }
 

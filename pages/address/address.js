@@ -9,15 +9,26 @@ Page({
         address: "",
         latitude: 0,
         longitude: 0,
-        hidden: true,
-        
+        hidden: true,  
     },
-    //事件处理函数
-    onReady: function (e) {
-        // 使用 wx.createMapContext 获取 map 上下文 
-        this.mapCtx = wx.createMapContext('myMap')
-        
+
+    onLoad: function (){
+        this.mapCtx = wx.createMapContext('myMap');
+        var that = this;
+        wx.getLocation({
+            type: 'wgs84',
+            success: function(res) {
+                var latitude = res.latitude
+                var longitude = res.longitude
+                that.setData({
+                    latitude: latitude,
+                    longitude: longitude
+                })            
+            }
+        });        
     },
+    
+    
 
     //获取位置
     bindKeyInput: function () {
@@ -58,38 +69,17 @@ Page({
                         console.log("位置 : " + that.data.address)
                     }
                 })
-                // wx.openLocation({
-                //   latitude: latitude,
-                //   longitude: longitude,
-                //   scale: 28
-                // })
             }
         })
-        // 获取定位，并把位置标示出来
-        // app.getLocationInfo(function (locationInfo) {
-        //     console.log('map', locationInfo);
-        //     that.setData({
-        //         longitude: locationInfo.longitude
-        //         , latitude: locationInfo.latitude
-        //         , markers: [
-        //             {
-        //                 id: 7
-        //                 , longitude: locationInfo.longitude
-        //                 , latitude: locationInfo.latitude
-        //                 , width: 30
-        //                 , height: 30
-        //             }
-        //         ]
-        //     })
-        // })
 
     },
+
     //移动地图时发生
-    regionchange(e) {
-        if (e.type == 'end') {
-            this.showmarkers()
-        }
-    },
+    // regionchange(e) {
+    //     if (e.type == 'end') {
+    //         this.showmarkers()
+    //     }
+    // },
     getCenterLocation: function () {
         this.getLngLat()
     },
@@ -119,36 +109,22 @@ Page({
             icon: 'loading',
             duration: 5000
         });
-
-        // 输入框没有输入的判断
-        // if (that.data.inputValue == '') {
-        //     wx.hideToast();
-        //     return;
-        // };
-        // app.send("data/data.json",{ },"GET",function(res){
-        //     var data = res.data;
-        //         console.log(data)
-        //         that.setData({
-        //             markers: data
-        //         })
-        //         wx.hideToast();
-        // })
-        // wx.request({
-        //     url: 'https://raw.githubusercontent.com/orangeC/wxapp-1/master/data/data.json', //仅为示例，并非真实的接口地址
-
-        //     header: {
-        //         'content-type': 'application/json'
-        //     },
-        //     success: function (res) {
-        //         var data = res.data;
-        //         console.log(data)
-        //         that.setData({
-        //             markers: data
-        //         })
-        //         wx.hideToast();
-        //     }
-        // })
+        wx.request({
+            url: 'https://raw.githubusercontent.com/orangeC/wxapp-1/master/data/data.json', 
+            header: {
+                'content-type': 'application/json'
+            },
+            success: function (res) {
+                var data = res.data;
+                console.log(data)
+                that.setData({
+                    markers: data
+                })
+                wx.hideToast();
+            }
+        })
     },
+    
     //获取中间点的经纬度，并mark出来
     getLngLat: function () {
         var that = this;
