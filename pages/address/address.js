@@ -1,5 +1,4 @@
 //index.js
-//获取应用实例
 var app = getApp();
 Page({
     data: {
@@ -13,7 +12,6 @@ Page({
     },
 
     onLoad: function (){
-        this.mapCtx = wx.createMapContext('myMap');
         var that = this;
         wx.getLocation({
             type: 'wgs84',
@@ -89,16 +87,20 @@ Page({
 
     //点击搜索获取附近的点
     bindBtn: function () {
-        this.showmarkers(),
+        // this.showmarkers(),
         app.globalData.name=this.data.name,
         console.log("当前地址为"+this.data.name),
-        console.log("当前地址为"+app.globalData.name),
-        setTimeout(function () {
-            wx.switchTab({
-                url: '/pages/index/index'
-            })
-        }, 1500);
+        // console.log("当前地址为"+app.globalData.name),
+        wx.redirectTo({
+            key: 'address',
+            url:'/pages/index/index',
+            success:function(){
+                var address=this.data.name;
+                wx.setStorageSync('address', address);
+            }
+        })
     },
+
     //请求附近的点
     showmarkers: function () {
         var that = this;
@@ -164,5 +166,4 @@ Page({
             }
         })
     }
-
 })

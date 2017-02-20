@@ -10,10 +10,11 @@
   height: 55rpx;
   justify-content: flex-start;
   align-items: center;
-  padding: 20rpx;
+  padding: 20rpx 0;
   font-size: 0.8em;
   border-bottom: 1px solid #edecf2;
   background-color: #fff;
+  position: relative;
 }
 
 .normal-text {
@@ -27,25 +28,12 @@
 }
 
 .u249_img {
-  width: 35px;
-  height: 35px;
-  border-radius: 50%;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%; 
 }
 
-.u567_img {
-  width: 40px;
-  height: 40px;
-  position: relative;
-}
-.u569_img {
-  width: 17px;
-  height: 17px;
-  position: absolute;
-  top: 25%;
-  left: 30%;
-}
-
-.edit-name>view {
+/*.edit-name>view {
   width: 55px;
   height: 28px;
   background-color: #ffd200;
@@ -53,7 +41,7 @@
   text-align: center;
   line-height: 28px;
   font-size: 0.8em;
-}
+}*/
 
 .edit-address {
   letter-spacing: -0.08em;
@@ -154,6 +142,7 @@
 .u592_img {
   position: absolute;
   right: 2.5%;
+  top: 32%;
   width: 9px;
   height: 15px;
 }
@@ -171,17 +160,21 @@
   align-items: center;
 }
 .normal-input-address{
-  width:500rpx;
+  width:100%;
   position: absolute;
-  right: 6.5%;
+  right: 7%;
+  top: 30%;
   text-align: right;
   overflow: hidden;
   white-space: nowrap;
   text-overflow: ellipsis;
 }
+.normal-input-head{
+  top: 10%;
+}
 .normal-input-range{
   position: absolute;
-  right: 9%;
+  right: 7%;
   text-align: right;
 }
 .normal-input-info{
@@ -190,46 +183,6 @@
   text-align: right;
 }
 
-/*model*/
-
-.modal {
-    position: fixed;
-    top: 0;
-    left: 0;
-    bottom: 0;
-    right: 0;
-    background: rgba(0, 0, 0, .5);
-    z-index: 99999;
-    opacity: 0;
-    transition: opacity 100ms ease-in;
-    pointer-events: none;
-    display: flex;
-    flex-direction: row;
-}
-.modal>view{
-  width:33%;
-}
-.nav-list{
-  width:100%;
-  height:auto;
-  display: flex;
-}
-.nav-list>view{
-  background-color: #e5e5e5;
-  padding: 25rpx;
-  font-size: .7em;
-}
-.nav-list-center{
-  width:33%;
-  height:auto;
-  display: flex;
-  flex-direction: column;
-}
-.nav-list-center navigator{
-  background-color: #f7f7f7;
-  padding: 25rpx;
-  font-size: .7em;
-}
 @media (min-width: 375px) {
   .u187_img {
     position: absolute;

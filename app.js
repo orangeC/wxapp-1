@@ -58,7 +58,7 @@ App({
           if (res.code) {
             console.log("code " + res.code)
             var code = res.code
-            that.send("http://radar.3vcar.com/wechat/token", { code }, "GET", function (res) {
+            that.send("http://radar.3vcar.com/wechat/token/", { code }, "GET", function (res) {
               console.log(res)
               console.log(res.data.ClientCode)
               console.log(res.data.ExpiredTime)

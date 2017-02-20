@@ -9,7 +9,7 @@ Page({
     name: "",
     latitude: 0,
     longitude: 0,
-    address: "获取周边位置",
+    areaSelectedStr: "定位中",
     show: true,
     shop: {},
     arr: []
@@ -24,36 +24,22 @@ Page({
   },
 
   onLoad: function () {
+    qqmapsdk = new QQMapWX({
+			key: 'BJFBZ-ZFTHW-Y2HRO-RL2UZ-M6EC3-GMF4U'
+		});
     console.log('onLoad');
     var that = this;
-    qqmapsdk = new QQMapWX({
-			key: '3PGBZ-GMYKI-ZL752-5T752-BAAZZ-NBFMZ'
-		});
-    //调用应用实例的方法获取全局数据
-    wx.request({
-      url: "http://radar.3vcar.com/shop/search/", //获取所有商家
-      data: {
-        name: '',
-        longitude: 117.52412,
-        latitude: 38.98755,
-        category: "",
-        distance: 100000
-      },
-      header: {
-        'content-type': 'application/json'
-      },
-      method: "GET",
-      success: function (res) {
-        var arr = [];
-        for(var i=0;i<res.data.length;i++){
-          arr.push(res.data[i].code)
-        }
-        that.setData({
-          shop: res.data,arr:arr
-        })
-      }
+    //获取从API中缓存的shop
+    var shop = app.globalData.shop;
+    console.log('商家',shop);
+    that.setData({
+      shop:shop
     });
+    console.log('商店类型',shop[1].type)
+  },
 
+  onShow:function(){
+    var that = this;
     	// 调用接口
     	qqmapsdk.reverseGeocoder({
     		poi_options: 'policy=2',
@@ -61,14 +47,14 @@ Page({
 		    success: function(res) {
 				console.log(res);
 				that.setData({
-					address: res.result.address
+					areaSelectedStr: res.result.address
 				});
 		    },
 		    fail: function(res) {
-		//console.log(res);
+		//         console.log(res);
 		    },
 		    complete: function(res) {
-		//console.log(res);
+		//         console.log(res);
 		    }
     	});
   },
@@ -155,5 +141,4 @@ Page({
        url: '/pages/category/category'
     })
   }
-
 })

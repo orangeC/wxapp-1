@@ -32,8 +32,8 @@ Page({
       success: function (res) {
         that.setData({
           obj: res.data
-        })
-        console.log(res)
+        });
+        console.log(res);
       }
     });
     //获取从API中缓存的shop
@@ -42,6 +42,7 @@ Page({
     that.setData({
       shop:shop
     });
+    console.log(shop[0].type);
     console.log('初始化完成');
   },
 
@@ -57,7 +58,6 @@ Page({
 
   // 点击显示模拟框按钮
   touchlist: function (e) {
-    var that = this;
     this.setData({
       modalShowStyle: "opacity:1;pointer-events:auto;"
     });
@@ -78,7 +78,6 @@ Page({
   },
 
   sort: function () {
-    var that = this;
     this.setData({
       modalShowStyle: "opacity:1;pointer-events:auto;",
       cat: false,
@@ -91,7 +90,6 @@ Page({
   },
 
   touchList2: function (e) {
-    var that = this;
     var arr2 = new Array();
     for (var i = 0; i < 60; i++) {
       if (this.data.obj[i].code.length == 6 && this.data.obj[i].code.substring(0, 3) == e.currentTarget.dataset.id) {
@@ -107,7 +105,6 @@ Page({
   },
 
   touchList3: function (e) {
-    var that = this;
     var arr3 = new Array();
     for (var i = 0; i < 60; i++) {
       if (this.data.obj[i].code.length == 9 && this.data.obj[i].code.substring(0, 6) == e.currentTarget.dataset.gid) {
@@ -141,7 +138,6 @@ Page({
         delta: 1
       })
     }
-
   },
 
   testbind2: function (e) {

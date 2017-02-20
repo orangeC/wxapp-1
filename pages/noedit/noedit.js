@@ -11,27 +11,23 @@ Page({
     description: "",
     hidden: true,
     intro: false,
-    tab: false,
-    Head: "",
+    Head: "/images/u567a.png",
     submit: false,
     switchTab: 1
   },
   onLoad: function () {
 
     var that = this;
-    //获取内存中user 的 ClientCode
-    var ClientCode = app.globalData.user.ClientCode;
-    console.log(ClientCode);
-    that.setData({
-      clientid: ClientCode
-    });
-     //调用API从本地缓存中获取数据user
+    //调用API从本地缓存中获取数据user
     wx.getStorage({
       key: 'user',
       success: function (res) {
-        that.setData({ clientid:res.data.ClientCode })
+        that.setData({
+          clientid: res.data.ClientCode
+        });
       }
     });
+
   },
   onReady: function () {
     var that = this;
@@ -45,7 +41,6 @@ Page({
         console.log(that.data.clientid)
         console.log(data)
         that.setData({
-          tab: true,
           Head: data.Head,
           name: data.Name,
           phone: data.Phone,
@@ -94,24 +89,26 @@ Page({
 
   },
   onShow: function () {
+    console.log("onshow");
     var that = this;
-    // if (this.data.title == "商家入驻") {
-    //   that.setData({
-    //     hidden: true
-    //   })
-    // }
-    //获取内存中data 的 RequestData
-    var RequestData = app.globalData.data.RequestData;
-    console.log(RequestData);
-    //将获取到的 RequestData 编码换成对应的name
-    for (var i = 0; i < RequestData.length; i++) {
-      if (RequestData[i].code == that.data.Category) {
-        that.setData({
-          Category: RequestData[i].name
-        });
-        break;
+    //调用API从本地缓存中获取数据data
+    wx.getStorage({
+      key: 'data',
+      success: function (res) {
+        var RequestData = res.data.RequestData;
+        console.log(RequestData);
+        //将获取到的 RequestData 编码换成对应的name
+        for (var i = 0; i < RequestData.length; i++) {
+          if (RequestData[i].code == that.data.Category) {
+            that.setData({
+              Category: RequestData[i].name
+            });
+            break;
+          }
+        };
       }
-    };
+    });
+
 
   },
   //获取输入框名字
@@ -230,8 +227,7 @@ Page({
               var a = JSON.parse(data)[0].origin;
               console.log(a)
               that.setData({  //上传成功修改显示头像
-                Head: "http://image.3vcar.com" + a,
-                tab: true
+                Head: "http://image.3vcar.com" + a
               })
             },
 
