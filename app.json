@@ -1,5 +1,6 @@
 {
   "pages":[  
+    "pages/notice/notice",
     "pages/about/about",
     "pages/index/index",  
     "pages/noedit/noedit", 
