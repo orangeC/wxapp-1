@@ -35,11 +35,6 @@ Page({
     that.setData({
       shop:shop
     });
-    console.log('商店类型',shop[1].type)
-  },
-
-  onShow:function(){
-    var that = this;
     	// 调用接口
     	qqmapsdk.reverseGeocoder({
     		poi_options: 'policy=2',
@@ -57,6 +52,19 @@ Page({
 		//         console.log(res);
 		    }
     	});
+  },
+
+  onShow:function(){
+    var that = this;
+    wx.getStorage({
+    key: 'address',
+    success: function (res) {
+      that.setData({
+          areaSelectedStr:res.data
+        });
+        console.log('获取：',res.data)
+      }
+    });
   },
 
   bindKeyJump:function(e){

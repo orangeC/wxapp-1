@@ -27,8 +27,8 @@ Page({
   /**
    * 生命周期函数--监听页面加载
    */
-  onLoad: function onLoad(item) {
-    console.log("item");
+  onLoad: function(item) {
+    console.log(item);
     var that = this;
     that.setData({ item: item.data })
     console.log(this.data.item);
@@ -70,7 +70,7 @@ Page({
   /**
    * 生命周期函数--监听页面初次渲染完成
    */
-  onReady: function onReady() {
+  onReady: function() {
     wx.setNavigationBarTitle({ title: this.data.title });
   },
   //打电话
