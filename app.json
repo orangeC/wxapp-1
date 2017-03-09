@@ -1,9 +1,9 @@
 {
   "pages":[  
+    "pages/noedit/noedit", 
     "pages/notice/notice",
     "pages/about/about",
     "pages/index/index",  
-    "pages/noedit/noedit", 
     "pages/category/category",  
     "pages/offer/offer",
     "pages/address/address",
