@@ -13,7 +13,8 @@ Page({
     intro: false,
     Head: "/images/u567a.png",
     submit: false,
-    switchTab: 1
+    switchTab: 1,
+    checkbox: true
   },
   onLoad: function () {
 
@@ -51,8 +52,7 @@ Page({
           scope: data.Scope,
           description: data.Description,
           code: data.Code,
-          type: data.Type,
-          submit: true
+          type: data.Type
         })
         wx.setNavigationBarTitle({ title: "编辑信息" });
       } else {
@@ -111,90 +111,63 @@ Page({
 
 
   },
-  //获取输入框名字
-  getInputName: function (e) {
-    this.setData({
-      name: e.detail.value
-    })
-    console.log(this.data.name)
-  },
-  //获取输入框电话
-  getInputPhone: function (e) {
-    this.setData({
-      phone: e.detail.value
-    })
-    console.log(this.data.phone)
-  },
-  //获取输入框范围
-  getInputScope: function (e) {
-    this.setData({
-      scope: e.detail.value
-    })
-    console.log(this.data.scope)
-  },
-  //获取输入框介绍
-  getInputDes: function (e) {
-    this.setData({
-      description: e.detail.value
-    })
-    console.log(this.data.description)
-  },
+
   // 点击选择类型
   touchlist: function (event) {
     wx.navigateTo({
       url: '/pages/category/category'
     })
   },
-
-  //提交申请
-  handlejump: function () {
+  checkboxChange: function () {
+    this.setData({ checkbox: !this.data.checkbox })
+  },
+  formSubmit: function (e) {
     var that = this;
-    wx.showToast({
-      title: '已提交，请等待审核',
-      icon: 'loading',
-      duration: 3000,
-      success: function (res) {
-        var apply = that.data
-        console.log("code : " + apply.code)
-        console.log("名字： " + apply.name)
-        console.log("图片： " + apply.Head)
-        console.log("电话： " + apply.phone)
-        console.log("地址： " + apply.address)
-        console.log("纬度： " + apply.Latitude)
-        console.log("经度： " + apply.Longitude)
-        console.log("类型： " + apply.Category)
-        console.log("type： " + apply.type)
-        console.log("编码： " + apply.clientid)
-        console.log("描述： " + apply.description)
-        console.log("范围： " + apply.scope)
-        app.send("http://radar.3vcar.com/shop/save/",
-          {
-            code: apply.code,
-            name: apply.name,
-            head: apply.Head,
-            phone: apply.phone,
-            address: apply.address,
-            longitude: apply.Longitude,
-            latitude: apply.Latitude,
-            category: apply.Category,
-            type: apply.type,
-            client: apply.clientid,
-            description: apply.description,
-            scope: apply.scope
-          }
-          , "POST", function (res) {
-            console.log(res)
-          })
-        setTimeout(function () {
-          wx.hideToast()
-          wx.switchTab({
-            url: '/pages/index/index'
-          })
-        }, 3000)
-      }
-
-    });
-
+    if (this.data.checkbox) {
+      console.log('form发生了submit事件，携带数据为：', e.detail.value)
+      var eDetail = e.detail.value;
+      var apply = that.data;
+      console.log("code : " + apply.code)
+      console.log("name名字： " + eDetail.name)
+      console.log("head图片： " + apply.Head)
+      console.log("phone电话： " + eDetail.phone)
+      console.log("address地址： " + apply.address)
+      console.log("latitude纬度： " + apply.Latitude)
+      console.log("longitude经度： " + apply.Longitude)
+      console.log("category类型： " + apply.Category)
+      console.log("type： " + apply.type)
+      console.log("client编码： " + apply.clientid)
+      console.log("description描述： " + eDetail.description)
+      console.log("scope范围： " + eDetail.scope)
+      app.send("http://radar.3vcar.com/shop/save/",
+        {
+          code: apply.code,
+          name: eDetail.name,
+          head: apply.Head,
+          phone: eDetail.phone,
+          address: apply.address,
+          longitude: apply.Longitude,
+          latitude: apply.Latitude,
+          category: apply.Category,
+          type: apply.type,
+          client: apply.clientid,
+          description: eDetail.description,
+          scope: eDetail.scope
+        }
+        , "POST", function (res) {
+          console.log(res)
+        })
+    } else {
+      wx.showToast({
+        title: "您还未阅读协议！",
+        icon: 'loading',
+        duration: 1000
+      })
+      return;
+    }
+  },
+  formReset: function () {
+    console.log("重置")
   },
   //点击头像开始上传
   upload: function () {

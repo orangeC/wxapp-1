@@ -8,25 +8,29 @@ Page({
         address: "",
         latitude: 0,
         longitude: 0,
-        hidden: true,  
+        hidden: true,
     },
 
-    onLoad: function (){
+    onLoad: function () {
         var that = this;
         wx.getLocation({
             type: 'wgs84',
-            success: function(res) {
+            success: function (res) {
                 var latitude = res.latitude
                 var longitude = res.longitude
                 that.setData({
                     latitude: latitude,
                     longitude: longitude
-                })            
+                })
             }
-        });        
+        });
     },
-    
-    
+
+
+    onLaunch: function () {
+        var that = this;
+        
+    },
 
     //获取位置
     bindKeyInput: function () {
@@ -86,19 +90,48 @@ Page({
     },
 
     //点击搜索获取附近的点
-    bindBtn: function () {
+    // bindBtn: function () {
+
+    //     wx.openLocation({
+    //         latitude: 39.084170,
+    //         longitude: 117.200984,
+    //         scale: 28
+    bindBtn: function (e) {
         // this.showmarkers(),
-        app.globalData.name=this.data.name,
-        console.log("当前地址为"+this.data.name),
-        // console.log("当前地址为"+app.globalData.name),
-        wx.redirectTo({
-            key: 'address',
+        var that=this;
+        app.globalData.name=this.data.name;
+        console.log("当前地址为"+this.data.name);
+        // console.log("当前地址为"+app.globalData.name)
+        wx.switchTab({
             url:'/pages/index/index',
-            success:function(){
-                var address=this.data.name;
-                wx.setStorageSync('address', address);
+            success:function(res){
+                // wx.setStorage({
+                //     key: 'areaSelectedStr',
+                //     success: function (res) {
+                //     that.globalData.areaSelectedStr = res.areaSelectedStr;
+                //     console.log('当前地址：',res.areaSelectedStr)
+                //     }
+                // });
+                wx.setStorageSync('address', that.data.name)
+                console.log('11',that.data.name)
+            },
+            fail:function(){
+                console.log('error!!!!!!!')
             }
         })
+
+        // this.showmarkers(),
+        // app.globalData.name=this.data.name,
+        // console.log("当前地址为"+this.data.name),
+        // // console.log("当前地址为"+app.globalData.name),
+        // wx.redirectTo({
+        //     key: 'address',
+        //     url:'/pages/index/index',
+        //     success:function(){
+        //         var address=this.data.name;
+        //         wx.setStorageSync('address', address);
+        //     }
+        // })
     },
 
     //请求附近的点
@@ -112,7 +145,7 @@ Page({
             duration: 5000
         });
         wx.request({
-            url: 'https://raw.githubusercontent.com/orangeC/wxapp-1/master/data/data.json', 
+            url: 'https://raw.githubusercontent.com/orangeC/wxapp-1/master/data/data.json',
             header: {
                 'content-type': 'application/json'
             },
@@ -126,7 +159,7 @@ Page({
             }
         })
     },
-    
+
     //获取中间点的经纬度，并mark出来
     getLngLat: function () {
         var that = this;

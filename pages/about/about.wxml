@@ -1,0 +1,22 @@
+
+<!--pages/about/about.wxml-->
+<view class="container">
+  <view class="group">
+    <text class="title">公司简介</text>
+    <text class="content">公司自成立以来，一直专注于品牌汽车经销领域，与各大品牌厂家、经销商集团、以及海内外进口车商均建立了良好的合作关系。公司致力于整合全国、乃至全球的优质新车货源</text>
+  </view>
+  <view class="group">
+    <text class="title">收费标准</text>
+    <text class="content">本公司是一家立足京津、面向全国的高档汽车经销企业，主要销售奔驰、宝马、奥迪、保时捷、路虎、丰田、福特、大众等品牌汽车，涵盖国产、中规及平行进口车型。</text>
+  </view>
+  <view class="group">
+    <text class="title">加盟信息</text>
+    <text class="content">本公司是一家立足京津、面向全国的高档汽车经销企业，主要销售奔驰、宝马、奥迪、保时捷、路虎、丰田、福特、大众等品牌汽车，涵盖国产、中规及平行进口车型。</text>
+  </view>
+  <view class="lastGroup">
+    <view class="line"></view>
+    <image src="/images/u603.png" mode="aspectFit">
+    </image>
+    <text>微信号“weixiukuaixian”</text>
+  </view>
+</view>

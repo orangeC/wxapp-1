@@ -1,7 +1,9 @@
 {
   "pages":[  
+    "pages/noedit/noedit", 
+    "pages/notice/notice",
+    "pages/about/about",
     "pages/index/index",  
-    "pages/noedit/noedit",  
     "pages/category/category",  
     "pages/offer/offer",
     "pages/address/address",
@@ -23,7 +25,13 @@
       "text": "提供服务",
       "iconPath":"images/4.png",
       "selectedIconPath":"images/3.png"
-    }]
+    }, {
+      "pagePath": "pages/about/about",
+      "text": "关于我们",
+      "iconPath":"images/4.png",
+      "selectedIconPath":"images/3.png"
+    }
+    ]
   },
   "window":{
     "backgroundColor":"white",
