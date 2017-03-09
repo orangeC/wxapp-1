@@ -1,44 +1,53 @@
 {
-  "pages":[  
-    "pages/noedit/noedit", 
-    "pages/notice/notice",
+  "pages": [
+    "pages/home/home",
+    "pages/search/search",
+    "pages/noedit/noedit",
     "pages/about/about",
-    "pages/index/index",  
-    "pages/category/category",  
+    "pages/notice/notice",
+    "pages/index/index",
+    "pages/category/category",
     "pages/offer/offer",
-    "pages/address/address",
     "pages/empty/empty",
-    "pages/other/other"
+    "pages/other/other",
+    "pages/notice/notice",
+    "pages/noedit/noedit",
+    "pages/address/address",
+    "pages/category/category",
+    "pages/about/about"
   ],
   "tabBar": {
-    "color":"#636363",
-    "selectedColor": "#ffd300",
+    "color": "#444",
+    "selectedColor": "#4392ee",
     "backgroundColor": "#ffffff",
-    "borderStyle":"white",
-    "list": [{
-      "pagePath": "pages/index/index",
-      "text": "寻找服务",
-      "iconPath":"images/2.png",
-      "selectedIconPath":"images/1.png"
-    }, {
-      "pagePath": "pages/empty/empty",
-      "text": "提供服务",
-      "iconPath":"images/4.png",
-      "selectedIconPath":"images/3.png"
-    }, {
-      "pagePath": "pages/about/about",
-      "text": "关于我们",
-      "iconPath":"images/4.png",
-      "selectedIconPath":"images/3.png"
-    }
+    "borderStyle": "white",
+    "list": [
+      {
+        "pagePath": "pages/home/home",
+        "text": "寻找服务",
+        "iconPath": "images/search-off.png",
+        "selectedIconPath": "images/search-on.png"
+      },
+      {
+        "pagePath": "pages/offer/offer",
+        "text": "提供服务",
+        "iconPath": "images/server-off.png",
+        "selectedIconPath": "images/server-on.png"
+      },
+      {
+        "pagePath": "pages/about/about",
+        "text": "关于我们",
+        "iconPath": "images/about-off.png",
+        "selectedIconPath": "images/about-on.png"
+      }
     ]
   },
-  "window":{
-    "backgroundColor":"white",
-    "backgroundTextStyle":"white",
-    "navigationBarBackgroundColor": "#ffd300",
+  "window": {
+    "backgroundColor": "#4392ee",
+    "backgroundTextStyle": "white",
+    "navigationBarBackgroundColor": "#4392ee",
     "navigationBarTitleText": "周边服务",
-    "navigationBarTextStyle":"black",
-    "enablePullDownRefresh":"true"
+    "navigationBarTextStyle": "white",
+    "enablePullDownRefresh": "false"
   }
 }

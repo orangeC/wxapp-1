@@ -41,7 +41,7 @@
 .lastGroup>.line {
   width: 20%;
   height: 2px;
-  background-color: #199ed8;
+  background-color: #4392ee;
 }
 
 .lastGroup>image {
@@ -54,6 +54,7 @@
   color: #666;
   word-wrap: break-word;
   padding-left: 30rpx;
+  padding-top: 20rpx;
 }
 
 .lastGroup>image::after {
@@ -64,5 +65,5 @@
   height: 2px;
   bottom: 15px;
   right: 0;
-  background-color: #199ed8;
+  background-color: #4392ee;
 }

@@ -67,7 +67,6 @@ Page({
         arr.push(this.data.obj[i])
         console.log(this.data.obj[i])
       } else {
-
       }
       this.setData({
         listOne: arr,

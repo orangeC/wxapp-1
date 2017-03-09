@@ -2,48 +2,59 @@
 <!--index.wxml-->
 <view class="container">
   <view class="index-header">
-    <view class="index-head position" bindtap="bindWeizhi">
+      <view class="getLocation">
+          <image src="../../images/u469.png" class="image"></image>
+          <text class="location">选择所在位置</text>
+          <text class="rightIcon">></text>
+      </view>
+    <!--<view class="index-head position" bindtap="bindWeizhi">
       <image class="u101_img" src="/images/u101.png" mode="scaleToFill" ></image>
         <text class="index-head-hidden" hidden="{{name ? true : false}}">{{areaSelectedStr}}</text>
       <text class="index-head-address">{{name}}</text>
       <image class="u109_img" src="/images/u109.png" mode="scaleToFill" ></image>
-    </view>
-    
-      <form bindsubmit="formSubmit" bindreset="formReset">
-        <view class="index-head search" >
-          <input placeholder="家政服务" bindinput="bindKeyInput" name="input"/>
-          <button form-type="submit" plain="true"><icon type="search"size="20"></icon></button>
-        </view>
-      </form>
+    </view>-->
+    <!--<form bindsubmit="formSubmit" bindreset="formReset">
+      <view class="index-head search" >
+        <input placeholder="家政服务" bindinput="bindKeyInput" name="input"/>
+        <button form-type="submit" plain="true"><icon type="search"size="20"></icon></button>
+      </view>
+    </form>-->
   </view>
-  <view class="selector">
-    <view class="selectorNav">
-        <view class="selectorNavT" bindtap="bindtap" >
-            <image src="../../images/u177.png" class="selectorImg"></image>
-            <text>个人服务</text>
-        </view>  
-    </view>
-    <view class="selectorNav">
-        <view class="selectorNavT" bindtap="bindtap">
-            <image src="../../images/u179.png" class="selectorImg"></image>
-            <text>对公服务</text>
-        </view>  
-    </view>
-    <view class="selectorNav">
-        <view class="selectorNavT" bindtap="bindtap">
-            <image src="../../images/u181.png" class="selectorImg"></image>
-            <text>其他服务</text>
-        </view>  
-    </view>
-    <navigator url="../category/category" class="selectorNav">
-        <view class="selectorNavT">
-            <image src="../../images/u183.png" class="selectorImg"></image>
-            <text>全部商家</text>
-        </view>  
-    </navigator>
-</view>
+  <view class="index-home">热门商家</view>
+  <view class="shop">
+      <view class="shopLeft">
+          <image src="../../images/b.jpg" class="shopLeftImg"></image>
+      </view>
+      <view class="shopRight">
+          <view class="shopRightHead">
+              <text>王师傅</text><text>15854565898</text>
+          </view>
+          <view class="shopRightMiddle">
+              <text>服务类型</text><text>干洗衣物</text>
+          </view>
+          <view class="shopRightBottom">
+              <text>449m</text><text>like 1</text>
+          </view>
+      </view>
+  </view>
   <view class="index-home">附近商家</view>
-  <view class="scroll-content" wx:if="{{show}}">
+  <view class="shop">
+      <view class="shopLeft">
+          <image src="../../images/b.jpg" class="shopLeftImg"></image>
+      </view>
+      <view class="shopRight">
+          <view class="shopRightHead">
+              <text>王师傅</text><text>15854565898</text>
+          </view>
+          <view class="shopRightMiddle">
+              <text>服务类型</text><text>干洗衣物</text>
+          </view>
+          <view class="shopRightBottom">
+              <text>449m</text><text>like 1</text>
+          </view>
+      </view>
+  </view>
+  <!--<view class="scroll-content" wx:if="{{show}}">
     <block wx:for="{{shop}}" wx:key="i" wx:for-index="i">
       <view bindtap="bindKeyJump" class="show" hover-class="navigator-hover" id="{{i}}">
       <image style="width:80px;height:80px" src="{{item.head}}"></image>
@@ -77,5 +88,5 @@
         </view>
       </view>
     </block>
-  </view>
+  </view>-->
 </view>

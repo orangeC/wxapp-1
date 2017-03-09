@@ -26,10 +26,8 @@ Page({
         });
     },
 
-
     onLaunch: function () {
         var that = this;
-        
     },
 
     //获取位置
@@ -76,12 +74,6 @@ Page({
 
     },
 
-    //移动地图时发生
-    // regionchange(e) {
-    //     if (e.type == 'end') {
-    //         this.showmarkers()
-    //     }
-    // },
     getCenterLocation: function () {
         this.getLngLat()
     },
@@ -90,12 +82,6 @@ Page({
     },
 
     //点击搜索获取附近的点
-    // bindBtn: function () {
-
-    //     wx.openLocation({
-    //         latitude: 39.084170,
-    //         longitude: 117.200984,
-    //         scale: 28
     bindBtn: function (e) {
         // this.showmarkers(),
         var that=this;

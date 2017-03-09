@@ -1,0 +1,23 @@
+<view>
+  <view class="common home" bindtap="search">
+    <view>
+      <image src="../../iconImg/home.png"></image>
+      <text>家庭维修</text>
+    </view>
+  </view>
+  <text class="commonWord">自己家里想找维修</text>
+  <view class="common daily" bindtap="search">
+    <view>
+      <image src="../../iconImg/repair.png"></image>
+      <text>日常维修</text>
+    </view>
+  </view>
+  <text class="commonWord">日常需要的维修项目</text>
+  <view class="common industry" bindtap="search">
+    <view>
+      <image src="../../iconImg/industry.png"></image>
+      <text>工业维修</text>
+    </view>
+  </view>
+  <text class="commonWord">工业上需要找维修</text>
+</view>

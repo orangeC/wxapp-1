@@ -6,12 +6,13 @@ Page({
     Category: "请选择服务类型",
     name: "",
     phone: "",
+    area: "天津大港",
     address: "您的地理位置",
     scope: "",
     description: "",
     hidden: true,
     intro: false,
-    Head: "/images/u567a.png",
+    Head: "/images/photo.png",
     submit: false,
     switchTab: 1,
     checkbox: true
@@ -52,7 +53,8 @@ Page({
           scope: data.Scope,
           description: data.Description,
           code: data.Code,
-          type: data.Type
+          type: data.Type,
+          submit: true
         })
         wx.setNavigationBarTitle({ title: "编辑信息" });
       } else {
@@ -110,6 +112,89 @@ Page({
     });
 
 
+  },
+  //获取输入框名字
+  getInputName: function (e) {
+    this.setData({
+      name: e.detail.value
+    })
+    console.log(this.data.name)
+  },
+  //获取输入框电话
+  getInputPhone: function (e) {
+    this.setData({
+      phone: e.detail.value
+    })
+    console.log(this.data.phone)
+  },
+  //获取输入框范围
+  getInputScope: function (e) {
+    this.setData({
+      scope: e.detail.value
+    })
+    console.log(this.data.scope)
+  },
+  //获取输入框介绍
+  getInputDes: function (e) {
+    this.setData({
+      description: e.detail.value
+    })
+    console.log(this.data.description)
+  },
+  // 点击选择类型
+  touchlist: function (event) {
+    wx.navigateTo({
+      url: '/pages/category/category'
+    })
+  },
+
+  //提交申请
+  handlejump: function () {
+    var that = this;
+    wx.showToast({
+      title: '已提交，请等待审核',
+      icon: 'loading',
+      duration: 3000,
+      success: function (res) {
+        var apply = that.data
+        console.log("code : " + apply.code)
+        console.log("名字： " + apply.name)
+        console.log("图片： " + apply.Head)
+        console.log("电话： " + apply.phone)
+        console.log("地址： " + apply.address)
+        console.log("纬度： " + apply.Latitude)
+        console.log("经度： " + apply.Longitude)
+        console.log("类型： " + apply.Category)
+        console.log("type： " + apply.type)
+        console.log("编码： " + apply.clientid)
+        console.log("描述： " + apply.description)
+        console.log("范围： " + apply.scope)
+        app.send("http://radar.3vcar.com/shop/save/",
+          {
+            code: apply.code,
+            name: apply.name,
+            head: apply.Head,
+            phone: apply.phone,
+            address: apply.address,
+            longitude: apply.Longitude,
+            latitude: apply.Latitude,
+            category: apply.Category,
+            type: apply.type,
+            client: apply.clientid,
+            description: apply.description,
+            scope: apply.scope
+          }
+          , "POST", function (res) {
+            console.log(res)
+          })
+        setTimeout(function () {
+          wx.hideToast()
+          wx.switchTab({
+            url: '/pages/index/index'
+          })
+        }, 3000)
+      }
+    });
   },
 
   // 点击选择类型
@@ -260,6 +345,11 @@ Page({
           }
         })
       }
+    })
+  },
+  gonotice: function () {
+    wx.navigateTo({
+      url: '/pages/notice/notice'
     })
   }
 })

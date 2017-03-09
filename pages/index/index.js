@@ -35,12 +35,13 @@ Page({
     that.setData({
       shop:shop
     });
-    	// 调用接口
+    	// 腾讯定位接口 调用接口
     	qqmapsdk.reverseGeocoder({
     		poi_options: 'policy=2',
     		get_poi: 1,
 		    success: function(res) {
 				console.log(res);
+        console.log('经纬度信息：',res.longitude);
 				that.setData({
 					areaSelectedStr: res.result.address
 				});

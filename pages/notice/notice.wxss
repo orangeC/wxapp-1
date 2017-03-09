@@ -16,7 +16,10 @@
   display: flex;
   flex-direction: column;
 }
-
+.container text{
+  padding-bottom: 10rpx;
+  line-height: 1.3;
+}
 .title {
   font-family: '华文细黑 Regular', '华文细黑';
   font-weight: 400;
