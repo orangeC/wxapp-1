@@ -15,5 +15,10 @@ Page({
   },
   onUnload:function(){
     // 页面关闭
+  },
+  goToDetail:function(){
+    wx.navigateTo({
+      url: '/pages/index/index',
+    })
   }
 })

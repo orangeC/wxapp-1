@@ -11,13 +11,13 @@ Page({
    */
   data: {
     Head: "",
-    Name: "",
+    Name: "张师傅",
     LikedAmount: 0,
     Phone: "",
     Address: "",
     Longitude: 0,
     Latitude: 0,
-    Category: "",
+    Category: "a",
     Description: "",
     title: "",
     hidden: false,
@@ -39,7 +39,6 @@ Page({
       clientid: ClientCode
     });
 
-
     app.send("http://radar.3vcar.com/shop/get/?code=" + that.data.item
       , {}, "GET", function (res) {
         var data = res.data;
@@ -50,7 +49,6 @@ Page({
         }]
         that.setData({
           title: data.Name, Head: data.Head, Name: data.Name, LikedAmount: data.LikedAmount, Phone: data.Phone, Address: data.Address, Longitude: data.Longitude, Latitude: data.Latitude, Category: data.Category, Description: data.Description,markers: markers })
-
         //获取内存中data 的 RequestData
         var RequestData = app.globalData.data.RequestData;
         console.log(RequestData);

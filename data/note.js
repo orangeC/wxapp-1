@@ -14,4 +14,3 @@
       //   that.setData({ switchTab: 3 })
       //   console.log(that.data.type)
       //   console.log(that.data.switchTab)
-      // }
