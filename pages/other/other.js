@@ -11,13 +11,13 @@ Page({
    */
   data: {
     Head: "",
-    Name: "",
+    Name: "张师傅",
     LikedAmount: 0,
     Phone: "",
     Address: "",
     Longitude: 0,
     Latitude: 0,
-    Category: "",
+    Category: "a",
     Description: "",
     title: "",
     hidden: false,

@@ -1,15 +1,15 @@
 {
   "pages": [
     "pages/home/home",
+    "pages/index/index",
+    "pages/offer/offer",
+    "pages/other/other",
     "pages/search/search",
     "pages/noedit/noedit",
     "pages/about/about",
     "pages/notice/notice",
-    "pages/index/index",
     "pages/category/category",
-    "pages/offer/offer",
     "pages/empty/empty",
-    "pages/other/other",
     "pages/notice/notice",
     "pages/noedit/noedit",
     "pages/address/address",

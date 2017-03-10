@@ -1,11 +1,11 @@
 @import "../other/other.wxss";
 .last{
-    width: 75%;
+    width: 90%;
     height: 90rpx;
     margin: 30rpx auto;
     border-radius: 10px;
-    background-color: #ffd200;
-    color: #000;
+    background-color: #4392ee;
+    color: #fff;
     font-size: .86em;
     display: flex;
     justify-content: center;
