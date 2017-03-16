@@ -7,147 +7,117 @@ var common = require("../../utils/common.js")
 Page({
   data: {
     name: "",
-    latitude: 0,
-    longitude: 0,
+    latitude: '',//定位用户目前GPS
+    longitude: '',//定位用户目前GPS
     areaSelectedStr: "定位中",
     show: true,
-    shop: {},
-    arr: []
+    shop: '',
+    arr: [],
+    address:'',
   },
-  //事件处理函数
+  //获得地址
+  toAddress: function () {
+        var that = this;
+        wx.getLocation({
+            type: 'gcj02',
+            success: function(res) {
+                var latitude = res.latitude;
+                var longitude = res.longitude;
+                var speed = res.speed;
+                var accuracy = res.accuracy;
+                wx.chooseLocation({
+                    success: function(res){
+                        console.log(res.address);
+                        wx.setStorageSync('address', res.address);
+                        that.setData({
+                            address:res.address,
+                        });              
+                    },
+                    fail: function() {
 
-  //获取位置
-  bindWeizhi: function () {
-    wx.navigateTo({
-      url: '../address/address'
-    })
+                    },
+                })
+            }
+        })
+  },
+  //去详情页
+  toOther:function(e){
+      var code = e.currentTarget.dataset.code;
+      wx.navigateTo({
+        url: '/pages/other/other?code=' + code,
+      })
   },
 
-  onLoad: function () {
-    qqmapsdk = new QQMapWX({
-			key: 'BJFBZ-ZFTHW-Y2HRO-RL2UZ-M6EC3-GMF4U'
-		});
-    console.log('onLoad');
-    var that = this;
-    //获取从API中缓存的shop
-    var shop = app.globalData.shop;
-    console.log('商家',shop);
-    that.setData({
-      shop:shop
-    });
-    	// 腾讯定位接口 调用接口
-    	qqmapsdk.reverseGeocoder({
-    		poi_options: 'policy=2',
-    		get_poi: 1,
-		    success: function(res) {
-				console.log(res);
-        console.log('经纬度信息：',res.longitude);
-				that.setData({
-					areaSelectedStr: res.result.address
-				});
-		    },
-		    fail: function(res) {
-		//         console.log(res);
-		    },
-		    complete: function(res) {
-		//         console.log(res);
-		    }
-    	});
+  onLoad: function (ecode) {
+      var that = this;
+      console.log(ecode.code);
+      wx.getLocation({
+          type: 'wgs84', // 默认为 wgs84 返回 gps 坐标，gcj02 返回可用于 wx.openLocation 的坐标
+          success: function(res){
+              that.setData({
+                  latitude:res.latitude,
+                  longitude:res.longitude
+              });
+              app.send(
+                  '/shop/search',
+                  {
+                      category:ecode.code,//传code值
+                      latitude:that.data.latitude,
+                      longitude:that.data.longitude,
+                  },
+                  'GET',
+                  function(res){
+                      console.log(res.data);
+                      var shop = res.data;
+                      for(var i = 0;i < shop.length;i++){
+                          shop[i].distance = Math.round(shop[i].distance);
+                      };
+                      that.setData({
+                          shop:shop,
+                      });
+                  },
+                  function(res){
+
+                  }
+              )
+          },
+          fail: function(res) {
+            
+          },
+      })
+      wx.setNavigationBarTitle({
+        title: ecode.name,
+        success: function(res) {
+        }
+      })
+  },
+
+  //打电话
+  toCall:function(call){
+      var that = this;
+      var call = call.currentTarget.dataset.id;
+      wx.makePhoneCall({
+        phoneNumber: call,
+        success: function(res) {
+
+        }
+      })
   },
 
   onShow:function(){
-    var that = this;
-    wx.getStorage({
-    key: 'address',
-    success: function (res) {
+      var that = this;
+      var address = wx.getStorageSync('address');
       that.setData({
-          areaSelectedStr:res.data
-        });
-        console.log('获取：',res.data)
-      }
-    });
-  },
-
-  bindKeyJump:function(e){
-    var i = e.target.id;
-    wx.navigateTo({
-      url: '/pages/other/other?data='+this.data.arr[i]
-    })
+          address:address,
+      });
   },
   
   onReady: function () {
-    console.log("onshow")
-    console.log(this.data.arr)
+    // console.log("onshow")
+    // console.log(this.data.arr)
   },
   bindKeyInput: function (e) {
-    console.log(e.detail.value)
+    // console.log(e.detail.value)
   },
 
-  formSubmit: function (e) {
-    var that = this
-    //调用应用实例的方法获取全局数据
-    wx.request({
-      url: "http://radar.3vcar.com/shop/search/", //获取所有商家
-      data: {
-        name: e.detail.value.input,
-        longitude: 117.52412,
-        latitude: 38.98755,
-        category: "",
-        distance: 100000
-      },
-      header: {
-        'content-type': 'application/json'
-      },
-      method: "GET",
-      success: function (res) {
-        that.setData({
-          shopSearch: res.data,
-          show: false,
-        })
-        console.log(e.detail.value.input)
-      }
-    })
-  },
-
-  onPullDownRefresh: function(){
-    wx.showToast({
-      title: '拼命加载中',
-      icon: 'loading',
-      duration: 10000
-    })
-    console.log('onLoad')
-    var that = this
-    //调用应用实例的方法获取全局数据
-    wx.request({
-      url: "http://radar.3vcar.com/shop/search/", //获取所有商家
-      data: {
-        name: this.data.name,
-        longitude: 117.52412,
-        latitude: 38.98755,
-        category: "",
-        distance: 100000
-      },
-      header: {
-        'content-type': 'application/json'
-      },
-      method: "GET",
-      success: function (res) {
-        var arr = [];
-        for(var i=0;i<res.data.length;i++){
-          arr.push(res.data[i].code)
-        }
-          that.setData({
-            shop: res.data,arr:arr
-          })
-        wx.hideToast()
-      }
-    })
-    wx.stopPullDownRefresh()
-  },
-
-  bindtap:function(){
-    wx.navigateTo({
-       url: '/pages/category/category'
-    })
-  }
 })

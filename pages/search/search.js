@@ -1,24 +1,51 @@
 // pages/search/search.js
+var app = getApp();
 Page({
-  data:{},
-  onLoad:function(options){
-    // 页面初始化 options为页面跳转所带来的参数
+  data: {
+      amount:'',
+      type:''
   },
-  onReady:function(){
-    // 页面渲染完成
+  onLoad: function (options) {
+      // 页面初始化 options为页面跳转所带来的参数
+      var that = this;
+      app.send("/shop/category", { code: options.code, name: '' }, "GET", function (res) {
+        console.log(res);
+        that.setData({
+          type: res.data,
+          code: options.code
+        })
+      });
+      wx.setNavigationBarTitle({
+        title: options.name,
+        success: function(res) {
+          
+        }
+      })
   },
-  onShow:function(){
-    // 页面显示
+  onReady: function (options) {
+      
   },
-  onHide:function(){
+  onShow: function (options) {
+      
+  },
+  onHide: function () {
     // 页面隐藏
   },
-  onUnload:function(){
+  onUnload: function () {
     // 页面关闭
   },
-  goToDetail:function(){
+  goToDetail: function (e) {
     wx.navigateTo({
-      url: '/pages/index/index',
+        url: '/pages/index/index?' + 'code=' + e.currentTarget.dataset.id + '&name=' + e.currentTarget.dataset.name,
     })
-  }
+  },
+  searchType: function (e) {
+    var that=this;
+      app.send("/shop/category", { code:this.data.code, name: e.detail.value }, "GET", function (res) {
+        that.setData({
+          type: res.data
+        })
+      })
+  },
+
 })

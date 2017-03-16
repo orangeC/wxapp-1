@@ -1,19 +1,16 @@
 {
-  "pages": [
+  "pages": [   
     "pages/home/home",
+    "pages/other/other",
+    "pages/empty/empty",
     "pages/index/index",
     "pages/offer/offer",
-    "pages/other/other",
     "pages/search/search",
-    "pages/noedit/noedit",
-    "pages/about/about",
-    "pages/notice/notice",
-    "pages/category/category",
-    "pages/empty/empty",
     "pages/notice/notice",
     "pages/noedit/noedit",
-    "pages/address/address",
-    "pages/category/category",
+    "pages/edit/edit",
+    "pages/noedit/city/city",
+    "pages/edit/city/city",
     "pages/about/about"
   ],
   "tabBar": {
@@ -29,7 +26,7 @@
         "selectedIconPath": "images/search-on.png"
       },
       {
-        "pagePath": "pages/offer/offer",
+        "pagePath": "pages/noedit/noedit",
         "text": "提供服务",
         "iconPath": "images/server-off.png",
         "selectedIconPath": "images/server-on.png"

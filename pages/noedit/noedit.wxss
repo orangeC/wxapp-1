@@ -1,9 +1,17 @@
+@import "../offer/offer.wxss";
 /* pages/noedit/noedit.wxss */
-
 .container {
   color: #000;
   padding: 20rpx 0 0;
   background-color: #faf9fe;
+}
+.header{
+  width: 100%;
+  padding: 10rpx 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 0.7em;
 }
 .block{
   width: 100%;
@@ -177,22 +185,4 @@
   color: #4392ee;
 }
 
-/*.edit-info-text {
-  flex-basis: 69%;
-  letter-spacing: -0.08em;
-  line-height: 1.1;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  display: -webkit-box;
-  -webkit-box-orient: vertical;
-  -webkit-line-clamp: 3;
-  color: #666;
-}*/
 
-/*.normal-input-address {
-  flex: 0.5;
-  text-align: right;
-  overflow: hidden;
-  white-space: nowrap;
-  text-overflow: ellipsis;
-}*/

@@ -1,92 +1,62 @@
-
 <!--index.wxml-->
 <view class="container">
   <view class="index-header">
-      <view class="getLocation">
-          <image src="../../images/u469.png" class="image"></image>
-          <text class="location">选择所在位置</text>
+      <view class="getLocation" bindtap="toAddress">
+          <image src="../../images/address.png" class="image"></image>
+          <text class="location" wx:if="{{address}}">{{address}}</text>
+          <text class="location" wx:else>选择所在位置</text>
           <text class="rightIcon">></text>
       </view>
-    <!--<view class="index-head position" bindtap="bindWeizhi">
-      <image class="u101_img" src="/images/u101.png" mode="scaleToFill" ></image>
-        <text class="index-head-hidden" hidden="{{name ? true : false}}">{{areaSelectedStr}}</text>
-      <text class="index-head-address">{{name}}</text>
-      <image class="u109_img" src="/images/u109.png" mode="scaleToFill" ></image>
-    </view>-->
-    <!--<form bindsubmit="formSubmit" bindreset="formReset">
-      <view class="index-head search" >
-        <input placeholder="家政服务" bindinput="bindKeyInput" name="input"/>
-        <button form-type="submit" plain="true"><icon type="search"size="20"></icon></button>
-      </view>
-    </form>-->
   </view>
-  <view class="index-home">热门商家</view>
-  <view class="shop">
-      <view class="shopLeft">
-          <image src="../../images/b.jpg" class="shopLeftImg"></image>
+  <view class="index-home">
+      <image src="../../images/hot.png" class="hot"></image>热门商家
+  </view>
+  <view class="shop" wx:for="{{shop}}" wx:if="{{item.hot}}" wx:key="">
+      <view class="shopLeft" bindtap="toOther" data-code="{{item.code}}">
+          <image src="{{item.head}}" class="shopLeftImg"></image>
       </view>
       <view class="shopRight">
           <view class="shopRightHead">
-              <text>王师傅</text><text>15854565898</text>
+              <text class="shopName">{{item.name}}</text>
+              <view class="shopPhone" bindtap="toCall" data-id="{{item.phone}}">{{item.phone}}
+                    <image src="../../images/phone.png" class="shopPhoneImg"></image>
+              </view>
           </view>
-          <view class="shopRightMiddle">
-              <text>服务类型</text><text>干洗衣物</text>
+          <view class="shopRightMiddle" class="shopType">
+              <text>服务类型 : </text><text>{{item.catgeory}}</text>
           </view>
-          <view class="shopRightBottom">
-              <text>449m</text><text>like 1</text>
+          <view class="shopRightBottom" class="shopLike">
+              <view class="likeIconA" bindtap="" >
+                    <image src="../../images/good-on.png" class="likeIcon"></image>{{item.liked}}
+              </view>
+              <text class="distance">{{item.distance}}m</text>
           </view>
       </view>
   </view>
   <view class="index-home">附近商家</view>
-  <view class="shop">
-      <view class="shopLeft">
-          <image src="../../images/b.jpg" class="shopLeftImg"></image>
+  <view class="shop" wx:for="{{shop}}" wx:if="{{item.hot == false}}" wx:key="">
+      <view class="shopLeft" bindtap="toOther" data-code="{{item.code}}">
+          <image src="{{item.head}}" class="shopLeftImg"></image>
       </view>
       <view class="shopRight">
           <view class="shopRightHead">
-              <text>王师傅</text><text>15854565898</text>
+              <text class="shopName">{{item.name}}</text>
+              <view class="shopPhone" bindtap="toCall" data-id="{{item.phone}}">{{item.phone}}
+                    <image src="../../images/phone.png" class="shopPhoneImg"></image>
+              </view>
           </view>
-          <view class="shopRightMiddle">
-              <text>服务类型</text><text>干洗衣物</text>
+          <view class="shopRightMiddle" class="shopType">
+              <text>服务类型 : </text><text>{{item.catgeory}}</text>
           </view>
-          <view class="shopRightBottom">
-              <text>449m</text><text>like 1</text>
+          <view class="shopRightBottom" class="shopLike">
+              <view class="likeIconA" bindtap=""  wx:if="{{liked > 0}}">
+                    <image src="../../images/good-on.png" class="likeIcon"></image>{{item.liked}}
+              </view>
+              <view class="likeIconA" bindtap="" wx:else>
+                    <image src="../../images/good-off.png" class="likeIcon"></image>{{item.liked}}
+              </view>
+              <text class="distance">{{item.distance}}m</text>
           </view>
       </view>
   </view>
-  <!--<view class="scroll-content" wx:if="{{show}}">
-    <block wx:for="{{shop}}" wx:key="i" wx:for-index="i">
-      <view bindtap="bindKeyJump" class="show" hover-class="navigator-hover" id="{{i}}">
-      <image style="width:80px;height:80px" src="{{item.head}}"></image>
-        <view class="show-list">
-          <text class="title">{{item.name}}</text>
-          <text>服务类型：{{item.type}}</text>
-          <view class="show-list-last">
-          <image class="u145_img" src="/images/u145.png"  mode="scaleToFill"></image>
-           {{item.distance}} 
-           <image class="u151_img" src="/images/u151.png" mode="scaleToFill"></image>
-            {{item.likedAmount}}
-            </view>
-        </view>
-      </view>
-    </block>
-  </view>
-
-  <view class="scroll-content" wx:else>
-    <block wx:for="{{shopSearch}}" wx:key="i" wx:for-index="i">
-      <view class="show" hover-class="navigator-hover" bindtap="bindKeyJump" id="{{i}}">
-      <image style="width:80px;height:80px" src="{{item.head}}"></image>
-        <view class="show-list">
-          <text class="title">{{item.name}}</text>
-          <text>服务类型：{{item.type}}</text>
-          <view class="show-list-last">
-          <image class="u145_img" src="/images/u145.png"  mode="scaleToFill"></image>
-           {{item.distance}} 
-           <image class="u151_img" src="/images/u151.png" mode="scaleToFill"></image>
-            {{item.likedAmount}}
-            </view>
-        </view>
-      </view>
-    </block>
-  </view>-->
 </view>

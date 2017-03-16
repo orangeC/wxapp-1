@@ -1,3 +1,31 @@
-<import src="../template/template.wxml" />
-<template is="templateunit" data="{{hidden,Head,Name,LikedAmount,Phone,Address,Longitude,Latitude,markers,Category,Description,point,controls}}" />
+<view class="container">
+    <loading hidden="{{ hidden }}">加载中...</loading>
+    <view class="other-header normal">
+        <image src="{{head}}"></image>
+        <text class="other-title">{{name}}</text>
+        <view class="other-zan" wx:if="{{liked > 0}}" bindtap="liked">
+            <image bindtap="bindClicklike" src="/images/good-on.png" mode="scaleToFill"></image>{{liked}}
+        </view>
+        <view class="other-zan" wx:else bindtap="liked">
+            <image bindtap="bindClicklike" src="/images/good-off.png" mode="scaleToFill"></image>{{liked}}
+        </view>
+    </view>
+    <view class="other-address normal">
+        <image src="/images/address2.png" mode="scaleToFill"></image>
+        <text>{{address}}</text>
+    </view>
+    <view class="other-tel normal" bindtap="toCall" data-id="{{phone}}">
+        <image class="u243_img" src="/images/phones.png" mode="scaleToFill"></image>
+        <text>{{phone}}</text>
+    </view>
+    <map longitude="{{longitude}}" latitude="{{latitude}}" markers="{{markers}}" scale="15" show-location="true"></map>
+    <view class="other-service normal">
+        <image src="/images/type.png" mode="scaleToFill"></image>
+        <text>服务类型：{{category}}</text>
+    </view>
+    <view class="other-info normal">
+        <image src="/images/content.png" mode="scaleToFill"></image>
+        <text>服务介绍：{{description}}</text>
+    </view>
+</view>
 <view class="last" bindtap="handlejump">编辑</view>

@@ -1,45 +1,70 @@
-image{
-    width:50rpx;
-    height: 50rpx;
+image {
+  width: 50rpx;
+  height: 50rpx;
 }
-.top{
-    height: 10%;
-    background-color: #4392ee;
-    display: flex;
+
+.top {
+  height: 9%;
+  background-color: #4392ee;
+  display: flex;
 }
-.input{
-    display: flex;
-    background-color: #3c83d5;
-    margin: 25rpx;
-    width: 100%;
-    border-radius: 15px;
-    align-items: center;
-    line-height: 60rpx
+
+.input {
+  display: flex;
+  background-color: #3c83d5;
+  margin: 0 25rpx 25rpx 25rpx;
+  width: 100%;
+  border-radius: 30px;
+  align-items: center;
 }
-.input image{
-    margin: 0 20rpx;
+
+.input image {
+  margin: 0 20rpx;
 }
-.placeholder{
-    font-size: 11pt;
-    color: #fff
+
+.placeholder {
+  font-size: 11pt;
+  color: #fff;
 }
-.type{
-    padding: 0 25rpx;
+
+.type {
+  padding: 0 25rpx;
 }
-.type>view{
-    color: #444;
-    padding: 25rpx 0;
-    border-bottom: 1px solid #ebeeef;
+
+.type>view {
+  color: #444;
+  padding: 25rpx 0;
+  border-bottom: 1px solid #ebeeef;
+  display: flex;
+  justify-content: space-between;
 }
-.list{
-    padding: 6rpx 14rpx;
-    border-radius: 50%;
-    background-color: #999;
-    font-size: 10pt;
-    color: #fff;
+
+.list {
+  display: flex;
 }
-.float{
-    float: right;
-    color: #999;
-    font-size: 11pt;
+
+.list>text {
+  margin-left: 10rpx;
+}
+
+.number {
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background-color: #999;
+  font-size: 10pt;
+  color: #fff;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.float {
+  float: right;
+  color: #999;
+  font-size: 11pt;
+}
+
+.color {
+  color: #fff;
 }

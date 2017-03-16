@@ -1,5 +1,90 @@
-@import "../other/other.wxss";
-.last{
+
+.container-offer {
+  background-color: #faf9fe;
+}
+
+.normal-offer {
+  display: flex;
+  width: 100%;
+  align-items: center;
+  padding: 20rpx;
+  font-size: 0.8em;
+  border-bottom: 1px solid #e8eced;
+  background-color: #fff;
+  color: #636363;
+}
+
+.other-header-offer {
+  font-size: 0.9em;
+  margin-bottom: 20rpx;
+}
+
+.other-header-offer>image {
+  width: 3em;
+  height: 3em;
+}
+
+.other-title-offer {
+  color: #323232;
+  width: 520rpx;
+  padding-left: 20rpx;
+}
+
+.other-zan-offer {
+  display: flex;
+  align-items: center;
+  font-size: 0.9em;
+  color: #323232;
+  justify-content: flex-end;
+}
+
+.other-zan-offer>image {
+  width: 1.2em;
+  height: 1.2em;
+  margin-right: 10rpx;
+}
+
+.other-tel-offer>image {
+  width: 20px;
+  height: 20px;
+  padding-right: 10rpx;
+}
+
+.other-address-offer>image {
+  width: 20px;
+  height: 20px;
+  padding-right: 10rpx;
+}
+
+map {
+  margin-bottom: 20rpx;
+  width: 100%;
+  height: 400rpx;
+}
+
+.other-service-offer>image {
+  width: 20px;
+  height: 20px;
+  padding-right: 10rpx;
+}
+
+.other-info-offer {
+  align-items: flex-start;
+  padding-bottom: 60rpx;
+}
+
+.other-info-offer>image {
+  width: 20px;
+  height: 20px;
+  padding-right: 10rpx;
+}
+
+.other-info-offer>text {
+  flex: 0.95;
+  line-height: 1.35;
+}
+
+.last-offer{
     width: 90%;
     height: 90rpx;
     margin: 30rpx auto;

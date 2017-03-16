@@ -10,108 +10,120 @@ Page({
    * 页面的初始数据
    */
   data: {
-    Head: "",
-    Name: "张师傅",
-    LikedAmount: 0,
-    Phone: "",
-    Address: "",
-    Longitude: 0,
-    Latitude: 0,
-    Category: "a",
-    Description: "",
-    title: "",
-    hidden: false,
-    markers: []
+    address:'',
+    category:'',
+    code:'',
+    head:'',//头像图片
+    latitude:'',
+    longitude:'',
+    liked:'',
+    name:'',
+    phone:'',
+    markers: '',
+    description:''
   },
 
-  /**
-   * 生命周期函数--监听页面加载
-   */
-  onLoad: function(item) {
-    console.log(item);
-    var that = this;
-    that.setData({ item: item.data })
-    console.log(this.data.item);
-    //获取内存中user 的 ClientCode
-    var ClientCode = app.globalData.user.ClientCode;
-    console.log(ClientCode);
-    that.setData({
-      clientid: ClientCode
-    });
-
-    app.send("http://radar.3vcar.com/shop/get/?code=" + that.data.item
-      , {}, "GET", function (res) {
-        var data = res.data;
-        console.log(data);
-        var markers = [{
-          "latitude": data.Latitude,
-          "longitude": data.Longitude
-        }]
-        that.setData({
-          title: data.Name, Head: data.Head, Name: data.Name, LikedAmount: data.LikedAmount, Phone: data.Phone, Address: data.Address, Longitude: data.Longitude, Latitude: data.Latitude, Category: data.Category, Description: data.Description,markers: markers })
-        //获取内存中data 的 RequestData
-        var RequestData = app.globalData.data.RequestData;
-        console.log(RequestData);
-        //将获取到的 RequestData 编码换成对应的name
-        for (var i = 0; i < RequestData.length; i++) {
-          if (RequestData[i].code == that.data.Category) {
-            that.setData({
-              Category: RequestData[i].name
-            });
-            break;
-          }
-        };
-      })
-
-  },
-
-  /**
-   * 生命周期函数--监听页面初次渲染完成
-   */
-  onReady: function() {
-    wx.setNavigationBarTitle({ title: this.data.title });
-  },
   //打电话
-  callPhone: function () {
-    wx.makePhoneCall({
-      phoneNumber: this.data.Phone
-    })
-  },
-  //点赞
-  bindClicklike: function () {
-    var that = this;
-    console.log(that.data.clientid)
-    app.send("http://radar.3vcar.com/shop/like/", { client: that.data.clientid, code: that.data.item }, "POST", function (res) {
-      console.log(res)
-      wx.showToast({
-        title: '点赞中。。。',
-        icon: 'loading',
-        duration: 3000
+  toCall:function(call){
+      var that = this;
+      var call = call.currentTarget.dataset.id;
+      wx.makePhoneCall({
+        phoneNumber: call,
+        success: function(res) {
+
+        }
       })
-      if (res.data.Success) {
-        wx.showToast({
-          title: '点赞 + 1',
-          icon: 'success',
-          success: function () {
-            that.setData({
-              LikedAmount: that.data.LikedAmount + 1
-            })
-          }
-        })
-      }
-      else {
-        wx.showToast({
-          title: '你已经点过了',
-          icon: 'loading',
-          duration: 1000
-        })
-      }
-    })
   },
 
-  /**
-   * 生命周期函数--监听页面显示
-   */
+  //点赞
+  liked:function(code){
+        var that = this;
+        var code = code.currentTarget.dataset.code;
+        var client = wx.getStorageSync('user');
+        console.log(client);
+        console.log(client.ClientCode);
+        app.send(
+            '/wechat/like',
+            {
+                client:client.ClientCode,
+                code:code
+            },
+            'POST',
+            function(res){
+                console.log(res);
+                if(res.data.Success){
+                    that.setData({
+                        liked:that.data.liked + 1,
+                    })
+                }else{
+                    wx.showToast({
+                    title: '已点赞',
+                    icon: 'loading',
+                    duration: 2000
+                    })
+                }
+            },
+        );
+  },
+
+  //打开地图
+  openMap:function(){
+        var that = this;
+        wx.openLocation({
+          latitude: that.data.latitude, // 纬度，范围为-90~90，负数表示南纬
+          longitude: that.data.longitude, // 经度，范围为-180~180，负数表示西经
+          scale: 28, // 缩放比例
+          name: that.data.name, // 位置名
+          address: that.data.address, // 地址的详细说明
+          success: function(res){
+
+          },
+        })
+  },
+
+  onLoad: function (code) {
+    var that = this;
+    var code = code.code;
+    app.send(
+        '/shop/load',
+        {
+          code:code,
+        },
+        'GET',
+        function(res){
+            console.log(res.data);
+            var apply = res.data;
+            var markers = [{
+                id:0,
+                iconPath: "../../images/address3.png",
+                "latitude": apply.latitude,
+                "longitude": apply.longitude,
+                width: 30,
+                height: 30,
+                title: apply.name
+            }];
+            that.setData({
+                address:apply.address,
+                category:apply.category,
+                code:apply.code,
+                head:apply.head,//头像图片
+                latitude:apply.latitude,
+                longitude:apply.longitude,
+                liked:apply.liked,
+                name:apply.name,
+                phone:apply.phone,
+                description:apply.description,
+                markers:markers,
+            })
+        },
+    );
+
+  },
+
+  onReady: function () {
+      wx.setNavigationBarTitle({ title: this.data.name });
+  },
+
   onShow: function () {
     var that = this;
     setTimeout(function () {
@@ -119,8 +131,6 @@ Page({
         hidden: true
       });
     }, 1500);
-  }
+  },
 
-
-});
-//# sourceMappingURL=item.js.map
+  });

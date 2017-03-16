@@ -1,117 +1,209 @@
 //logs.js
+var city = require('../../utils/city.js');
 var app = getApp()
 Page({
   data: {
+    comment: "",
     title: "",
-    Category: "请选择服务类型",
+    category: ["您还未选择一类类别"],
+    index: 0,
     name: "",
     phone: "",
-    area: "天津大港",
-    address: "您的地理位置",
-    scope: "",
+    area: "请选择您的区域",
+    address: "请选择您的地址",
+    scope: "请选择服务范围",
     description: "",
-    hidden: true,
     intro: false,
     Head: "/images/photo.png",
     submit: false,
     switchTab: 1,
-    checkbox: true
+    checkbox: true,
+    categoryName: "",
+    categoryNormal: "请输入类型",
+    categoryCode: [],
+    containerOffer: true,
+    addressOffer: '',
+    categoryOffer: '',
+    codeOffer: '',
+    headOffer: '',//头像图片
+    latitudeOffer: '',
+    longitudeOffer: '',
+    likedOffer: '',
+    nameOffer: '',
+    phoneOffer: '',
+    markersOffer: '',
+    descriptionOffer: ''
   },
   onLoad: function () {
-
     var that = this;
+    var dataCity = city.getCity();
     //调用API从本地缓存中获取数据user
-    wx.getStorage({
-      key: 'user',
-      success: function (res) {
+    var clientid = wx.getStorageSync("user");
+    console.log(clientid);
+    if (!app.globalData.clientType) {
+      wx.showToast({
+        title: '网络请求错误',
+        icon: 'loading',
+        duration: 2000,
+      })
+    } else {
+      if (app.globalData.clientType == "visit") {
         that.setData({
-          clientid: res.data.ClientCode
-        });
+          clientid: clientid.ClientCode,
+        })
+        return;
+      } else {
+        //获得某个商家
+        app.send("/wechat/load", { code: clientid.ClientCode }, "GET", function (res) {
+          if (res.data) {
+            var data = res.data;
+            console.log(data);
+            that.setData({
+              comment: data.comment,
+              clientid: clientid.ClientCode,
+              Head: data.head,
+              name: data.name,
+              phone: data.phone,
+              address: data.address,
+              Latitude: data.latitude,
+              Longitude: data.longitude,
+              scope: data.scope,
+              description: data.description,
+              code: data.code,
+              status: data.status,
+              submit: true,
+              containerOffer: false
+            })
+            if (data.category) {
+              app.send("/shop/category", { code: "all" }, "GET", function (res) {
+                var arrSome = [];
+                for (var i = 0; i < res.data.length; i++) {
+                  if (res.data[i].code == data.category) {
+                    that.setData({
+                      categoryName: res.data[i].name,
+                      categoryNormal: data.category
+                    })
+                  }
+                  if ((data.category.slice(0, 3) == res.data[i].code.slice(0, 3)) && (res.data[i].tier == 2)) {
+                    arrSome.push(res.data[i]);
+                  }
+
+                }
+                for (var i = 0; i < arrSome.length; i++) {
+                  if (arrSome[i].code == data.category) {
+                    that.setData({ index: i })
+                  }
+                }
+
+                //前3位(设置状态)
+                that.setData({
+                  categorySlice: data.category.slice(0, 3)
+                })
+
+              })
+            };
+            if (data.city) {
+              for (var i = 0; i < dataCity.length; i++) {
+                if (dataCity[i].code == data.city) {
+                  that.setData({
+                    area: dataCity[i].name
+                  })
+                  break;
+                }
+              }
+            };
+            wx.setNavigationBarTitle({ title: "编辑信息" });
+          } else {
+            that.setData({ submit: false, containerOffer: true })
+            wx.showToast({
+              title: '您还未注册',
+              icon: 'loading',
+              duration: 3000,
+            })
+          }
+
+        })
       }
-    });
+    }
+
+
 
   },
   onReady: function () {
     var that = this;
-
-
-    //获得某个商家
-    app.send("http://radar.3vcar.com/shop/load/", { code: that.data.clientid }, "GET", function (res) {
-      if (res.data) {
-        console.log(res);
-        var data = res.data;
-        console.log(that.data.clientid)
-        console.log(data)
-        that.setData({
-          Head: data.Head,
-          name: data.Name,
-          phone: data.Phone,
-          address: data.Address,
-          Latitude: data.Latitude,
-          Longitude: data.Longitude,
-          Category: data.Category,
-          scope: data.Scope,
-          description: data.Description,
-          code: data.Code,
-          type: data.Type,
-          submit: true
-        })
-        wx.setNavigationBarTitle({ title: "编辑信息" });
-      } else {
-        that.setData({ submit: false })
-        wx.showToast({
-          title: '您还未注册',
-          icon: 'loading',
-          duration: 3000,
-        })
-      }
-
-
-      //获取内存中data 的 RequestData
-      var RequestData = app.globalData.data.RequestData;
-      console.log(RequestData);
-      //将获取到的 RequestData 编码换成对应的name
-      for (var i = 0; i < RequestData.length; i++) {
-        if (RequestData[i].code == that.data.Category) {
+    if (app.globalData.clientType == "login") {
+      //获得编辑页商家
+      app.send(
+        '/shop/load',
+        {
+          code: that.data.code,
+        },
+        'GET',
+        function (res) {
+          console.log(res.data);
+          var apply = res.data;
+          var markers = [{
+            id: 0,
+            iconPath: "../../images/address3.png",
+            "latitude": apply.latitude,
+            "longitude": apply.longitude,
+            width: 30,
+            height: 30,
+            title: apply.name
+          }];
           that.setData({
-            Category: RequestData[i].name
-          });
-          break;
-        }
-      };
+            addressOffer: apply.address,
+            categoryOffer: apply.category,
+            codeOffer: apply.code,
+            headOffer: apply.head,//头像图片
+            latitudeOffer: apply.latitude,
+            longitudeOffer: apply.longitude,
+            likedOffer: apply.liked,
+            nameOffer: apply.name,
+            phoneOffer: apply.phone,
+            descriptionOffer: apply.description,
+            markersOffer: markers,
+          })
+        },
+      );
+    } else {
+      return;
+    }
 
-      //设置type
-      var types = { "Business": 1, "Client": 2, "Other": 3 };
-      that.setData({
-        switchTab: types[that.data.type]
-      })
-
+    // wx.setNavigationBarTitle({ title: this.data.nameOffer });
+    var thatCategory = {
+      "001": 1,
+      "002": 2,
+      "003": 3,
+    };
+    var thatStatus = {
+      "Authenticating": "认证中",
+      "Authenticated": "已认证",
+      "NoPass": "未通过",
+      "None": null
+    }
+    this.setData({
+      switchTab: thatCategory[this.data.categorySlice],
+      over: thatStatus[this.data.status],
     })
-
-
+    this.getcategory(this.data.categorySlice);
   },
   onShow: function () {
-    console.log("onshow");
     var that = this;
-    //调用API从本地缓存中获取数据data
-    wx.getStorage({
-      key: 'data',
-      success: function (res) {
-        var RequestData = res.data.RequestData;
-        console.log(RequestData);
-        //将获取到的 RequestData 编码换成对应的name
-        for (var i = 0; i < RequestData.length; i++) {
-          if (RequestData[i].code == that.data.Category) {
-            that.setData({
-              Category: RequestData[i].name
-            });
-            break;
-          }
-        };
-      }
-    });
+    setTimeout(function () {
+      that.setData({
+        hiddenOffer: true
+      });
+    }, 1500);
 
+    this.setData({
+      area: app.globalData.name,
+      scope: app.globalData.scope
+    })
+  },
 
+  checkboxChange: function () {
+    this.setData({ checkbox: !this.data.checkbox })
   },
   //获取输入框名字
   getInputName: function (e) {
@@ -127,12 +219,17 @@ Page({
     })
     console.log(this.data.phone)
   },
+  //获取输入框City
+  getInputCity: function (e) {
+    wx.navigateTo({
+      url: '/pages/noedit/city/city'
+    })
+  },
   //获取输入框范围
   getInputScope: function (e) {
-    this.setData({
-      scope: e.detail.value
+    wx.navigateTo({
+      url: './city/city?data=666'
     })
-    console.log(this.data.scope)
   },
   //获取输入框介绍
   getInputDes: function (e) {
@@ -141,106 +238,122 @@ Page({
     })
     console.log(this.data.description)
   },
-  // 点击选择类型
-  touchlist: function (event) {
-    wx.navigateTo({
-      url: '/pages/category/category'
-    })
-  },
-
-  //提交申请
-  handlejump: function () {
-    var that = this;
-    wx.showToast({
-      title: '已提交，请等待审核',
-      icon: 'loading',
-      duration: 3000,
-      success: function (res) {
-        var apply = that.data
-        console.log("code : " + apply.code)
-        console.log("名字： " + apply.name)
-        console.log("图片： " + apply.Head)
-        console.log("电话： " + apply.phone)
-        console.log("地址： " + apply.address)
-        console.log("纬度： " + apply.Latitude)
-        console.log("经度： " + apply.Longitude)
-        console.log("类型： " + apply.Category)
-        console.log("type： " + apply.type)
-        console.log("编码： " + apply.clientid)
-        console.log("描述： " + apply.description)
-        console.log("范围： " + apply.scope)
-        app.send("http://radar.3vcar.com/shop/save/",
-          {
-            code: apply.code,
-            name: apply.name,
-            head: apply.Head,
-            phone: apply.phone,
-            address: apply.address,
-            longitude: apply.Longitude,
-            latitude: apply.Latitude,
-            category: apply.Category,
-            type: apply.type,
-            client: apply.clientid,
-            description: apply.description,
-            scope: apply.scope
-          }
-          , "POST", function (res) {
-            console.log(res)
-          })
-        setTimeout(function () {
-          wx.hideToast()
-          wx.switchTab({
-            url: '/pages/index/index'
-          })
-        }, 3000)
-      }
-    });
-  },
-
-  // 点击选择类型
-  touchlist: function (event) {
-    wx.navigateTo({
-      url: '/pages/category/category'
-    })
-  },
-  checkboxChange: function () {
-    this.setData({ checkbox: !this.data.checkbox })
-  },
+  //提交数据
   formSubmit: function (e) {
     var that = this;
+    //验证
+    if (this.data.Head == "/images/photo.png") {
+      wx.showToast({
+        title: '请上传头像',
+        icon: 'loading',
+        duration: 2000
+      });
+      return;
+    };
+    if (this.data.name == "") {
+      wx.showToast({
+        title: '请输入姓名',
+        icon: 'loading',
+        duration: 2000
+      });
+      return;
+    };
+    if (this.data.phone == "") {
+      wx.showToast({
+        title: '请输入电话',
+        icon: 'loading',
+        duration: 2000
+      });
+      return;
+    };
+    if (this.data.area == undefined) {
+      wx.showToast({
+        title: '请选择区域',
+        icon: 'loading',
+        duration: 2000
+      });
+      return;
+    };
+    if (this.data.address == "请选择您的地址") {
+      wx.showToast({
+        title: '请选择地址',
+        icon: 'loading',
+        duration: 2000
+      });
+      return;
+    };
+    if (this.data.categoryNormal == "请输入类型") {
+      wx.showToast({
+        title: '请确认类型',
+        icon: 'loading',
+        duration: 2000
+      });
+      return;
+    };
+    if (this.data.scope == undefined) {
+      wx.showToast({
+        title: '请再次确认服务范围',
+        icon: 'loading',
+        duration: 2000
+      });
+      return;
+    };
+    if (this.data.description == "") {
+      wx.showToast({
+        title: '请填写服务介绍',
+        icon: 'loading',
+        duration: 2000
+      });
+      return;
+    };
     if (this.data.checkbox) {
-      console.log('form发生了submit事件，携带数据为：', e.detail.value)
-      var eDetail = e.detail.value;
       var apply = that.data;
       console.log("code : " + apply.code)
-      console.log("name名字： " + eDetail.name)
+      console.log("name名字： " + apply.name)
       console.log("head图片： " + apply.Head)
-      console.log("phone电话： " + eDetail.phone)
+      console.log("phone电话： " + apply.phone)
+      console.log("city： " + apply.city)
       console.log("address地址： " + apply.address)
       console.log("latitude纬度： " + apply.Latitude)
       console.log("longitude经度： " + apply.Longitude)
-      console.log("category类型： " + apply.Category)
-      console.log("type： " + apply.type)
+      console.log("category类型： " + apply.categoryNormal)
       console.log("client编码： " + apply.clientid)
-      console.log("description描述： " + eDetail.description)
-      console.log("scope范围： " + eDetail.scope)
-      app.send("http://radar.3vcar.com/shop/save/",
+      console.log("description描述： " + apply.description)
+      console.log("scope范围： " + apply.scope)
+      app.send("/wechat/save",
         {
           code: apply.code,
-          name: eDetail.name,
+          name: apply.name,
           head: apply.Head,
-          phone: eDetail.phone,
+          phone: apply.phone,
+          city: apply.city,
           address: apply.address,
           longitude: apply.Longitude,
           latitude: apply.Latitude,
-          category: apply.Category,
-          type: apply.type,
+          category: apply.categoryNormal,
           client: apply.clientid,
-          description: eDetail.description,
-          scope: eDetail.scope
+          description: apply.description,
+          scope: apply.scope
         }
         , "POST", function (res) {
-          console.log(res)
+          if (res.data.Success) {
+            wx.showToast({
+              title: "已提交，请等待审核",
+              icon: 'loading',
+              duration: 1500,
+              success: function () {
+                wx.switchTab({
+                  url: '/pages/home/home'
+                })
+              }
+            })
+          } else {
+            wx.showToast({
+              title: "注册失败",
+              icon: 'loading',
+              duration: 1500
+            })
+          }
         })
     } else {
       wx.showToast({
@@ -250,9 +363,6 @@ Page({
       })
       return;
     }
-  },
-  formReset: function () {
-    console.log("重置")
   },
   //点击头像开始上传
   upload: function () {
@@ -307,16 +417,23 @@ Page({
     })
   },
   serviceOne: function () {
-    this.setData({ switchTab: 1, type: "Business" })
-    console.log(this.data.type)
+    this.setData({ switchTab: 1 })
+    //获取类型函数
+    this.getcategory("001");
+    this.getcategoryOne();
   },
   serviceTwo: function () {
-    this.setData({ switchTab: 2, type: "Client" })
-    console.log(this.data.type)
+    this.setData({ switchTab: 2 })
+    //获取类型函数
+    this.getcategory("002");
+    this.getcategoryOne();
+
   },
   serviceThree: function () {
-    this.setData({ switchTab: 3, type: "Other" })
-    console.log(this.data.type)
+    this.setData({ switchTab: 3 })
+    //获取类型函数
+    this.getcategory("003");
+    this.getcategoryOne();
   },
   //获取位置
   bindPosition: function () {
@@ -347,9 +464,110 @@ Page({
       }
     })
   },
+  bindPickerChange: function (e) {
+    this.setData({
+      index: e.detail.value,
+    })
+    var categoryName = this.data.category[this.data.index];
+    this.setData({
+      categoryName: categoryName,
+      categoryNormal: this.data.categoryCode[this.data.index]
+    })
+  },
   gonotice: function () {
     wx.navigateTo({
       url: '/pages/notice/notice'
     })
-  }
+  },
+  //函数  获取不同状态下的类型
+  getcategory: function (codeNumber) {
+
+    var that = this;
+    app.send("/shop/category", { code: "all" }, "GET", function (res) {
+      var arrOne = [];
+      var arrTwo = [];
+      for (var i = 0; i < res.data.length; i++) {
+        if ((res.data[i].code.slice(0, 3) == codeNumber) && (res.data[i].tier == 2)) {
+          arrOne.push(res.data[i].name);
+          arrTwo.push(res.data[i].code);
+        }
+      }
+      that.setData({ category: arrOne, categoryCode: arrTwo });
+    })
+  },
+  //函数  
+  getcategoryOne: function () {
+
+    var that = this;
+    app.send("/shop/category", { code: "all" }, "GET", function (res) {
+      for (var i = 0; i < res.data.length; i++) {
+        if (that.data.category[that.data.index] == res.data[i].name) {
+          that.setData({ categoryNormal: res.data[i].code });
+
+        }
+      }
+    })
+  },
+  //打电话
+  toCall: function (call) {
+    var that = this;
+    var call = call.currentTarget.dataset.id;
+    wx.makePhoneCall({
+      phoneNumber: call,
+      success: function (res) {
+
+      }
+    })
+  },
+
+  //点赞
+  liked: function (code) {
+    var that = this;
+    var code = code.currentTarget.dataset.code;
+    var client = wx.getStorageSync('user');
+    console.log(client);
+    console.log(client.ClientCode);
+    app.send(
+      '/wechat/like',
+      {
+        client: client.ClientCode,
+        code: code
+      },
+      'POST',
+      function (res) {
+        console.log(res);
+        if (res.data.Success) {
+          that.setData({
+            liked: that.data.likedOffer + 1,
+          })
+        } else {
+          wx.showToast({
+            title: '已点赞',
+            icon: 'loading',
+            duration: 2000
+          })
+        }
+      },
+    );
+  },
+  //编辑
+  handlejump: function () {
+    wx.navigateTo({
+      url: '/pages/edit/edit'
+    })
+  },
+  //打开地图
+  openMap: function () {
+    var that = this;
+    wx.openLocation({
+      latitude: that.data.latitudeOffer, // 纬度，范围为-90~90，负数表示南纬
+      longitude: that.data.longitudeOffer, // 经度，范围为-180~180，负数表示西经
+      scale: 28, // 缩放比例
+      name: that.data.nameOffer, // 位置名
+      address: that.data.addressOffer, // 地址的详细说明
+      success: function (res) {
+
+      },
+    })
+  },
 })

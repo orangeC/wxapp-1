@@ -1,11 +1,15 @@
-<!--pages/search/search.wxml-->
 <view class="top">
-    <view class="input"><image src="../../iconImg/search-white.png"></image><input placeholder="类别搜索" placeholder-class="placeholder"/></view>
+  <view class="input">
+    <image src="../../iconImg/search-white.png"></image>
+    <input placeholder="类别搜索" placeholder-class="placeholder" bindinput="searchType" class="color"/>
+  </view>
 </view>
-<view class="type">
-    <view bindtap="goToDetail"><text class="list">1</text> 水管维修<text class="float">20 ></text></view>
-    <view><text class="list">2</text> 电冰箱维修<view class="float">12 ></view></view>
-    <view><text class="list">3</text> 干洗保洁<view class="float">3 ></view></view>
-    <view><text class="list">4</text> 门锁维修<view class="float">1 ></view></view>
-    <view><text class="list">5</text> 地板砖维修<view class="float">10 ></view></view>
+<view class="type" wx:for="{{type}}" wx:key="">
+  <view bindtap="goToDetail" data-id="{{item.code}}" data-name="{{item.name}}">
+    <view class="list">
+      <view class="number"><text>{{index+1}}</text></view>
+      <text>{{item.name}}</text>
+    </view>
+    <view class="float">{{item.amount}} ></view>
+  </view>
 </view>

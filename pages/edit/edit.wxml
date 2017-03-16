@@ -1,5 +1,129 @@
 <view class="container">
-  <import src="../template/tempedit.wxml" />
-<template is="tempedit" data="{{showList,img,src,tab,switchTab,hidden,intro}}" />
-  <view class="last" bindtap="handlejump">保存并重新提交审核</view>
+ <view wx:if="{{comment}}" class="header">{{comment}}</view>
+ <view wx:else></view>
+  <form bindsubmit="formSubmit" bindreset="formReset">
+    <view class="block">
+      <view class="normal flex-between">
+        <text class="normal-left">头像</text>
+        <view bindtap="upload">
+          <image class="u249_img" src="{{Head}}" mode="scaleToFill" />
+        </view>
+      </view>
+    </view>
+    <view class="block">
+      <view class="normal flex-between">
+        <text class="normal-left">名称</text>
+        <view class="flex">
+          <input bindinput="getInputName" class="normalInput" value="{{name}}" placeholder="请输入姓名" />
+          <view class="author" hidden="{{!over}}">{{over}}</view>
+        </view>
+      </view>
+    </view>
+    <view class="block">
+      <view class="normal flex-between">
+        <text class="normal-left">电话</text>
+        <input bindinput="getInputPhone" class="normalInput" type="number" value="{{phone}}" placeholder="请输入电话" />
+      </view>
+    </view>
+    <view class="block">
+      <view class="normal flex-between">
+        <text class="normal-left">所在区域</text>
+        <view class="flex">
+          <view bindtap="getInputCity" class="normalInput" >{{area}}</view>
+          <image class="arrow" src="/images/arrow.png"></image>
+        </view>
+      </view>
+    </view>
+    <view class="block">
+      <view class="normal flex-between">
+        <text class="normal-left">位置</text>
+        <view class="flex">
+          <view class="normalInput" bindtap="bindPosition" >{{address}}</view>
+          <image class="arrow" src="/images/arrow.png"></image>
+        </view>
+      </view>
+    </view>
+    <view class="circle">
+      <view bindtap="serviceOne">
+        <view wx:if="{{switchTab != 1}}" class="circle-view">
+          <view class="normalmarginCircle">
+          </view>
+          <text class="circle-text">家庭维修</text>
+        </view>
+        <view wx:else class="circle-view">
+          <view class="marginCircle">
+            <image style="width:30px;height:30px;" src="/images/home.png" mode="scaleToFill"></image>
+          </view>
+          <text class="circle-text">家庭维修</text>
+        </view>
+      </view>
+      <view class="circle-view line line-left"></view>
+      <view bindtap="serviceTwo">
+        <view wx:if="{{switchTab != 2}}" class="circle-view">
+          <view class="normalmarginCircle">
+          </view>
+          <text class="circle-text">日常维修</text>
+        </view>
+        <view wx:else class="circle-view">
+          <view class="marginCircle">
+            <image style="width:30px;height:30px;" src="/images/repair.png" mode="scaleToFill"></image>
+          </view>
+          <text class="circle-text">日常维修</text>
+        </view>
+      </view>
+      <view class="circle-view line line-right"></view>
+      <view bindtap="serviceThree">
+        <view wx:if="{{switchTab != 3}}" class="circle-view">
+          <view class="normalmarginCircle">
+          </view>
+          <text class="circle-text">工业维修</text>
+        </view>
+        <view wx:else class="circle-view">
+          <view class="marginCircle">
+            <image style="width:30px;height:30px;" src="/images/industry.png" mode="scaleToFill"></image>
+          </view>
+          <text class="circle-text">工业维修</text>
+        </view>
+      </view>
+    </view>
+    <view class="block">
+      <view class="normal flex-between">
+        <text class="normal-left">服务类型</text>
+        <view class="flex">
+          <picker mode="selector" range="{{category}}" value="{{index}}" bindchange="bindPickerChange">
+          <view wx:if="{{category.length == 1}}" class="normalInput">{{categoryNormal}}</view>
+            <view wx:else class="normalInput">{{category[index]}}</view>
+          </picker>
+          <image class="arrow" src="/images/arrow.png"></image>
+        </view>
+      </view>
+    </view>
+    <view class="block">
+      <view class="normal flex-between">
+        <text class="normal-left">服务范围</text>
+        <view class="flex">
+          <view bindtap="getInputScope" class="normalInput" >{{scope}}</view>
+          <image class="arrow" src="/images/arrow.png"></image>
+        </view>
+      </view>
+    </view>
+    <view class="block">
+      <view class="normal flex-between">
+        <text class="normal-left">服务介绍</text>
+        <view class="flex">
+          <input bindinput="getInputDes" value="{{description}}" class="normalInput" placeholder="请详细的描述" />
+          <image class="arrow" src="/images/arrow.png"></image>
+        </view>
+      </view>
+    </view>
+    <view class="checkboxGroup">
+      <checkbox-group bindchange="checkboxChange">
+        <checkbox checked="{{checkbox}}" />
+        <text>我已阅读</text>
+        <text class="blue" bindtap="gonotice">《维修快线用户协议》</text>
+      </checkbox-group>
+    </view>
+    <button wx:if="{{submit}}" class="last" formType="submit">保存并重新提交审核</button>
+    <button wx:else class="last" formType="submit">提交申请</button>
+  </form>
 </view>

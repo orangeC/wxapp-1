@@ -1,23 +1,21 @@
-<view>
-  <view class="common home" bindtap="search">
-    <view>
-      <image src="../../iconImg/home.png"></image>
-      <text>家庭维修</text>
-    </view>
+<view class="common home" bindtap="search" data-id="{{home.code}}" data-name="{{home.name}}">
+  <view>
+    <image src="../../iconImg/001.png"></image>
+    <text>{{home.name}}</text>
   </view>
-  <text class="commonWord">自己家里想找维修</text>
-  <view class="common daily" bindtap="search">
-    <view>
-      <image src="../../iconImg/repair.png"></image>
-      <text>日常维修</text>
-    </view>
-  </view>
-  <text class="commonWord">日常需要的维修项目</text>
-  <view class="common industry" bindtap="search">
-    <view>
-      <image src="../../iconImg/industry.png"></image>
-      <text>工业维修</text>
-    </view>
-  </view>
-  <text class="commonWord">工业上需要找维修</text>
 </view>
+<text class="commonWord">{{home.description}}</text>
+<view class="common daily" bindtap="search" data-id="{{daily.code}}" data-name="{{daily.name}}">
+  <view>
+    <image src="../../iconImg/002.png"></image>
+    <text class="top">{{daily.name}}</text>
+  </view>
+</view>
+<text class="commonWord">{{daily.description}}</text>
+<view class="common industry" bindtap="search" data-id="{{industry.code}}" data-name="{{industry.name}}">
+  <view>
+    <image src="../../iconImg/003.png"></image>
+    <text class="top">{{industry.name}}</text>
+  </view>
+</view>
+<text class="commonWord">{{industry.description}}</text>

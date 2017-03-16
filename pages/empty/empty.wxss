@@ -1,0 +1,10 @@
+.empty {
+  display: flex;
+  flex-direction: column;
+  box-sizing: border-box;
+  align-content: center;
+  justify-content: center;
+  align-items: center;
+  color: #000;
+  font-family: '华文细黑 Regular', '华文细黑';
+}

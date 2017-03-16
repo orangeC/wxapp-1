@@ -1,4 +1,6 @@
-<view class="container">
+<view wx:if="{{containerOffer == true}}" class="container">
+ <view wx:if="{{comment}}" class="header">{{comment}}</view>
+ <view wx:else></view>
   <form bindsubmit="formSubmit" bindreset="formReset">
     <view class="block">
       <view class="normal flex-between">
@@ -12,22 +14,22 @@
       <view class="normal flex-between">
         <text class="normal-left">名称</text>
         <view class="flex">
-          <input class="normalInput" name="name" placeholder="请输入名称" />
-          <view class="author" hidden="{{false}}">已认证</view>
+          <input bindinput="getInputName" class="normalInput" value="{{name}}" placeholder="请输入姓名" />
+          <view class="author" hidden="{{!over}}">{{over}}</view>
         </view>
       </view>
     </view>
     <view class="block">
       <view class="normal flex-between">
         <text class="normal-left">电话</text>
-        <input class="normalInput" type="number" name="phone" placeholder="请输入电话" />
+        <input bindinput="getInputPhone" class="normalInput" type="number" value="{{phone}}" placeholder="请输入电话" />
       </view>
     </view>
     <view class="block">
       <view class="normal flex-between">
         <text class="normal-left">所在区域</text>
         <view class="flex">
-          <input class="normalInput" name="area" placeholder="请输入区域" />
+          <view bindtap="getInputCity" class="normalInput" >{{area}}</view>
           <image class="arrow" src="/images/arrow.png"></image>
         </view>
       </view>
@@ -36,7 +38,7 @@
       <view class="normal flex-between">
         <text class="normal-left">位置</text>
         <view class="flex">
-          <input class="normalInput" bindtap="bindPosition" placeholder="{{address}}" />
+          <view class="normalInput" bindtap="bindPosition" >{{address}}</view>
           <image class="arrow" src="/images/arrow.png"></image>
         </view>
       </view>
@@ -88,7 +90,10 @@
       <view class="normal flex-between">
         <text class="normal-left">服务类型</text>
         <view class="flex">
-          <input bindtap="touchlist" class="normalInput" placeholder="{{Category}}" />
+          <picker mode="selector" range="{{category}}" value="{{index}}" bindchange="bindPickerChange">
+          <view wx:if="{{category.length == 1}}" class="normalInput">{{categoryNormal}}</view>
+            <view wx:else class="normalInput">{{category[index]}}</view>
+          </picker>
           <image class="arrow" src="/images/arrow.png"></image>
         </view>
       </view>
@@ -97,7 +102,7 @@
       <view class="normal flex-between">
         <text class="normal-left">服务范围</text>
         <view class="flex">
-          <input name="scope" class="normalInput" placeholder="服务范围" />
+          <view bindtap="getInputScope" class="normalInput" >{{scope}}</view>
           <image class="arrow" src="/images/arrow.png"></image>
         </view>
       </view>
@@ -106,7 +111,7 @@
       <view class="normal flex-between">
         <text class="normal-left">服务介绍</text>
         <view class="flex">
-          <input name="description" class="normalInput" placeholder="请详细的描述" />
+          <input bindinput="getInputDes" value="{{description}}" class="normalInput" placeholder="请详细的描述" />
           <image class="arrow" src="/images/arrow.png"></image>
         </view>
       </view>
@@ -121,4 +126,35 @@
     <button wx:if="{{submit}}" class="last" formType="submit">保存并重新提交审核</button>
     <button wx:else class="last" formType="submit">提交申请</button>
   </form>
+</view>
+<view wx:else class="container-offer">
+    <loading hidden="{{ hiddenOffer }}">加载中...</loading>
+    <view class="other-header-offer normal-offer">
+        <image src="{{headOffer}}"></image>
+        <text class="other-title-offer">{{nameOffer}}</text>
+        <view class="other-zan-offer" wx:if="{{likedOffer > 0}}" bindtap="liked">
+            <image bindtap="bindClicklike" src="/images/good-on.png" mode="scaleToFill"></image>{{likedOffer}}
+        </view>
+        <view class="other-zan-offer" wx:else bindtap="liked">
+            <image bindtap="bindClicklike" src="/images/good-off.png" mode="scaleToFill"></image>{{likedOffer}}
+        </view>
+    </view>
+    <view class="other-address-offer normal-offer">
+        <image src="/images/address2.png" mode="scaleToFill"></image>
+        <text>{{addressOffer}}</text>
+    </view>
+    <view class="other-tel-offer normal-offer" bindtap="toCall" data-id="{{phoneOffer}}">
+        <image class="u243_img" src="/images/phones.png" mode="scaleToFill"></image>
+        <text>{{phoneOffer}}</text>
+    </view>
+    <map longitude="{{longitudeOffer}}" latitude="{{latitudeOffer}}" markers="{{markersOffer}}" scale="15" show-location="true"></map>
+    <view class="other-service-offer normal-offer">
+        <image src="/images/type.png" mode="scaleToFill"></image>
+        <text>服务类型：{{categoryOffer}}</text>
+    </view>
+    <view class="other-info-offer normal-offer">
+        <image src="/images/content.png" mode="scaleToFill"></image>
+        <text>服务介绍：{{descriptionOffer}}</text>
+    </view>
+<view class="last-offer" bindtap="handlejump">编辑</view>    
 </view>
