@@ -36,11 +36,11 @@ Page({
   },
   onLoad: function () {
     var that = this;
-    var dataCity = city.getCity();
+
     //调用API从本地缓存中获取数据user
     var clientid = wx.getStorageSync("user");
     console.log(clientid);
-    
+
     //获得某个商家
     app.send("/wechat/load", { code: clientid.ClientCode }, "GET", function (res) {
       if (res.data) {
@@ -52,6 +52,7 @@ Page({
           Head: data.head,
           name: data.name,
           phone: data.phone,
+          area: data.city,
           address: data.address,
           Latitude: data.latitude,
           Longitude: data.longitude,
@@ -90,16 +91,7 @@ Page({
 
           })
         };
-        if (data.city) {
-          for (var i = 0; i < dataCity.length; i++) {
-            if (dataCity[i].code == data.city) {
-              that.setData({
-                area: dataCity[i].name
-              })
-              break;
-            }
-          }
-        };
+
         wx.setNavigationBarTitle({ title: "编辑信息" });
       } else {
         that.setData({ submit: false, containerOffer: true })
@@ -114,6 +106,7 @@ Page({
 
   },
   onReady: function () {
+    var dataCity = city.getCity();
     var thatCategory = {
       "001": 1,
       "002": 2,
@@ -130,14 +123,22 @@ Page({
       over: thatStatus[this.data.status],
     })
     this.getcategory(this.data.categorySlice);
+    if (this.data.area) {
+      console.log(this.data.area)
+      for (var i = 0; i < dataCity.length; i++) {
+        if (dataCity[i].code == this.data.area) {
+          this.setData({
+            area: dataCity[i].name
+          })
+          break;
+        }
+      }
+    };
   },
   onShow: function () {
 
     console.log(this.data.area)
-    this.setData({
-      area: app.globalData.name,
-      scope: app.globalData.scope
-    })
+    
   },
 
   checkboxChange: function () {
@@ -178,7 +179,7 @@ Page({
   },
   //提交数据
   formSubmit: function (e) {
-    console.log(this.data.scope)
+    console.log(this.data.city)
     var that = this;
     //验证
     if (this.data.Head == "/images/photo.png") {
@@ -205,9 +206,9 @@ Page({
       });
       return;
     };
-    if (this.data.area == undefined) {
+    if (this.data.city == undefined) {
       wx.showToast({
-        title: '请选择区域',
+        title: '请再次确认区域',
         icon: 'loading',
         duration: 2000
       });

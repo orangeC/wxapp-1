@@ -64,6 +64,7 @@ Page({
               Head: data.head,
               name: data.name,
               phone: data.phone,
+              area:data.city,
               address: data.address,
               Latitude: data.latitude,
               Longitude: data.longitude,
@@ -101,16 +102,6 @@ Page({
                 })
 
               })
-            };
-            if (data.city) {
-              for (var i = 0; i < dataCity.length; i++) {
-                if (dataCity[i].code == data.city) {
-                  that.setData({
-                    area: dataCity[i].name
-                  })
-                  break;
-                }
-              }
             };
             wx.setNavigationBarTitle({ title: "编辑信息" });
           } else {
@@ -196,10 +187,6 @@ Page({
       });
     }, 1500);
 
-    this.setData({
-      area: app.globalData.name,
-      scope: app.globalData.scope
-    })
   },
 
   checkboxChange: function () {

@@ -34,42 +34,60 @@ Page({
 
   },
   onReady: function () {
-    var searchLetter = ["A", "B", "C", "D", "E", "F", "G", "H", "J", "K", "L", "M", "N", "P", "Q", "R", "S", "T", "W", "X", "Y", "Z"];
-    // 获取系统信息
-    var sysInfo = wx.getSystemInfoSync();
-    var winHeight = sysInfo.windowHeight;
-    //添加要匹配的字母范围值
-    var itemH = winHeight / searchLetter.length;
-    var tempObj = [];
-    for (var i = 0; i < searchLetter.length; i++) {
-      var temp = {};
-      temp.name = searchLetter[i];
-      temp.tHeight = i * itemH;
-      temp.bHeight = (i + 1) * itemH;
-      tempObj.push(temp)
-    };
-    var groups = [];
-    for (var i = 0; i < searchLetter.length; i++) {
-      var group = {
-        initial: searchLetter[i],
-        brands: []
-      };
+    var that = this;
+    wx.showToast({
+      title: '正在请求地址列表',
+      icon: 'loading',
+      duration: 10000,
+      success: function () {
+        var searchLetter = ["A", "B", "C", "D", "E", "F", "G", "H", "J", "K", "L", "M", "N", "P", "Q", "R", "S", "T", "W", "X", "Y", "Z"];
+        // 获取系统信息
+        var sysInfo = wx.getSystemInfoSync();
+        var winHeight = sysInfo.windowHeight;
+        //添加要匹配的字母范围值
+        var itemH = winHeight / searchLetter.length;
+        var tempObj = [];
+        for (var i = 0; i < searchLetter.length; i++) {
+          var temp = {};
+          temp.name = searchLetter[i];
+          temp.tHeight = i * itemH;
+          temp.bHeight = (i + 1) * itemH;
+          tempObj.push(temp)
+        };
+        var groups = [];
+        for (var i = 0; i < searchLetter.length; i++) {
+          var group = {
+            initial: searchLetter[i],
+            brands: []
+          };
 
-      for (var j = 0; j < this.data.brand.length; j++) {
-        var brand = this.data.brand[j];
-        if (group.initial == brand.initial) {
-          brand.json = JSON.stringify(brand);
-          group.brands.push(brand);
+          for (var j = 0; j < that.data.brand.length; j++) {
+            var brand = that.data.brand[j];
+            if (group.initial == brand.initial) {
+              brand.json = JSON.stringify(brand);
+              group.brands.push(brand);
+            }
+          }
+          groups.push(group);
+          that.setData({
+            winHeight: winHeight,
+            itemH: itemH,
+            searchLetter: tempObj,
+            brands: groups
+          })
         }
+      },
+      fail: function () {
+        wx.showToast({
+          title: '请求失败请重新加载',
+          icon: 'loading',
+          duration: 1500,
+        })
+      },
+      complete: function () {
+        wx.hideToast();
       }
-      groups.push(group);
-      this.setData({
-        winHeight: winHeight,
-        itemH: itemH,
-        searchLetter: tempObj,
-        brands: groups
-      })
-    }
+    })
   },
 
   searchStart: function (e) {
@@ -260,14 +278,16 @@ Page({
     for (var i = 0; i < this.data.style.length; i++) {
       if (this.data.style[i].code == e.currentTarget.dataset.code) {
         if (this.data.options) {
-          app.globalData.scope = this.data.style[i].name;
+          prevPage.setData({
+            scope: this.data.style[i].name
+          })
         } else {
-          app.globalData.name = this.data.style[i].name;
+          prevPage.setData({
+            area: this.data.style[i].name,
+            city: this.data.style[i].code
+          })
         }
         //直接调用上一个页面的setData()方法，把数据存到上一个页面中去
-        prevPage.setData({
-          city: this.data.style[i].code
-        })
       }
     }
 

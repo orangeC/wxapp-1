@@ -122,6 +122,7 @@ Page({
 
   onReady: function () {
       wx.setNavigationBarTitle({ title: this.data.nameOffer });
+      
   },
 
   onShow: function () {
