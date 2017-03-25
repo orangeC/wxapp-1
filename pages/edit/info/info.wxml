@@ -1,0 +1,4 @@
+<view class="container">
+  <textarea bindinput="getInputName" rows="50" cols="3" placeholder="输入文本" />
+  <view class="last" bindtap="handlejump">提交</view>
+</view>

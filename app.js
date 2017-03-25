@@ -5,9 +5,8 @@ App({
   onLaunch: function () {
     var that = this;
 
-    //获取小程序登录凭证并缓存
+    // 获取小程序登录凭证并缓存
     this.getClientData();
-
     wx.login({
       success: function (res) {
         if (res.code) {
@@ -87,11 +86,23 @@ App({
   },
   onShow: function () {
     var that = this;
+    that.globalData.arrData = [];
+    that.send("/shop/category",{code:"all"},"GET",function(res){
+      for(var i=0;i<res.data.length;i++){
+        if(res.data[i].tier == "1"){
+          that.globalData.arrData.push(res.data[i].name)
+        }
+      }
+    })
   },
   globalData: {
     user: {},
     data: {},
-    clientType: ''
+    clientType: '',
+    latitude:'',
+    longitude:'',
+    codeIndex:'',
+    arrData:[]
   }
 
 })

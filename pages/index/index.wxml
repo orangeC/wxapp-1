@@ -29,7 +29,8 @@
               <view class="likeIconA" bindtap="" >
                     <image src="../../images/good-on.png" class="likeIcon"></image>{{item.liked}}
               </view>
-              <text class="distance">{{item.distance}}m</text>
+              <text class="distance" wx:if="{{item.units}}">{{item.distance}}km</text>
+              <text class="distance" wx:else>{{item.distance}}m</text>
           </view>
       </view>
   </view>
@@ -55,7 +56,8 @@
               <view class="likeIconA" bindtap="" wx:else>
                     <image src="../../images/good-off.png" class="likeIcon"></image>{{item.liked}}
               </view>
-              <text class="distance">{{item.distance}}m</text>
+              <text class="distance" wx:if="{{item.units}}">{{item.distance}}km</text>
+              <text class="distance" wx:else>{{item.distance}}m</text>
           </view>
       </view>
   </view>

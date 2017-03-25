@@ -18,26 +18,20 @@ Page({
   //获得地址
   toAddress: function () {
         var that = this;
-        wx.getLocation({
-            type: 'gcj02',
-            success: function(res) {
-                var latitude = res.latitude;
-                var longitude = res.longitude;
-                var speed = res.speed;
-                var accuracy = res.accuracy;
-                wx.chooseLocation({
-                    success: function(res){
-                        console.log(res.address);
-                        wx.setStorageSync('address', res.address);
-                        that.setData({
-                            address:res.address,
-                        });              
-                    },
-                    fail: function() {
+        wx.chooseLocation({
+            success: function(res){
+                console.log(res);
+                app.globalData.latitude = res.latitude;
+                app.globalData.longitude = res.longitude;
+                wx.setStorageSync('address', res.address);
+                that.setData({
+                    address:res.address,
+                });
+                that.load(app.globalData.codeIndex);             
+            },
+            fail: function() {
 
-                    },
-                })
-            }
+            },
         })
   },
   //去详情页
@@ -51,45 +45,45 @@ Page({
   onLoad: function (ecode) {
       var that = this;
       console.log(ecode.code);
-      wx.getLocation({
-          type: 'wgs84', // 默认为 wgs84 返回 gps 坐标，gcj02 返回可用于 wx.openLocation 的坐标
-          success: function(res){
-              that.setData({
-                  latitude:res.latitude,
-                  longitude:res.longitude
-              });
-              app.send(
-                  '/shop/search',
-                  {
-                      category:ecode.code,//传code值
-                      latitude:that.data.latitude,
-                      longitude:that.data.longitude,
-                  },
-                  'GET',
-                  function(res){
-                      console.log(res.data);
-                      var shop = res.data;
-                      for(var i = 0;i < shop.length;i++){
-                          shop[i].distance = Math.round(shop[i].distance);
-                      };
-                      that.setData({
-                          shop:shop,
-                      });
-                  },
-                  function(res){
+      app.globalData.codeIndex = ecode.code;
+      that.setData({
+            latitude:app.globalData.latitude,
+            longitude:app.globalData.longitude,
+      });
+      app.send(
+            '/shop/search',
+            {
+                category:ecode.code,//传code值
+                latitude:that.data.latitude,
+                longitude:that.data.longitude,
+            },
+            'GET',
+            function(res){
+                console.log(res.data);
+                var shop = res.data;
+                for(var i = 0;i < shop.length;i++){
+                    // shop[i].distance = Math.round(shop[i].distance);
+                    var distance = Math.round(shop[i].distance);
+                    if(distance >= 1000){
+                        shop[i].units = true;
+                        var dis = Math.round(distance/1000);
+                        shop[i].distance = dis; 
+                    }else{
+                        shop[i].units = false;
+                        shop[i].distance = distance;
+                    }
+                };
+                that.setData({
+                    shop:shop,
+                });
+            },
+      )
 
-                  }
-              )
-          },
-          fail: function(res) {
-            
-          },
-      })
-      wx.setNavigationBarTitle({
+    wx.setNavigationBarTitle({
         title: ecode.name,
         success: function(res) {
         }
-      })
+    })
   },
 
   //打电话
@@ -105,11 +99,7 @@ Page({
   },
 
   onShow:function(){
-      var that = this;
-      var address = wx.getStorageSync('address');
-      that.setData({
-          address:address,
-      });
+      
   },
   
   onReady: function () {
@@ -119,5 +109,26 @@ Page({
   bindKeyInput: function (e) {
     // console.log(e.detail.value)
   },
-
+  load:function(code){
+      var that = this;
+    app.send(
+        '/shop/search',
+        {
+            category:code,//传code值
+            latitude:app.globalData.latitude,
+            longitude:app.globalData.longitude,
+        },
+        'GET',
+        function(res){
+            console.log(res.data);
+            var shop = res.data;
+            for(var i = 0;i < shop.length;i++){
+                shop[i].distance = Math.round(shop[i].distance);
+            };
+            that.setData({
+                shop:shop,
+            });
+        },
+    )
+  }
 })

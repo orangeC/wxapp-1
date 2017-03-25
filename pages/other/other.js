@@ -36,9 +36,8 @@ Page({
   },
 
   //点赞
-  liked:function(code){
+  liked:function(){
         var that = this;
-        var code = code.currentTarget.dataset.code;
         var client = wx.getStorageSync('user');
         console.log(client);
         console.log(client.ClientCode);
@@ -46,7 +45,7 @@ Page({
             '/wechat/like',
             {
                 client:client.ClientCode,
-                code:code
+                code:that.data.code
             },
             'POST',
             function(res){
@@ -55,9 +54,10 @@ Page({
                     that.setData({
                         liked:that.data.liked + 1,
                     })
+
                 }else{
                     wx.showToast({
-                    title: '已点赞',
+                    title: res.data.Message,
                     icon: 'loading',
                     duration: 2000
                     })
@@ -72,7 +72,7 @@ Page({
         wx.openLocation({
           latitude: that.data.latitude, // 纬度，范围为-90~90，负数表示南纬
           longitude: that.data.longitude, // 经度，范围为-180~180，负数表示西经
-          scale: 28, // 缩放比例
+          scale: 15, // 缩放比例
           name: that.data.name, // 位置名
           address: that.data.address, // 地址的详细说明
           success: function(res){
@@ -133,4 +133,7 @@ Page({
     }, 1500);
   },
 
-  });
+  load:function(){
+
+  }
+});

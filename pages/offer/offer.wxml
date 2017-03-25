@@ -1,5 +1,4 @@
 <view class="container">
-    <loading hidden="{{ hidden }}">加载中...</loading>
     <view class="other-header normal">
         <image src="{{head}}"></image>
         <text class="other-title">{{name}}</text>

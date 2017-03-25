@@ -217,6 +217,10 @@ Page({
   },
   //模态框
   setModalStatus: function (e) {
+    var eCity = JSON.parse(e.currentTarget.dataset.json).name;
+    this.setData({
+      eCity: eCity
+    })
     var arrData = [];
     if (this.data.options) {
       var objData = {};
@@ -273,15 +277,18 @@ Page({
   brandStyle: function (e) {
     var pages = getCurrentPages();
     var prevPage = pages[pages.length - 2];  //上一个页面
-    if (this.data.options) {
-
-    }
     for (var i = 0; i < this.data.style.length; i++) {
       if (this.data.style[i].code == e.currentTarget.dataset.code) {
         if (this.data.options) {
-          prevPage.setData({
-            scope: this.data.style[i].name
-          })
+          if (this.data.style[i].name == "全部区域") {
+            prevPage.setData({
+              scope: this.data.eCity + " ‒ " + this.data.style[i].name
+            })
+          } else {
+            prevPage.setData({
+              scope: this.data.style[i].name
+            })
+          }
         } else {
           prevPage.setData({
             area: this.data.style[i].name,

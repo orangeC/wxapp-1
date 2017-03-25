@@ -12,7 +12,7 @@ Page({
     area: "请选择您的区域",
     address: "请选择您的地址",
     scope: "请选择服务范围",
-    description: "",
+    description: "请写下描述",
     intro: false,
     Head: "/images/photo.png",
     submit: false,
@@ -43,69 +43,83 @@ Page({
 
     //获得某个商家
     app.send("/wechat/load", { code: clientid.ClientCode }, "GET", function (res) {
-      if (res.data) {
-        var data = res.data;
-        console.log(data);
-        that.setData({
-          comment: data.comment,
-          clientid: clientid.ClientCode,
-          Head: data.head,
-          name: data.name,
-          phone: data.phone,
-          area: data.city,
-          address: data.address,
-          Latitude: data.latitude,
-          Longitude: data.longitude,
-          scope: data.scope,
-          description: data.description,
-          code: data.code,
-          status: data.status,
-          submit: true,
-          containerOffer: false
-        })
-        if (data.category) {
-          app.send("/shop/category", { code: "all" }, "GET", function (res) {
-            var arrSome = [];
-            for (var i = 0; i < res.data.length; i++) {
-              if (res.data[i].code == data.category) {
-                that.setData({
-                  categoryName: res.data[i].name,
-                  categoryNormal: data.category
-                })
-              }
-              if ((data.category.slice(0, 3) == res.data[i].code.slice(0, 3)) && (res.data[i].tier == 2)) {
-                arrSome.push(res.data[i]);
-              }
-
-            }
-            for (var i = 0; i < arrSome.length; i++) {
-              if (arrSome[i].code == data.category) {
-                that.setData({ index: i })
-              }
-            }
-
-            //前3位(设置状态)
+      wx.showToast({
+        title: '玩儿命加载中。。',
+        icon: 'loading',
+        duration: 5000,
+        success: function () {
+          if (res.data) {
+            var data = res.data;
+            console.log(data);
             that.setData({
-              categorySlice: data.category.slice(0, 3)
+              comment: data.comment,
+              clientid: clientid.ClientCode,
+              Head: data.head,
+              name: data.name,
+              phone: data.phone,
+              area: data.city,
+              address: data.address,
+              Latitude: data.latitude,
+              Longitude: data.longitude,
+              scope: data.scope,
+              description: data.description,
+              code: data.code,
+              status: data.status,
+              submit: true,
+              containerOffer: false
             })
+            if (data.category) {
+              app.send("/shop/category", { code: "all" }, "GET", function (res) {
+                var arrSome = [];
+                for (var i = 0; i < res.data.length; i++) {
+                  if (res.data[i].code == data.category) {
+                    that.setData({
+                      categoryName: res.data[i].name,
+                      categoryNormal: data.category
+                    })
+                  }
+                  if ((data.category.slice(0, 3) == res.data[i].code.slice(0, 3)) && (res.data[i].tier == 2)) {
+                    arrSome.push(res.data[i]);
+                  }
 
-          })
-        };
+                }
+                for (var i = 0; i < arrSome.length; i++) {
+                  if (arrSome[i].code == data.category) {
+                    that.setData({ index: i })
+                  }
+                }
 
-        wx.setNavigationBarTitle({ title: "编辑信息" });
-      } else {
-        that.setData({ submit: false, containerOffer: true })
-        wx.showToast({
-          title: '您还未注册',
-          icon: 'loading',
-          duration: 3000,
-        })
-      }
+                //前3位(设置状态)
+                that.setData({
+                  categorySlice: data.category.slice(0, 3)
+                })
+                console.log(that.data.categorySlice)
+
+              })
+            };
+
+            wx.setNavigationBarTitle({ title: "编辑信息" });
+          } else {
+            that.setData({ submit: false, containerOffer: true })
+            wx.showToast({
+              title: '请求错误请重新登录',
+              icon: 'loading',
+              duration: 3000,
+            })
+          }
+        },
+        complete: function () {
+          wx.hideToast();
+        }
+      })
 
     })
 
   },
   onReady: function () {
+    if (this.data.status == "Authenticated") {
+      this.setData({ comment: null })
+    }
     var dataCity = city.getCity();
     var thatCategory = {
       "001": 1,
@@ -123,11 +137,16 @@ Page({
       over: thatStatus[this.data.status],
     })
     this.getcategory(this.data.categorySlice);
+    wx.showToast({
+      title: thatStatus[this.data.status],
+      icon: 'loading',
+      duration: 1500
+    })
     if (this.data.area) {
-      console.log(this.data.area)
       for (var i = 0; i < dataCity.length; i++) {
         if (dataCity[i].code == this.data.area) {
           this.setData({
+            city: this.data.area,
             area: dataCity[i].name
           })
           break;
@@ -137,8 +156,12 @@ Page({
   },
   onShow: function () {
 
-    console.log(this.data.area)
-    
+    this.setData({
+      categoryOne: app.globalData.arrData[0],
+      categoryTwo: app.globalData.arrData[1],
+      categoryThree: app.globalData.arrData[2],
+    })
+
   },
 
   checkboxChange: function () {
@@ -161,7 +184,7 @@ Page({
   //获取输入框City
   getInputCity: function (e) {
     wx.navigateTo({
-      url: '/pages/edit/city/city'
+      url: './city/city'
     })
   },
   //获取输入框范围
@@ -172,14 +195,20 @@ Page({
   },
   //获取输入框介绍
   getInputDes: function (e) {
-    this.setData({
-      description: e.detail.value
+    wx.navigateTo({
+      url: './info/info'
     })
-    console.log(this.data.description)
   },
   //提交数据
   formSubmit: function (e) {
-    console.log(this.data.city)
+    if (this.data.status == "Authenticating") {
+      wx.showToast({
+        title: '您的账户正在认证中，请勿重复提交',
+        icon: 'loading',
+        duration: 3000
+      });
+      return;
+    }
     var that = this;
     //验证
     if (this.data.Head == "/images/photo.png") {
@@ -248,18 +277,6 @@ Page({
     };
     if (this.data.checkbox) {
       var apply = that.data;
-      console.log("code : " + apply.code)
-      console.log("name名字： " + apply.name)
-      console.log("head图片： " + apply.Head)
-      console.log("phone电话： " + apply.phone)
-      console.log("city： " + apply.city)
-      console.log("address地址： " + apply.address)
-      console.log("latitude纬度： " + apply.Latitude)
-      console.log("longitude经度： " + apply.Longitude)
-      console.log("category类型： " + apply.categoryNormal)
-      console.log("client编码： " + apply.clientid)
-      console.log("description描述： " + apply.description)
-      console.log("scope范围： " + apply.scope)
       app.send("/wechat/save",
         {
           code: apply.code,
@@ -367,7 +384,6 @@ Page({
     //获取类型函数
     this.getcategory("002");
     this.getcategoryOne();
-
   },
   serviceThree: function () {
     this.setData({ switchTab: 3 })

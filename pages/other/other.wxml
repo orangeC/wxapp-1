@@ -1,5 +1,4 @@
 <view class="container">
-    <loading hidden="{{ hidden }}">加载中...</loading>
     <view class="other-header normal">
         <image src="{{head}}"></image>
         <text class="other-title">{{name}}</text>
@@ -18,7 +17,7 @@
         <image class="u243_img" src="/images/phones.png" mode="scaleToFill"></image>
         <text>{{phone}}</text>
     </view>
-    <map longitude="{{longitude}}" latitude="{{latitude}}" markers="{{markers}}" scale="18" show-location="true" bindtap="openMap"></map>
+    <map longitude="{{longitude}}" latitude="{{latitude}}" markers="{{markers}}" scale="15" show-location="true" bindtap="openMap"></map>
     <view class="other-service normal">
         <image src="/images/type.png" mode="scaleToFill"></image>
         <text>服务类型：{{category}}</text>

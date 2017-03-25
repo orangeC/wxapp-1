@@ -1,21 +1,27 @@
-<view class="common home" bindtap="search" data-id="{{home.code}}" data-name="{{home.name}}">
-  <view>
-    <image src="../../iconImg/001.png"></image>
-    <text>{{home.name}}</text>
+<view class="container">
+  <view class="common home" bindtap="search" data-id="{{home.code}}" data-name="{{home.name}}">
+    <view>
+      <image src="../../iconImg/001.png"></image>
+      <text>{{home.name}}</text>
+    </view>
   </view>
+  <text class="commonWord">{{home.description}}</text>
 </view>
-<text class="commonWord">{{home.description}}</text>
-<view class="common daily" bindtap="search" data-id="{{daily.code}}" data-name="{{daily.name}}">
-  <view>
-    <image src="../../iconImg/002.png"></image>
-    <text class="top">{{daily.name}}</text>
+<view class="container">
+  <view class="common daily" bindtap="search" data-id="{{daily.code}}" data-name="{{daily.name}}">
+    <view>
+      <image src="../../iconImg/002.png"></image>
+      <text class="top">{{daily.name}}</text>
+    </view>
   </view>
+  <text class="commonWord">{{daily.description}}</text>
 </view>
-<text class="commonWord">{{daily.description}}</text>
-<view class="common industry" bindtap="search" data-id="{{industry.code}}" data-name="{{industry.name}}">
-  <view>
-    <image src="../../iconImg/003.png"></image>
-    <text class="top">{{industry.name}}</text>
+<view class="container">
+  <view class="common industry" bindtap="search" data-id="{{industry.code}}" data-name="{{industry.name}}">
+    <view>
+      <image src="../../iconImg/003.png"></image>
+      <text class="top">{{industry.name}}</text>
+    </view>
   </view>
+  <text class="commonWord">{{industry.description}}</text>
 </view>
-<text class="commonWord">{{industry.description}}</text>

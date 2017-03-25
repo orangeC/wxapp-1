@@ -48,13 +48,13 @@
         <view wx:if="{{switchTab != 1}}" class="circle-view">
           <view class="normalmarginCircle">
           </view>
-          <text class="circle-text">家庭维修</text>
+          <text class="circle-text">{{categoryOne}}</text>
         </view>
         <view wx:else class="circle-view">
           <view class="marginCircle">
             <image style="width:30px;height:30px;" src="/images/home.png" mode="scaleToFill"></image>
           </view>
-          <text class="circle-text">家庭维修</text>
+          <text class="circle-text">{{categoryOne}}</text>
         </view>
       </view>
       <view class="circle-view line line-left"></view>
@@ -62,13 +62,13 @@
         <view wx:if="{{switchTab != 2}}" class="circle-view">
           <view class="normalmarginCircle">
           </view>
-          <text class="circle-text">日常维修</text>
+          <text class="circle-text">{{categoryTwo}}</text>
         </view>
         <view wx:else class="circle-view">
           <view class="marginCircle">
             <image style="width:30px;height:30px;" src="/images/repair.png" mode="scaleToFill"></image>
           </view>
-          <text class="circle-text">日常维修</text>
+          <text class="circle-text">{{categoryTwo}}</text>
         </view>
       </view>
       <view class="circle-view line line-right"></view>
@@ -76,13 +76,13 @@
         <view wx:if="{{switchTab != 3}}" class="circle-view">
           <view class="normalmarginCircle">
           </view>
-          <text class="circle-text">工业维修</text>
+          <text class="circle-text">{{categoryThree}}</text>
         </view>
         <view wx:else class="circle-view">
           <view class="marginCircle">
             <image style="width:30px;height:30px;" src="/images/industry.png" mode="scaleToFill"></image>
           </view>
-          <text class="circle-text">工业维修</text>
+          <text class="circle-text">{{categoryThree}}</text>
         </view>
       </view>
     </view>
@@ -91,8 +91,7 @@
         <text class="normal-left">服务类型</text>
         <view class="flex">
           <picker mode="selector" range="{{category}}" value="{{index}}" bindchange="bindPickerChange">
-          <view wx:if="{{category.length == 1}}" class="normalInput">{{categoryNormal}}</view>
-            <view wx:else class="normalInput">{{category[index]}}</view>
+            <view class="normalInput">{{category[index]}}</view>
           </picker>
           <image class="arrow" src="/images/arrow.png"></image>
         </view>
@@ -111,7 +110,7 @@
       <view class="normal flex-between">
         <text class="normal-left">服务介绍</text>
         <view class="flex">
-          <input bindinput="getInputDes" value="{{description}}" class="normalInput" placeholder="请详细的描述" />
+          <view bindtap="getInputDes" class="normalInput" >{{description}}</view>
           <image class="arrow" src="/images/arrow.png"></image>
         </view>
       </view>

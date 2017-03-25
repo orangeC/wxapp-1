@@ -1,4 +1,5 @@
 page {
+  margin-top:20rpx;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -6,15 +7,22 @@ page {
   color: #fff;
   height: 100%;
 }
-
+.container{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  color: #fff;
+  height: 100%;
+}
 image {
   width: 120rpx;
   height: 120rpx;
 }
 
 .common {
-  width: 250rpx;
-  height: 250rpx;
+  width: 240rpx;
+  height: 240rpx;
   border-radius: 40%;
   font-size: 30rpx;
 }
@@ -47,4 +55,72 @@ image {
   color: #888;
   font-size: 11pt;
   line-height: 80rpx
+}
+
+@media only screen and (min-width:100px) and (max-width:320px){
+
+  page {
+    margin-top: 15rpx;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    color: #fff;
+    height: 100%;
+  }
+  .container{
+    margin-top: 15rpx;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    color: #fff;
+    height: 100%;
+  }
+  image {
+    width: 70rpx;
+    height: 70rpx;
+    
+  }
+
+  .common {
+    width: 170rpx;
+    height: 170rpx;
+    border-radius: 40%;
+    font-size: 30rpx;
+  }
+
+  .common>view {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    justify-content: center;
+    width: 200rpx;
+    height: 200rpx;
+    margin-left: -10rpx;
+    margin-top: -10rpx
+  }
+  .common>view text{
+    width: 130rpx
+  }
+  .home {
+    background-color: #31d4b9;
+    border: 10px solid #e3f5f5;
+  }
+
+  .daily {
+    background-color: #44a1fe;
+    border: 10px solid #e6effe;
+  }
+
+  .industry {
+    background-color: #fe6b64;
+    border: 10px solid #faeaed;
+  }
+
+  .commonWord {
+    color: #888;
+    font-size: 10pt;
+    line-height: 80rpx
+  }
 }

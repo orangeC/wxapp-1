@@ -111,7 +111,7 @@
       <view class="normal flex-between">
         <text class="normal-left">服务介绍</text>
         <view class="flex">
-          <input bindinput="getInputDes" value="{{description}}" class="normalInput" placeholder="请详细的描述" />
+          <view bindtap="getInputDes" class="normalInput" >{{description}}</view>
           <image class="arrow" src="/images/arrow.png"></image>
         </view>
       </view>
@@ -128,7 +128,6 @@
   </form>
 </view>
 <view wx:else class="container-offer">
-    <loading hidden="{{ hiddenOffer }}">加载中...</loading>
     <view class="other-header-offer normal-offer">
         <image src="{{headOffer}}"></image>
         <text class="other-title-offer">{{nameOffer}}</text>

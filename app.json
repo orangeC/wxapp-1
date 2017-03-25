@@ -11,6 +11,7 @@
     "pages/edit/edit",
     "pages/noedit/city/city",
     "pages/edit/city/city",
+    "pages/edit/info/info",
     "pages/about/about"
   ],
   "tabBar": {
