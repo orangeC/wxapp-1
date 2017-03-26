@@ -35,90 +35,9 @@ Page({
     descriptionOffer: ''
   },
   onLoad: function () {
-
-  },
-  onReady: function () {
-    var that = this;
-    if (app.globalData.clientType == "login") {
-      //获得编辑页商家
-      app.send(
-        '/shop/load',
-        {
-          code: that.data.code,
-        },
-        'GET',
-        function (res) {
-          console.log(res.data);
-          var apply = res.data;
-          var markers = [{
-            id: 0,
-            iconPath: "../../images/address3.png",
-            "latitude": apply.latitude,
-            "longitude": apply.longitude,
-            width: 30,
-            height: 30,
-            title: apply.name
-          }];
-          that.setData({
-            addressOffer: apply.address,
-            categoryOffer: apply.category,
-            codeOffer: apply.code,
-            headOffer: apply.head,//头像图片
-            latitudeOffer: apply.latitude,
-            longitudeOffer: apply.longitude,
-            likedOffer: apply.liked,
-            nameOffer: apply.name,
-            phoneOffer: apply.phone,
-            descriptionOffer: apply.description,
-            markersOffer: markers,
-          })
-        },
-      );
-    } else {
-      return;
-    }
-    if (this.data.status == "Authenticated") {
-      this.setData({ comment: null })
-    }
-    var dataCity = city.getCity();
-    // wx.setNavigationBarTitle({ title: this.data.nameOffer });
-    var thatCategory = {
-      "001": 1,
-      "002": 2,
-      "003": 3,
-    };
-    var thatStatus = {
-      "Authenticating": "认证中",
-      "Authenticated": "已认证",
-      "NoPass": "未通过",
-      "None": null
-    }
-    this.setData({
-      switchTab: thatCategory[this.data.categorySlice],
-      over: thatStatus[this.data.status],
-    })
-    this.getcategory(this.data.categorySlice);
-    wx.showToast({
-      title: thatStatus[this.data.status],
-      icon: 'loading',
-      duration: 1500
-    })
-    if (this.data.area) {
-      for (var i = 0; i < dataCity.length; i++) {
-        if (dataCity[i].code == this.data.area) {
-          this.setData({
-            city: this.data.area,
-            area: dataCity[i].name
-          })
-          break;
-        }
-      }
-    };
-  },
-  onShow: function () {
     var that = this;
     wx.showToast({
-      title: '玩命加载中！',
+      title: '玩命加载中...',
       icon: 'loading',
       duration: 10000,
       success: function () {
@@ -250,7 +169,7 @@ Page({
                   }
                 },
                 complete: function () {
-                  wx.hideToast()
+                  wx.hideToast();
                 }
               })
 
@@ -260,12 +179,233 @@ Page({
         }
       },
       complete: function () {
-        wx.hideToast()
+        wx.hideToast();
       }
     })
-
   },
+  onReady: function () {
+    var that = this;
+    if (app.globalData.clientType == "login") {
+      //获得编辑页商家
+      app.send(
+        '/shop/load',
+        {
+          code: that.data.code,
+        },
+        'GET',
+        function (res) {
+          console.log(res.data);
+          var apply = res.data;
+          var markers = [{
+            id: 0,
+            iconPath: "../../images/address3.png",
+            "latitude": apply.latitude,
+            "longitude": apply.longitude,
+            width: 30,
+            height: 30,
+            title: apply.name
+          }];
+          that.setData({
+            addressOffer: apply.address,
+            categoryOffer: apply.category,
+            codeOffer: apply.code,
+            headOffer: apply.head,//头像图片
+            latitudeOffer: apply.latitude,
+            longitudeOffer: apply.longitude,
+            likedOffer: apply.liked,
+            nameOffer: apply.name,
+            phoneOffer: apply.phone,
+            descriptionOffer: apply.description,
+            markersOffer: markers,
+          })
+        },
+      );
+    } else {
+      return;
+    }
+    if (this.data.status == "Authenticated") {
+      this.setData({ comment: null })
+    }
+    var dataCity = city.getCity();
+    // wx.setNavigationBarTitle({ title: this.data.nameOffer });
+    var thatCategory = {
+      "001": 1,
+      "002": 2,
+      "003": 3,
+    };
+    var thatStatus = {
+      "Authenticating": "认证中",
+      "Authenticated": "已认证",
+      "NoPass": "未通过",
+      "None": null
+    }
+    this.setData({
+      switchTab: thatCategory[this.data.categorySlice],
+      over: thatStatus[this.data.status],
+    })
+    this.getcategory(this.data.categorySlice);
+    wx.showToast({
+      title: thatStatus[this.data.status],
+      icon: 'loading',
+      duration: 1500
+    })
+    if (this.data.area) {
+      for (var i = 0; i < dataCity.length; i++) {
+        if (dataCity[i].code == this.data.area) {
+          this.setData({
+            city: this.data.area,
+            area: dataCity[i].name
+          })
+          break;
+        }
+      }
+    };
+  },
+  onShow: function () {
+    var that = this;
+    wx.showToast({
+      title: '玩命加载中...',
+      icon: 'loading',
+      duration: 10000,
+      success: function () {
+        var dataCity = city.getCity();
+        //调用API从本地缓存中获取数据user
+        var clientid = wx.getStorageSync("user");
+        console.log(clientid);
+        //获得某个商家
+        app.send("/wechat/load", { code: clientid.ClientCode }, "GET", function (res) {
+          wx.showToast({
+            title: '玩儿命加载中。。',
+            icon: 'loading',
+            duration: 5000,
+            success: function () {
+              if (res.data.status == "Authenticated") {
+                that.setData({ submit: true, containerOffer: false })
+                wx.showToast({
+                  title: "认证中",
+                  icon: 'loading',
+                  duration: 5000,
+                  success: function () {
+                    //获得编辑页商家
+                    app.send(
+                      '/shop/load',
+                      {
+                        code: that.data.code,
+                      },
+                      'GET',
+                      function (res) {
 
+                        console.log(res.data);
+                        var apply = res.data;
+                        var markers = [{
+                          id: 0,
+                          iconPath: "../../images/address3.png",
+                          "latitude": apply.latitude,
+                          "longitude": apply.longitude,
+                          width: 30,
+                          height: 30,
+                          title: apply.name
+                        }];
+                        that.setData({
+                          addressOffer: apply.address,
+                          categoryOffer: apply.category,
+                          codeOffer: apply.code,
+                          headOffer: apply.head,//头像图片
+                          latitudeOffer: apply.latitude,
+                          longitudeOffer: apply.longitude,
+                          likedOffer: apply.liked,
+                          nameOffer: apply.name,
+                          phoneOffer: apply.phone,
+                          descriptionOffer: apply.description,
+                          markersOffer: markers,
+                        })
+                      },
+                    );
+                  },
+                  complete: function () {
+                    wx.hideToast()
+                  }
+                })
+
+              } else if (res.data.status == "NoPass") {
+                wx.showToast({
+                  title: "未通过",
+                  icon: 'loading',
+                  duration: 5000,
+                  success: function () {
+                    var data = res.data;
+                    console.log(data);
+                    that.setData({
+                      comment: data.comment,
+                      clientid: clientid.ClientCode,
+                      Head: data.head,
+                      name: data.name,
+                      phone: data.phone,
+                      address: data.address,
+                      Latitude: data.latitude,
+                      Longitude: data.longitude,
+                      scope: data.scope,
+                      description: data.description,
+                      code: data.code,
+                      status: data.status,
+                      over:"未通过"
+                    })
+                    if (data.category) {
+                      app.send("/shop/category", { code: "all" }, "GET", function (res) {
+                        var arrSome = [];
+                        for (var i = 0; i < res.data.length; i++) {
+                          if (res.data[i].code == data.category) {
+                            that.setData({
+                              categoryName: res.data[i].name,
+                              categoryNormal: data.category
+                            })
+                          }
+                          if ((data.category.slice(0, 3) == res.data[i].code.slice(0, 3)) && (res.data[i].tier == 2)) {
+                            arrSome.push(res.data[i]);
+                          }
+
+                        }
+                        for (var i = 0; i < arrSome.length; i++) {
+                          if (arrSome[i].code == data.category) {
+                            that.setData({ index: i })
+                          }
+                        }
+
+                        //前3位(设置状态)
+                        that.setData({
+                          categorySlice: data.category.slice(0, 3)
+                        })
+
+                      })
+                    };
+                    wx.setNavigationBarTitle({ title: "编辑信息" });
+                  },
+                  complete: function () {
+                    wx.hideToast();
+                  }
+                })
+
+              } else {
+                wx.showToast({
+                  title: '请求错误请重新登录',
+                  icon: 'loading',
+                  duration: 3000,
+                })
+              }
+            },
+            complete: function () {
+              wx.hideToast();
+            }
+          })
+
+
+        })
+      },
+      complete: function () {
+        wx.hideToast();
+      }
+    })
+  },
   checkboxChange: function () {
     this.setData({ checkbox: !this.data.checkbox })
   },
@@ -362,15 +502,15 @@ Page({
       });
       return;
     };
-    if (this.data.scope == undefined) {
+    if (this.data.scope == "请选择服务范围") {
       wx.showToast({
-        title: '请再次确认服务范围',
+        title: '请确认服务范围',
         icon: 'loading',
         duration: 2000
       });
       return;
     };
-    if (this.data.description == "") {
+    if (this.data.description == "请写下描述") {
       wx.showToast({
         title: '请填写服务介绍',
         icon: 'loading',
@@ -411,20 +551,60 @@ Page({
         , "POST", function (res) {
           if (res.data.Success) {
             wx.showToast({
-              title: "已提交，请等待审核",
+              title: '正在提交...',
               icon: 'loading',
-              duration: 1500,
+              duration: 10000,
               success: function () {
-                wx.switchTab({
-                  url: '/pages/home/home'
+                var dataCity = city.getCity();
+                //调用API从本地缓存中获取数据user
+                var clientid = wx.getStorageSync("user");
+                console.log(clientid);
+
+                //获得某个商家
+                app.send("/wechat/load", { code: clientid.ClientCode }, "GET", function (res) {
+                  wx.showToast({
+                    title: '玩儿命加载中。。',
+                    icon: 'loading',
+                    duration: 5000,
+                    success: function () {
+                      if (res.data) {
+                        var data = res.data;
+                        console.log(data);
+                        that.setData({
+                          comment: data.comment,
+                          clientid: clientid.ClientCode,
+                          Head: data.head,
+                          name: data.name,
+                          phone: data.phone,
+                          address: data.address,
+                          Latitude: data.latitude,
+                          Longitude: data.longitude,
+                          scope: data.scope,
+                          description: data.description,
+                          code: data.code,
+                          status: data.status,
+                          over: "认证中"
+                        })
+                      } else {
+                        wx.showToast({
+                          title: '请求错误请重新登录',
+                          icon: 'loading',
+                          duration: 3000,
+                        })
+                      }
+                    },
+                    complete: function () {
+                      wx.hideToast();
+                    }
+                  })
+
+
                 })
+
+              },
+              complete: function () {
+                console.log("over")
               }
-            })
-          } else {
-            wx.showToast({
-              title: "注册失败",
-              icon: 'loading',
-              duration: 1500
             })
           }
         })
