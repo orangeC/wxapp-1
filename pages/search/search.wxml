@@ -1,15 +1,17 @@
-<view class="top">
-  <view class="input">
-    <image src="../../iconImg/search-white.png"></image>
-    <input placeholder="类别搜索" placeholder-class="placeholder" bindinput="searchType" class="color"/>
-  </view>
-</view>
-<view class="type" wx:for="{{type}}" wx:key="">
-  <view bindtap="goToDetail" data-id="{{item.code}}" data-name="{{item.name}}">
-    <view class="list">
-      <view class="number"><text>{{index+1}}</text></view>
-      <text>{{item.name}}</text>
+<view class="container">
+  <view class="top">
+    <view class="input">
+      <image src="../../images/search-white.png"></image>
+      <input placeholder="类别搜索" placeholder-class="placeholder" bindinput="searchType" class="color"/>
     </view>
-    <view class="float">{{item.amount}} ></view>
+  </view>
+  <view class="type" wx:for="{{type}}" wx:key="">
+    <view bindtap="goToDetail" data-id="{{item.code}}" data-name="{{item.name}}">
+      <view class="list">
+        <view class="number"><text>{{index+1}}</text></view>
+        <text>{{item.name}}</text>
+      </view>
+      <view class="float">{{item.amount}} ></view>
+    </view>
   </view>
 </view>

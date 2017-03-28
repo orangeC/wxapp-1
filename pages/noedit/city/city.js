@@ -36,7 +36,7 @@ Page({
   onReady: function () {
     var that = this;
     wx.showToast({
-      title: '正在请求地址列表',
+      title: '玩儿了命加载中。。。',
       icon: 'loading',
       duration: 10000,
       success: function () {
@@ -217,10 +217,7 @@ Page({
   },
   //模态框
   setModalStatus: function (e) {
-    var eCity = JSON.parse(e.currentTarget.dataset.json).name;
-    this.setData({
-      eCity: eCity
-    })
+
     var arrData = [];
     if (this.data.options) {
       var objData = {};
@@ -271,7 +268,11 @@ Page({
           }
         );
       }
-    }.bind(this), 200)
+    }.bind(this), 200);
+    var eCity = JSON.parse(e.currentTarget.dataset.json).name;
+    this.setData({
+      eCity: eCity
+    })
   },
 
   brandStyle: function (e) {

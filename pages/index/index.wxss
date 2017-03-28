@@ -11,8 +11,8 @@
   display: flex;
   background-color: #3c83d5;
   height: 2em;
-  margin-left: 40rpx;
-  margin-right: 40rpx;
+  margin-left: 25rpx;
+  margin-right: 25rpx;
   color: white;
   width: 100%;
   font-size: 0.9em;

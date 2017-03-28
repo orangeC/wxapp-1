@@ -10,12 +10,16 @@ Page({
       // 页面初始化 options为页面跳转所带来的参数
       var that = this;
       app.send("/shop/category", { code: options.code, name: '' }, "GET", function (res) {
-        console.log(res);
         that.setData({
           type: res.data,
           code: options.code
         })
       });
+      wx.setNavigationBarTitle({
+        title: options.name,
+        success: function(res) {
+        }
+      })
   },
   onReady: function () {
       
@@ -26,7 +30,6 @@ Page({
   onHide: function () {
       var that = this;
       app.send("/shop/category", { code: this.data.code, name: '' }, "GET", function (res) {
-        console.log(res);
         that.setData({
           type: res.data,
         })
@@ -41,12 +44,16 @@ Page({
     })
   },
   searchType: function (e) {
-    console.log(e.detail.value)
     var that=this;
-      app.send("/shop/category", { code:this.data.code, name: e.detail.value }, "GET", function (res) {
-        console.log(res.data)
+      app.send("/shop/category", { code:this.data.code }, "GET", function (res) {
+        var search=[];
+        for(var i=0 ; i<res.data.length ; i++){
+          if(res.data[i].name.indexOf(e.detail.value)>=0){
+            search.push(res.data[i])
+          }
+        }
         that.setData({
-          type: res.data
+          type: search
         })
       })
   },

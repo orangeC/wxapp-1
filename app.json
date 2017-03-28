@@ -44,7 +44,7 @@
     "backgroundColor": "#4392ee",
     "backgroundTextStyle": "white",
     "navigationBarBackgroundColor": "#4392ee",
-    "navigationBarTitleText": "周边服务",
+    "navigationBarTitleText": "维修快线",
     "navigationBarTextStyle": "white",
     "enablePullDownRefresh": "false"
   }

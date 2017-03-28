@@ -7,22 +7,6 @@ Page({
   onLoad: function (options) {
     var that = this;
     // 页面初始化 options为页面跳转所带来的参数
-    wx.getLocation({
-      type: 'wgs84', // 默认为 wgs84 返回 gps 坐标，gcj02 返回可用于 wx.openLocation 的坐标
-      success: function(res){
-        var latitude=res.latitude;
-        var longitude=res.longitude
-        wx.setStorageSync('location', {latitude,longitude})
-        app.globalData.latitude = latitude;
-        app.globalData.longitude = longitude; 
-      },
-      fail: function() {
-        // fail
-      },
-      complete: function() {
-        // complete
-      }
-    })
     app.send("/shop/category", { code: '', name: '' }, "GET", function (res) {
       that.setData({
         home: res.data[0],
@@ -56,7 +40,6 @@ Page({
     // 页面关闭
   },
   search: function (e) {
-    console.log(e.currentTarget.dataset.id)
     wx.navigateTo({
       url: '/pages/search/search?' + 'code=' + e.currentTarget.dataset.id + '&name=' + e.currentTarget.dataset.name,
     })

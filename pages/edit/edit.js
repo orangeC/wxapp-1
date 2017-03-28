@@ -39,7 +39,6 @@ Page({
 
     //调用API从本地缓存中获取数据user
     var clientid = wx.getStorageSync("user");
-    console.log(clientid);
 
     //获得某个商家
     app.send("/wechat/load", { code: clientid.ClientCode }, "GET", function (res) {
@@ -196,7 +195,7 @@ Page({
   //获取输入框介绍
   getInputDes: function (e) {
     wx.navigateTo({
-      url: './info/info'
+      url: './info/info?data='+this.data.description
     })
   },
   //提交数据

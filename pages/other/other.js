@@ -54,7 +54,11 @@ Page({
                     that.setData({
                         liked:that.data.liked + 1,
                     })
-
+                    wx.showToast({
+                        title: '点赞成功',
+                        icon: 'success',
+                        duration: 2000
+                    })
                 }else{
                     wx.showToast({
                     title: res.data.Message,
@@ -95,11 +99,9 @@ Page({
             var apply = res.data;
             var markers = [{
                 id:0,
-                iconPath: "../../images/address3.png",
+                iconPath: "../../images/address4.png",
                 "latitude": apply.latitude,
                 "longitude": apply.longitude,
-                width: 30,
-                height: 30,
                 title: apply.name
             }];
             that.setData({

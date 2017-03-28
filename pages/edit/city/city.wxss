@@ -92,7 +92,6 @@
 .close_icon {
   width: 25rpx;
   height: 25rpx;
-  line-height: 20rpx;
   font-size: 30rpx;
   position: absolute;
   right: 5rpx;
@@ -101,8 +100,10 @@
   color: #ccc;
   border: 1rpx solid #ccc;
   border-radius: 50%;
-  text-align: center;
   background: #fff;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .drawer_attr_content {
