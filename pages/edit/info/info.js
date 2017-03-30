@@ -1,12 +1,12 @@
 // pages/notice/notice.js
 Page({
   data: {
-    conetnt: ""
+    content: ""
   },
 
   onLoad: function (options) {
-    if (!options.data == "请写下描述") {
-      this.setData({ conetnt: options.data })
+    if (options.data != "请写下描述") {
+      this.setData({ content: options.data })
     } else {
       return;
     }
@@ -15,8 +15,7 @@ Page({
   onReady: function () {
     // 页面渲染完成
   },
-  onShow: function () {
-    // 页面显示
+  onShow: function (options) {
   },
   getInputName: function (e) {
     this.setData({

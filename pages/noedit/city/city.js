@@ -28,7 +28,6 @@ Page({
         options: options.data
       })
     }
-
   },
   onShow: function () {
 
@@ -60,7 +59,6 @@ Page({
             initial: searchLetter[i],
             brands: []
           };
-
           for (var j = 0; j < that.data.brand.length; j++) {
             var brand = that.data.brand[j];
             if (group.initial == brand.initial) {
@@ -88,7 +86,6 @@ Page({
         wx.hideToast();
       }
     })
-
   },
 
   searchStart: function (e) {
@@ -109,7 +106,6 @@ Page({
     var tHeight = this.data.tHeight;
     var bHeight = this.data.bHeight;
     var showLetter = 0;
-    console.log(pageY);
     if (startPageY - pageY > 0) { //向上移动
       if (pageY < tHeight) {
         this.nowLetter(pageY, this);
@@ -141,9 +137,7 @@ Page({
         break;
       }
     }
-
     this.setScrollTop(that, showLetter);
-
     that.setData({
       bHeight: bHeight,
       tHeight: tHeight,
@@ -153,7 +147,6 @@ Page({
   },
 
   bindScroll: function (e) {
-    console.log(e.detail)
   },
   setScrollTop: function (that, showLetter) {
     var scrollTop = 0;
@@ -169,7 +162,6 @@ Page({
         brandCount += brands[i].brands.length;
       }
     }
-
     that.setData({
       scrollTop: scrollTop
     })
@@ -217,7 +209,6 @@ Page({
   },
   //模态框
   setModalStatus: function (e) {
-
     var arrData = [];
     if (this.data.options) {
       var objData = {};
@@ -235,7 +226,6 @@ Page({
         }
       };
     }
-
     this.setData({
       style: arrData
     })
@@ -299,7 +289,6 @@ Page({
         //直接调用上一个页面的setData()方法，把数据存到上一个页面中去
       }
     }
-
     wx.navigateBack({
       delta: 1
     });

@@ -14,7 +14,7 @@
       <view class="normal flex-between">
         <text class="normal-left">名称</text>
         <view class="flex">
-          <input bindinput="getInputName" class="normalInput" value="{{name}}" placeholder="请输入姓名" />
+          <input bindinput="getInputName" maxlength="20" class="normalInput" value="{{name}}" placeholder="请输入姓名" />
           <view class="author" hidden="{{!over}}">{{over}}</view>
         </view>
       </view>

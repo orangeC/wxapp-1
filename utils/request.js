@@ -12,7 +12,6 @@ function send(url, data, method, success,fail) {
     fail:function(res){
       fail(res);
     }
-
   })
 };
 function token(url,data,method,token,sucess,fail){

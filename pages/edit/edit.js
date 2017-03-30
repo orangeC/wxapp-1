@@ -36,12 +36,10 @@ Page({
   },
   onLoad: function () {
     var that = this;
-
     //调用API从本地缓存中获取数据user
-    var clientid = wx.getStorageSync("user");
-
+    console.log(app.globalData.user)
     //获得某个商家
-    app.send("/wechat/load", { code: clientid.ClientCode }, "GET", function (res) {
+    app.send("/wechat/load", { code: app.globalData.user.clientCode }, "GET", function (res) {
       wx.showToast({
         title: '玩儿命加载中。。',
         icon: 'loading',
@@ -49,10 +47,9 @@ Page({
         success: function () {
           if (res.data) {
             var data = res.data;
-            console.log(data);
             that.setData({
               comment: data.comment,
-              clientid: clientid.ClientCode,
+              clientid: app.globalData.user.clientCode,
               Head: data.head,
               name: data.name,
               phone: data.phone,
@@ -68,35 +65,30 @@ Page({
               containerOffer: false
             })
             if (data.category) {
-              app.send("/shop/category", { code: "all" }, "GET", function (res) {
-                var arrSome = [];
-                for (var i = 0; i < res.data.length; i++) {
-                  if (res.data[i].code == data.category) {
-                    that.setData({
-                      categoryName: res.data[i].name,
-                      categoryNormal: data.category
-                    })
-                  }
-                  if ((data.category.slice(0, 3) == res.data[i].code.slice(0, 3)) && (res.data[i].tier == 2)) {
-                    arrSome.push(res.data[i]);
-                  }
-
+              var arrCate = app.globalData.arrDataCategory;
+              var arrSome = [];
+              for (var i = 0; i < arrCate.length; i++) {
+                if (arrCate[i].code == data.category) {
+                  that.setData({
+                    categoryName: arrCate[i].name,
+                    categoryNormal: data.category
+                  })
                 }
-                for (var i = 0; i < arrSome.length; i++) {
-                  if (arrSome[i].code == data.category) {
-                    that.setData({ index: i })
-                  }
+                if ((data.category.slice(0, 3) == arrCate[i].code.slice(0, 3)) && (arrCate[i].tier == 2)) {
+                  arrSome.push(arrCate[i]);
                 }
-
-                //前3位(设置状态)
-                that.setData({
-                  categorySlice: data.category.slice(0, 3)
-                })
-                console.log(that.data.categorySlice)
-
+              }
+              for (var i = 0; i < arrSome.length; i++) {
+                if (arrSome[i].code == data.category) {
+                  that.setData({ index: i })
+                }
+              }
+              //前3位(设置状态)
+              that.setData({
+                categorySlice: data.category.slice(0, 3)
               })
-            };
 
+            };
             wx.setNavigationBarTitle({ title: "编辑信息" });
           } else {
             that.setData({ submit: false, containerOffer: true })
@@ -111,9 +103,7 @@ Page({
           wx.hideToast();
         }
       })
-
     })
-
   },
   onReady: function () {
     if (this.data.status == "Authenticated") {
@@ -154,13 +144,11 @@ Page({
     };
   },
   onShow: function () {
-
     this.setData({
       categoryOne: app.globalData.arrData[0],
       categoryTwo: app.globalData.arrData[1],
       categoryThree: app.globalData.arrData[2],
     })
-
   },
 
   checkboxChange: function () {
@@ -171,14 +159,12 @@ Page({
     this.setData({
       name: e.detail.value
     })
-    console.log(this.data.name)
   },
   //获取输入框电话
   getInputPhone: function (e) {
     this.setData({
       phone: e.detail.value
     })
-    console.log(this.data.phone)
   },
   //获取输入框City
   getInputCity: function (e) {
@@ -195,7 +181,7 @@ Page({
   //获取输入框介绍
   getInputDes: function (e) {
     wx.navigateTo({
-      url: './info/info?data='+this.data.description
+      url: './info/info?data=' + this.data.description
     })
   },
   //提交数据
@@ -338,7 +324,6 @@ Page({
             filePath: tempFilePaths[0],
             name: 'file',
             success: function (res) {
-              console.log(res)
               if (res.statusCode != 200) {
                 wx.showModal({
                   title: '提示',
@@ -349,14 +334,11 @@ Page({
               }
               var data = res.data
               var a = JSON.parse(data)[0].origin;
-              console.log(a)
               that.setData({  //上传成功修改显示头像
                 Head: "http://image.3vcar.com" + a
               })
             },
-
             fail: function (e) {
-              console.log(e);
               wx.showModal({
                 title: '提示',
                 content: '上传失败',
@@ -367,9 +349,7 @@ Page({
               wx.hideToast();  //隐藏Toast
             }
           })
-
       },
-
     })
   },
   serviceOne: function () {
@@ -411,9 +391,6 @@ Page({
               Latitude: latitude,
               Longitude: longitude
             })
-            console.log("纬度" + that.data.Latitude)   //经纬度
-            console.log("经度" + that.data.Longitude)
-            console.log("地址" + that.data.address)
           }
         })
       }
@@ -436,31 +413,28 @@ Page({
   },
   //函数  获取不同状态下的类型
   getcategory: function (codeNumber) {
-
     var that = this;
-    app.send("/shop/category", { code: "all" }, "GET", function (res) {
-      var arrOne = [];
-      var arrTwo = [];
-      for (var i = 0; i < res.data.length; i++) {
-        if ((res.data[i].code.slice(0, 3) == codeNumber) && (res.data[i].tier == 2)) {
-          arrOne.push(res.data[i].name);
-          arrTwo.push(res.data[i].code);
-        }
+    var arrCate = app.globalData.arrDataCategory;
+    var arrOne = [];
+    var arrTwo = [];
+    for (var i = 0; i < arrCate.length; i++) {
+      if ((arrCate[i].code.slice(0, 3) == codeNumber) && (arrCate[i].tier == 2)) {
+        arrOne.push(arrCate[i].name);
+        arrTwo.push(arrCate[i].code);
       }
-      that.setData({ category: arrOne, categoryCode: arrTwo });
-    })
+    }
+    that.setData({ category: arrOne, categoryCode: arrTwo });
+
   },
   //函数  
   getcategoryOne: function () {
-
     var that = this;
-    app.send("/shop/category", { code: "all" }, "GET", function (res) {
-      for (var i = 0; i < res.data.length; i++) {
-        if (that.data.category[that.data.index] == res.data[i].name) {
-          that.setData({ categoryNormal: res.data[i].code });
-
-        }
+    var arrCate = app.globalData.arrDataCategory;
+    for (var i = 0; i < arrCate.length; i++) {
+      if (that.data.category[that.data.index] == arrCate[i].name) {
+        that.setData({ categoryNormal: arrCate[i].code });
       }
-    })
+    }
+
   },
 })

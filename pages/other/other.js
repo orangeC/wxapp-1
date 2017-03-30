@@ -1,9 +1,7 @@
 // pages/other/other.js
 'use strict';
-
-// 获取全局应用程序实例对象
+//局应用程序实例对象
 var app = getApp();
-
 // 创建页面实例对象
 Page({
   /**
@@ -38,18 +36,14 @@ Page({
   //点赞
   liked:function(){
         var that = this;
-        var client = wx.getStorageSync('user');
-        console.log(client);
-        console.log(client.ClientCode);
         app.send(
             '/wechat/like',
             {
-                client:client.ClientCode,
+                client:app.globalData.user.clientCode,
                 code:that.data.code
             },
             'POST',
             function(res){
-                console.log(res);
                 if(res.data.Success){
                     that.setData({
                         liked:that.data.liked + 1,
@@ -80,7 +74,6 @@ Page({
           name: that.data.name, // 位置名
           address: that.data.address, // 地址的详细说明
           success: function(res){
-
           },
         })
   },
@@ -95,11 +88,10 @@ Page({
         },
         'GET',
         function(res){
-            console.log(res.data);
             var apply = res.data;
             var markers = [{
                 id:0,
-                iconPath: "../../images/address4.png",
+                iconPath: "../../images/address5.png",
                 "latitude": apply.latitude,
                 "longitude": apply.longitude,
                 title: apply.name
@@ -119,7 +111,6 @@ Page({
             })
         },
     );
-
   },
 
   onReady: function () {
@@ -136,6 +127,5 @@ Page({
   },
 
   load:function(){
-
   }
 });

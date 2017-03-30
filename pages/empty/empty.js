@@ -6,7 +6,6 @@ Page({
     onLoad: function (options) {
         console.log("onload")
         var that = this;
-
     },
     onReady: function () {
         // 生命周期函数--监听页面初次渲染完成
@@ -16,12 +15,10 @@ Page({
         if (!app.globalData.clientType) {
             //获取内存中user 的 ClientCode
             var ClientCode = app.globalData.user.ClientCode;
-            console.log(ClientCode);
             that.setData({
                 clientid: ClientCode
             });
             app.send("/wechat/load", { code: ClientCode }, "GET", function (res) {
-                console.log(res.data);
                 if (res.data) {
                     wx.showToast({
                         title: '加载中',
@@ -44,7 +41,6 @@ Page({
                             })
                         }
                     })
-
                 }
             })
         } else {
@@ -72,16 +68,12 @@ Page({
                 })
             }
         }
-        console.log(app.globalData.clientType);
-
         //获取内存中user 的 ClientCode
         var ClientCode = app.globalData.user.ClientCode;
-        console.log(ClientCode);
         that.setData({
             clientid: ClientCode
         });
         app.send("/wechat/load", { code: ClientCode }, "GET", function (res) {
-            console.log(res.data);
             if (res.data) {
                 wx.showToast({
                     title: '加载中',
@@ -104,7 +96,6 @@ Page({
                         })
                     }
                 })
-
             }
         })
         // 生命周期函数--监听页面显示

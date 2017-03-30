@@ -1,9 +1,7 @@
 // pages/other/other.js
-'use strict';
-
+//'use strict';
 // 获取全局应用程序实例对象
 var app = getApp();
-
 // 创建页面实例对象
 Page({
   /**
@@ -22,7 +20,6 @@ Page({
     markersOffer: '',
     descriptionOffer:''
   },
-
   //打电话
   toCall:function(call){
       var that = this;
@@ -30,27 +27,21 @@ Page({
       wx.makePhoneCall({
         phoneNumber: call,
         success: function(res) {
-
         }
       })
   },
-
   //点赞
   liked:function(code){
         var that = this;
         var code = code.currentTarget.dataset.code;
-        var client = wx.getStorageSync('user');
-        console.log(client);
-        console.log(client.ClientCode);
         app.send(
             '/wechat/like',
             {
-                client:client.ClientCode,
+                client:app.globalData.user.clientCode,
                 code:code
             },
             'POST',
             function(res){
-                console.log(res);
                 if(res.data.Success){
                     that.setData({
                         liked:that.data.likedOffer + 1,
@@ -76,7 +67,6 @@ Page({
           name: that.data.nameOffer, // 位置名
           address: that.data.addressOffer, // 地址的详细说明
           success: function(res){
-
           },
         })
   },
@@ -91,15 +81,12 @@ Page({
         },
         'GET',
         function(res){
-            console.log(res.data);
             var apply = res.data;
             var markers = [{
                 id:0,
-                iconPath: "../../images/address3.png",
+                iconPath: "../../images/address5.png",
                 "latitude": apply.latitude,
                 "longitude": apply.longitude,
-                width: 30,
-                height: 30,
                 title: apply.name
             }];
             that.setData({
@@ -117,12 +104,10 @@ Page({
             })
         },
     );
-
   },
 
   onReady: function () {
       wx.setNavigationBarTitle({ title: this.data.nameOffer });
-      
   },
 
   onShow: function () {
@@ -133,5 +118,4 @@ Page({
       });
     }, 1500);
   },
-
-  });
+});

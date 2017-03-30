@@ -34,7 +34,8 @@ Page({
     markersOffer: '',
     descriptionOffer: ''
   },
-  onLoad: function () {
+  onLoad: function (e) {
+    console.log(e)
     var that = this;
     wx.showToast({
       title: '玩命加载中...',
@@ -42,8 +43,6 @@ Page({
       duration: 10000,
       success: function () {
         var dataCity = city.getCity();
-        //调用API从本地缓存中获取数据user
-        var clientid = wx.getStorageSync("user");
         if (!app.globalData.clientType) {
           wx.showToast({
             title: '网络请求错误',
@@ -53,12 +52,13 @@ Page({
         } else {
           if (app.globalData.clientType == "visit") {
             that.setData({
-              clientid: clientid.ClientCode,
+              clientid: app.globalData.user.clientCode,
             })
+            that.serviceOne();
             return;
           } else {
             //获得某个商家
-            app.send("/wechat/load", { code: clientid.ClientCode }, "GET", function (res) {
+            app.send("/wechat/load", { code: app.globalData.user.clientCode }, "GET", function (res) {
               wx.showToast({
                 title: '玩儿命加载中。。',
                 icon: 'loading',
@@ -67,10 +67,9 @@ Page({
                   if (res.data.status == "Authenticated") {
                     that.setData({ submit: true, containerOffer: false })
                     var data = res.data;
-                    console.log(data);
                     that.setData({
                       comment: data.comment,
-                      clientid: clientid.ClientCode,
+                      clientid: app.globalData.user.clientCode,
                       Head: data.head,
                       name: data.name,
                       phone: data.phone,
@@ -84,40 +83,36 @@ Page({
                       status: data.status
                     })
                     if (data.category) {
-                      app.send("/shop/category", { code: "all" }, "GET", function (res) {
-                        var arrSome = [];
-                        for (var i = 0; i < res.data.length; i++) {
-                          if (res.data[i].code == data.category) {
-                            that.setData({
-                              categoryName: res.data[i].name,
-                              categoryNormal: data.category
-                            })
-                          }
-                          if ((data.category.slice(0, 3) == res.data[i].code.slice(0, 3)) && (res.data[i].tier == 2)) {
-                            arrSome.push(res.data[i]);
-                          }
-
+                      var arrCate = app.globalData.arrDataCategory;
+                      var arrSome = [];
+                      for (var i = 0; i < arrCate.length; i++) {
+                        if (arrCate[i].code == data.category) {
+                          that.setData({
+                            categoryName: arrCate[i].name,
+                            categoryNormal: data.category
+                          })
                         }
-                        for (var i = 0; i < arrSome.length; i++) {
-                          if (arrSome[i].code == data.category) {
-                            that.setData({ index: i })
-                          }
+                        if ((data.category.slice(0, 3) == arrCate[i].code.slice(0, 3)) && (arrCate[i].tier == 2)) {
+                          arrSome.push(arrCate[i]);
                         }
-
-                        //前3位(设置状态)
-                        that.setData({
-                          categorySlice: data.category.slice(0, 3)
-                        })
-
+                      }
+                      for (var i = 0; i < arrSome.length; i++) {
+                        if (arrSome[i].code == data.category) {
+                          that.setData({ index: i })
+                        }
+                      }
+                      //前3位(设置状态)
+                      that.setData({
+                        categorySlice: data.category.slice(0, 3)
                       })
+
                     };
                     wx.setNavigationBarTitle({ title: "编辑信息" });
                   } else if (res.data) {
                     var data = res.data;
-                    console.log(data);
                     that.setData({
                       comment: data.comment,
-                      clientid: clientid.ClientCode,
+                      clientid: app.globalData.user.clientCode,
                       Head: data.head,
                       name: data.name,
                       phone: data.phone,
@@ -131,32 +126,29 @@ Page({
                       status: data.status
                     })
                     if (data.category) {
-                      app.send("/shop/category", { code: "all" }, "GET", function (res) {
-                        var arrSome = [];
-                        for (var i = 0; i < res.data.length; i++) {
-                          if (res.data[i].code == data.category) {
-                            that.setData({
-                              categoryName: res.data[i].name,
-                              categoryNormal: data.category
-                            })
-                          }
-                          if ((data.category.slice(0, 3) == res.data[i].code.slice(0, 3)) && (res.data[i].tier == 2)) {
-                            arrSome.push(res.data[i]);
-                          }
-
+                      var arrCate = app.globalData.arrDataCategory;
+                      var arrSome = [];
+                      for (var i = 0; i < arrCate.length; i++) {
+                        if (arrCate[i].code == data.category) {
+                          that.setData({
+                            categoryName: arrCate[i].name,
+                            categoryNormal: data.category
+                          })
                         }
-                        for (var i = 0; i < arrSome.length; i++) {
-                          if (arrSome[i].code == data.category) {
-                            that.setData({ index: i })
-                          }
+                        if ((data.category.slice(0, 3) == arrCate[i].code.slice(0, 3)) && (arrCate[i].tier == 2)) {
+                          arrSome.push(arrCate[i]);
                         }
-
-                        //前3位(设置状态)
-                        that.setData({
-                          categorySlice: data.category.slice(0, 3)
-                        })
-
+                      }
+                      for (var i = 0; i < arrSome.length; i++) {
+                        if (arrSome[i].code == data.category) {
+                          that.setData({ index: i })
+                        }
+                      }
+                      //前3位(设置状态)
+                      that.setData({
+                        categorySlice: data.category.slice(0, 3)
                       })
+
                     };
                     wx.setNavigationBarTitle({ title: "编辑信息" });
                   } else {
@@ -171,8 +163,6 @@ Page({
                   wx.hideToast();
                 }
               })
-
-
             })
           }
         }
@@ -193,15 +183,12 @@ Page({
         },
         'GET',
         function (res) {
-          console.log(res.data);
           var apply = res.data;
           var markers = [{
             id: 0,
-            iconPath: "../../images/address3.png",
+            iconPath: "../../images/address5.png",
             "latitude": apply.latitude,
             "longitude": apply.longitude,
-            width: 30,
-            height: 30,
             title: apply.name
           }];
           that.setData({
@@ -226,7 +213,6 @@ Page({
       this.setData({ comment: null })
     }
     var dataCity = city.getCity();
-    // wx.setNavigationBarTitle({ title: this.data.nameOffer });
     var thatCategory = {
       "001": 1,
       "002": 2,
@@ -261,7 +247,7 @@ Page({
     };
   },
   onShow: function () {
-    console.log(app.globalData)
+    console.log(app.globalData.user)
     var that = this;
     wx.showToast({
       title: '玩命加载中...',
@@ -269,12 +255,10 @@ Page({
       duration: 10000,
       success: function () {
         var dataCity = city.getCity();
-        //调用API从本地缓存中获取数据user
-        var clientid = wx.getStorageSync("user");
-        that.setData({ clientid: clientid.ClientCode })
+
+        that.setData({ clientid: app.globalData.user.clientCode })
         //获得某个商家
-        app.send("/wechat/load", { code: clientid.ClientCode }, "GET", function (res) {
-          console.log(res)
+        app.send("/wechat/load", { code: app.globalData.user.clientCode }, "GET", function (res) {
           wx.showToast({
             title: '玩儿命加载中。。',
             icon: 'loading',
@@ -289,46 +273,40 @@ Page({
                     duration: 2000,
                     success: function () {
                       //获得编辑页商家
-                      app.send(
-                        '/shop/load',
-                        {
-                          code: app.globalData.user.code,
-                        },
-                        'GET',
-                        function (res) {
+                      var apply = res.data;
+                      var markers = [{
+                        id: 0,
+                        iconPath: "../../images/address3.png",
+                        "latitude": apply.latitude,
+                        "longitude": apply.longitude,
+                        width: 30,
+                        height: 30,
+                        title: apply.name
+                      }];
+                      that.setData({
+                        addressOffer: apply.address,
+                        codeOffer: apply.code,
+                        headOffer: apply.head,//头像图片
+                        latitudeOffer: apply.latitude,
+                        longitudeOffer: apply.longitude,
+                        likedOffer: apply.liked,
+                        nameOffer: apply.name,
+                        phoneOffer: apply.phone,
+                        descriptionOffer: apply.description,
+                        markersOffer: markers,
+                      })
+                      var arrCate = app.globalData.arrDataCategory;
+                      for (var i = 0; i < arrCate.length; i++) {
+                        if (arrCate[i].code == apply.category) {
+                          that.setData({ categoryOffer: arrCate[i].name })
+                        }
+                      }
 
-                          console.log(res.data);
-                          var apply = res.data;
-                          var markers = [{
-                            id: 0,
-                            iconPath: "../../images/address3.png",
-                            "latitude": apply.latitude,
-                            "longitude": apply.longitude,
-                            width: 30,
-                            height: 30,
-                            title: apply.name
-                          }];
-                          that.setData({
-                            addressOffer: apply.address,
-                            categoryOffer: apply.category,
-                            codeOffer: apply.code,
-                            headOffer: apply.head,//头像图片
-                            latitudeOffer: apply.latitude,
-                            longitudeOffer: apply.longitude,
-                            likedOffer: apply.liked,
-                            nameOffer: apply.name,
-                            phoneOffer: apply.phone,
-                            descriptionOffer: apply.description,
-                            markersOffer: markers,
-                          })
-                        },
-                      );
                     },
                     complete: function () {
                       wx.hideToast()
                     }
                   })
-
                 } else if (res.data.status == "NoPass") {
                   that.setData({ submit: false, containerOffer: true })
                   wx.showToast({
@@ -337,10 +315,9 @@ Page({
                     duration: 2000,
                     success: function () {
                       var data = res.data;
-                      console.log(data);
                       that.setData({
                         comment: data.comment,
-                        clientid: clientid.ClientCode,
+                        clientid: app.globalData.user.clientCode,
                         Head: data.head,
                         name: data.name,
                         phone: data.phone,
@@ -364,32 +341,29 @@ Page({
                         }
                       }
                       if (data.category) {
-                        app.send("/shop/category", { code: "all" }, "GET", function (res) {
-                          var arrSome = [];
-                          for (var i = 0; i < res.data.length; i++) {
-                            if (res.data[i].code == data.category) {
-                              that.setData({
-                                categoryName: res.data[i].name,
-                                categoryNormal: res.data[i].name
-                              })
-                            }
-                            if ((data.category.slice(0, 3) == res.data[i].code.slice(0, 3)) && (res.data[i].tier == 2)) {
-                              arrSome.push(res.data[i]);
-                            }
-
+                        var arrCate = app.globalData.arrDataCategory;
+                        var arrSome = [];
+                        for (var i = 0; i < arrCate.length; i++) {
+                          if (arrCate[i].code == data.category) {
+                            that.setData({
+                              categoryName: arrCate[i].name,
+                              categoryNormal: arrCate[i].name
+                            })
                           }
-                          for (var i = 0; i < arrSome.length; i++) {
-                            if (arrSome[i].code == data.category) {
-                              that.setData({ index: i })
-                            }
+                          if ((data.category.slice(0, 3) == arrCate[i].code.slice(0, 3)) && (arrCate[i].tier == 2)) {
+                            arrSome.push(arrCate[i]);
                           }
-
-                          //前3位(设置状态)
-                          that.setData({
-                            categorySlice: data.category.slice(0, 3)
-                          })
-
+                        }
+                        for (var i = 0; i < arrSome.length; i++) {
+                          if (arrSome[i].code == data.category) {
+                            that.setData({ index: i })
+                          }
+                        }
+                        //前3位(设置状态)
+                        that.setData({
+                          categorySlice: data.category.slice(0, 3)
                         })
+
                       };
                       wx.setNavigationBarTitle({ title: "编辑信息" });
                     },
@@ -397,7 +371,6 @@ Page({
                       wx.hideToast();
                     }
                   })
-
                 } else if (res.data.status == "Authenticating") {
                   that.setData({ submit: false, containerOffer: true })
                   wx.showToast({
@@ -406,10 +379,9 @@ Page({
                     duration: 2000,
                     success: function () {
                       var data = res.data;
-                      console.log(data);
                       that.setData({
                         comment: data.comment,
-                        clientid: clientid.ClientCode,
+                        clientid: app.globalData.user.clientCode,
                         Head: data.head,
                         name: data.name,
                         phone: data.phone,
@@ -433,17 +405,16 @@ Page({
                         }
                       }
                       if (data.category) {
-                        app.send("/shop/category", { code: "all" }, "GET", function (res) {
-                          for (var i = 0; i < res.data.length; i++) {
-                            if (res.data[i].code == data.category) {
-                              that.setData({
-                                categoryNormal: res.data[i].name,
-                                cateCode: res.data[i].code
-                              })
-                            }
-
+                        var arrCate = app.globalData.arrDataCategory;
+                        for (var i = 0; i < arrCate.length; i++) {
+                          if (arrCate[i].code == data.category) {
+                            that.setData({
+                              categoryNormal: arrCate[i].name,
+                              cateCode: arrCate[i].code
+                            })
                           }
-                        })
+                        }
+
                       };
                       wx.setNavigationBarTitle({ title: "编辑信息" });
                     },
@@ -454,14 +425,14 @@ Page({
                 } else {
                   return;
                 }
+              } else {
+                //这里status为none的操作
               }
             },
             complete: function () {
               wx.hideToast();
             }
           })
-
-
         })
       },
       complete: function () {
@@ -483,7 +454,6 @@ Page({
     this.setData({
       phone: e.detail.value
     })
-    console.log(this.data.phone)
   },
   //获取输入框City
   getInputCity: function (e) {
@@ -505,7 +475,6 @@ Page({
   },
   //提交数据
   formSubmit: function (e) {
-
     if (this.data.status == "Authenticating") {
       wx.showToast({
         title: '您的账户正在认证中，请勿重复提交',
@@ -520,7 +489,6 @@ Page({
         })
       }
     }
-    var clientid = wx.getStorageSync("user");
     var that = this;
     //验证
     if (this.data.Head == "/images/photo.png") {
@@ -547,6 +515,15 @@ Page({
       });
       return;
     };
+    var reg = /^[\w]{6,12}$/;
+    if (this.data.phone.match(reg)) {
+      wx.showToast({
+        title: '电话',
+        icon: 'loading',
+        duration: 2000
+      });
+      return;
+    }
     if (this.data.area == undefined) {
       wx.showToast({
         title: '请选择区域',
@@ -600,11 +577,10 @@ Page({
           longitude: parseFloat(apply.Longitude),
           latitude: parseFloat(apply.Latitude),
           category: apply.categoryNormal,
-          client: apply.clientid,
+          client: app.globalData.user.clientCode,
           description: apply.description,
           scope: apply.scope
-        }
-        , "POST", function (res) {
+        }, "POST", function (res) {
           if (res.data.Success) {
             wx.showToast({
               title: '正在提交...',
@@ -612,12 +588,8 @@ Page({
               duration: 10000,
               success: function () {
                 var dataCity = city.getCity();
-                //调用API从本地缓存中获取数据user
-                var clientid = wx.getStorageSync("user");
-                console.log(clientid);
-
                 //获得某个商家
-                app.send("/wechat/load", { code: clientid.ClientCode }, "GET", function (res) {
+                app.send("/wechat/load", { code: app.globalData.user.clientCode }, "GET", function (res) {
                   wx.showToast({
                     title: '正在认证中。。',
                     icon: 'loading',
@@ -625,10 +597,9 @@ Page({
                     success: function () {
                       if (res.data) {
                         var data = res.data;
-                        console.log(data);
                         that.setData({
                           comment: data.comment,
-                          clientid: clientid.ClientCode,
+                          clientid: app.globalData.user.clientCode,
                           Head: data.head,
                           name: data.name,
                           phone: data.phone,
@@ -642,18 +613,17 @@ Page({
                           over: "认证中"
                         })
                         if (that.data.cateCode) {
-                          app.send("/shop/category", { code: "all" }, "GET", function (res) {
-                            for (var i = 0; i < res.data.length; i++) {
-                              if (res.data[i].code == that.data.cateCode) {
-                                that.setData({
-                                  categoryNormal: res.data[i].name,
-                                })
-                              }
-
+                          var arrCate = app.globalData.arrDataCategory;
+                          for (var i = 0; i < arrCate.length; i++) {
+                            if (arrCate[i].code == that.data.cateCode) {
+                              that.setData({
+                                categoryNormal: arrCate[i].name,
+                              })
                             }
-                          })
-                        }else{
-                          return ;
+                          }
+
+                        } else {
+                          return;
                         }
                         app.globalData.user.code = data.code;
                         wx.showToast({
@@ -673,17 +643,12 @@ Page({
                       wx.hideToast();
                     }
                   })
-
-
                 })
-
               },
               complete: function () {
-                console.log("over")
               }
             })
           } else {
-            console.log(res)
           }
         })
     } else {
@@ -713,7 +678,6 @@ Page({
             filePath: tempFilePaths[0],
             name: 'file',
             success: function (res) {
-              console.log(res)
               if (res.statusCode != 200) {
                 wx.showModal({
                   title: '提示',
@@ -724,14 +688,11 @@ Page({
               }
               var data = res.data
               var a = JSON.parse(data)[0].origin;
-              console.log(a)
               that.setData({  //上传成功修改显示头像
                 Head: "http://image.3vcar.com" + a
               })
             },
-
             fail: function (e) {
-              console.log(e);
               wx.showModal({
                 title: '提示',
                 content: '上传失败',
@@ -742,9 +703,7 @@ Page({
               wx.hideToast();  //隐藏Toast
             }
           })
-
       },
-
     })
   },
   serviceOne: function () {
@@ -758,7 +717,6 @@ Page({
     //获取类型函数
     this.getcategory("002");
     this.getcategoryOne();
-
   },
   serviceThree: function () {
     this.setData({ switchTab: 3 })
@@ -787,9 +745,6 @@ Page({
               Latitude: latitude,
               Longitude: longitude
             })
-            console.log("纬度" + that.data.Latitude)   //经纬度
-            console.log("经度" + that.data.Longitude)
-            console.log("地址" + that.data.address)
           }
         })
       }
@@ -812,32 +767,29 @@ Page({
   },
   //函数  获取不同状态下的类型
   getcategory: function (codeNumber) {
-
     var that = this;
-    app.send("/shop/category", { code: "all" }, "GET", function (res) {
-      var arrOne = [];
-      var arrTwo = [];
-      for (var i = 0; i < res.data.length; i++) {
-        if ((res.data[i].code.slice(0, 3) == codeNumber) && (res.data[i].tier == 2)) {
-          arrOne.push(res.data[i].name);
-          arrTwo.push(res.data[i].code);
-        }
+    var arrCate = app.globalData.arrDataCategory;
+    var arrOne = [];
+    var arrTwo = [];
+    for (var i = 0; i < arrCate.length; i++) {
+      if ((arrCate[i].code.slice(0, 3) == codeNumber) && (arrCate[i].tier == 2)) {
+        arrOne.push(arrCate[i].name);
+        arrTwo.push(arrCate[i].code);
       }
-      that.setData({ category: arrOne, categoryCode: arrTwo });
-    })
+    }
+    that.setData({ category: arrOne, categoryCode: arrTwo });
+
   },
   //函数  
   getcategoryOne: function () {
-
     var that = this;
-    app.send("/shop/category", { code: "all" }, "GET", function (res) {
-      for (var i = 0; i < res.data.length; i++) {
-        if (that.data.category[that.data.index] == res.data[i].name) {
-          that.setData({ categoryNormal: res.data[i].code });
-
-        }
+    var arrCate = app.globalData.arrDataCategory;
+    for (var i = 0; i < arrCate.length; i++) {
+      if (that.data.category[that.data.index] == arrCate[i].name) {
+        that.setData({ categoryNormal: arrCate[i].code });
       }
-    })
+    }
+
   },
   //打电话
   toCall: function (call) {
@@ -846,25 +798,20 @@ Page({
     wx.makePhoneCall({
       phoneNumber: call,
       success: function (res) {
-
       }
     })
   },
-
   //点赞
   liked: function () {
-    console.log(this.data.liked)
     var that = this;
-    var client = wx.getStorageSync('user');
     app.send(
       '/wechat/like',
       {
-        client: client.ClientCode,
+        client: app.globalData.user.clientCode,
         code: app.globalData.user.code
       },
       'POST',
       function (res) {
-        console.log(res);
         if (res.data.Success) {
           that.setData({
             likedOffer: that.data.likedOffer + 1,
@@ -895,7 +842,6 @@ Page({
       name: that.data.nameOffer, // 位置名
       address: that.data.addressOffer, // 地址的详细说明
       success: function (res) {
-
       },
     })
   },

@@ -5,5 +5,4 @@ function _getCitys() {
 };
 module.exports = {
   getCity: _getCitys
-  
 };

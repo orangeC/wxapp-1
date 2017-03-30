@@ -57,7 +57,6 @@ Page({
             'GET',
             function (res) {
                 var shop = res.data;
-                console.log(res);
                 for (var i = 0; i < shop.length; i++) {
                     // shop[i].distance = Math.round(shop[i].distance);
                     var distance = Math.round(shop[i].distance);
@@ -70,13 +69,11 @@ Page({
                         shop[i].distance = distance;
                     }
                 };
-                console.log(shop);
                 that.setData({
                     shop: shop,
                 });
             },
         )
-
         wx.setNavigationBarTitle({
             title: ecode.name,
             success: function (res) {
@@ -91,7 +88,6 @@ Page({
         wx.makePhoneCall({
             phoneNumber: call,
             success: function (res) {
-
             }
         })
     },

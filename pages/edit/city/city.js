@@ -28,7 +28,6 @@ Page({
         options: options.data
       })
     }
-
   },
   onShow: function () {
 
@@ -60,7 +59,6 @@ Page({
             initial: searchLetter[i],
             brands: []
           };
-
           for (var j = 0; j < that.data.brand.length; j++) {
             var brand = that.data.brand[j];
             if (group.initial == brand.initial) {
@@ -108,7 +106,6 @@ Page({
     var tHeight = this.data.tHeight;
     var bHeight = this.data.bHeight;
     var showLetter = 0;
-    console.log(pageY);
     if (startPageY - pageY > 0) { //向上移动
       if (pageY < tHeight) {
         this.nowLetter(pageY, this);
@@ -140,9 +137,7 @@ Page({
         break;
       }
     }
-
     this.setScrollTop(that, showLetter);
-
     that.setData({
       bHeight: bHeight,
       tHeight: tHeight,
@@ -152,7 +147,6 @@ Page({
   },
 
   bindScroll: function (e) {
-    console.log(e.detail)
   },
   setScrollTop: function (that, showLetter) {
     var scrollTop = 0;
@@ -168,7 +162,6 @@ Page({
         brandCount += brands[i].brands.length;
       }
     }
-
     that.setData({
       scrollTop: scrollTop
     })

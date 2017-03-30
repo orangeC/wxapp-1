@@ -21,11 +21,10 @@ Page({
   onShow: function () {
     var that = this;
     //用户每次登陆系统, 记录用户访问信息
-    var client = wx.getStorageSync('user');
     app.send(
       '/wechat/visit',
       {
-        UserCode: client.ClientCode,
+        UserCode: app.globalData.user.clientCode,
         ActionType: app.globalData.clientType
       },
       'POST',
@@ -44,6 +43,4 @@ Page({
       url: '/pages/search/search?' + 'code=' + e.currentTarget.dataset.id + '&name=' + e.currentTarget.dataset.name,
     })
   }
-
-
 })
