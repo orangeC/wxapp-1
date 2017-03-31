@@ -37,9 +37,11 @@ App({
     //获取小程序登录凭证
       wx.login({
         success: function (res) {
+          console.log(res,'wx.login');
           if (res.code) {
             var code = res.code;
-            that.send("/wechat/token", { code }, "GET", function (res) {
+            that.send("/wechat/token", { code: code }, "GET", function (res) {
+              console.log(res,'获取clientcode')
               that.globalData.user = {
                 clientCode: res.data.ClientCode
               };
@@ -51,6 +53,7 @@ App({
                   },
                   'GET',
                   function (res) {
+                    console.log(res,'wxload');
                     if (res.data) {
                       that.globalData.clientType = 'login';
                       var code = res.data.code;

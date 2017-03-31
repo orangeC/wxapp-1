@@ -22,7 +22,7 @@
     <view class="block">
       <view class="normal flex-between">
         <text class="normal-left">电话</text>
-        <input bindinput="getInputPhone" class="normalInput" type="number" value="{{phone}}" placeholder="请输入电话" />
+        <input bindinput="getInputPhone" maxlength="12" minlength="10" class="normalInput" type="number" value="{{phone}}" placeholder="请输入电话" />
       </view>
     </view>
     <view class="block">
@@ -111,7 +111,7 @@
       <view class="normal flex-between">
         <text class="normal-left">服务介绍</text>
         <view class="flex">
-          <view bindtap="getInputDes" class="normalInput" >{{description}}</view>
+          <text bindtap="getInputDes" class="normalInput" >{{description}}</text>
           <image class="arrow" src="/images/arrow.png"></image>
         </view>
       </view>

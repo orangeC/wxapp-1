@@ -42,7 +42,7 @@ Page({
       icon: 'loading',
       duration: 10000,
       success: function () {
-        var dataCity = city.getCity();
+        var dataCity = city.getDistricts();
         if (!app.globalData.clientType) {
           wx.showToast({
             title: '网络请求错误',
@@ -212,7 +212,7 @@ Page({
     if (this.data.status == "Authenticated") {
       this.setData({ comment: null })
     }
-    var dataCity = city.getCity();
+    var dataCity = city.getDistricts();
     var thatCategory = {
       "001": 1,
       "002": 2,
@@ -254,7 +254,7 @@ Page({
       icon: 'loading',
       duration: 10000,
       success: function () {
-        var dataCity = city.getCity();
+        var dataCity = city.getDistricts();
 
         that.setData({ clientid: app.globalData.user.clientCode })
         //获得某个商家
@@ -515,10 +515,10 @@ Page({
       });
       return;
     };
-    var reg = /^[\w]{6,12}$/;
+    var reg = /^\d{10,12}$/
     if (this.data.phone.match(reg)) {
       wx.showToast({
-        title: '电话',
+        title: '电话号码格式不正确',
         icon: 'loading',
         duration: 2000
       });
@@ -587,7 +587,7 @@ Page({
               icon: 'loading',
               duration: 10000,
               success: function () {
-                var dataCity = city.getCity();
+                var dataCity = city.getDistricts();
                 //获得某个商家
                 app.send("/wechat/load", { code: app.globalData.user.clientCode }, "GET", function (res) {
                   wx.showToast({

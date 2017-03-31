@@ -2,7 +2,7 @@
 var app = getApp();
 Page({
   data: {
-
+    navigate:false
   },
   onLoad: function (options) {
     var that = this;
@@ -20,6 +20,9 @@ Page({
   },
   onShow: function () {
     var that = this;
+    that.setData({
+      navigate:false
+    })
     //用户每次登陆系统, 记录用户访问信息
     app.send(
       '/wechat/visit',
@@ -33,14 +36,21 @@ Page({
     )
   },
   onHide: function () {
-    // 页面隐藏
   },
   onUnload: function () {
-    // 页面关闭
   },
   search: function (e) {
-    wx.navigateTo({
-      url: '/pages/search/search?' + 'code=' + e.currentTarget.dataset.id + '&name=' + e.currentTarget.dataset.name,
+    this.setData({
+      navigate:!this.data.navigate
     })
+    console.log(this.data.navigate);
+    if(this.data.navigate){
+        wx.navigateTo({
+          url: '/pages/search/search?' + 'code=' + e.currentTarget.dataset.id + '&name=' + e.currentTarget.dataset.name,
+        })
+    }
+    // wx.navigateTo({
+    //   url: '/pages/search/search?' + 'code=' + e.currentTarget.dataset.id + '&name=' + e.currentTarget.dataset.name,
+    // })
   }
 })

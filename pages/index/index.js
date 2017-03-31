@@ -14,6 +14,7 @@ Page({
         shop: '',
         arr: [],
         address: '点击获取地址',
+        navigate:false
     },
     //获得地址
     toAddress: function () {
@@ -32,10 +33,16 @@ Page({
     },
     //去详情页
     toOther: function (e) {
-        var code = e.currentTarget.dataset.code;
-        wx.navigateTo({
-            url: '/pages/other/other?code=' + code,
+        this.setData({
+            navigate:!this.data.navigate
         })
+        var code = e.currentTarget.dataset.code;
+        if(this.data.navigate){
+            wx.navigateTo({
+                url: '/pages/other/other?code=' + code,
+            })
+        }
+        
     },
 
     onLoad: function (ecode) {
@@ -94,6 +101,9 @@ Page({
 
     onShow: function () {
         var that = this;
+        that.setData({
+            navigate:false
+        })
         that.load(app.globalData.codeIndex);
     },
 

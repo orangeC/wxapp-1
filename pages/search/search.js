@@ -4,7 +4,8 @@ Page({
   data: {
       amount:'',
       type:'',
-      code:''
+      code:'',
+      navigate:false
   },
   onLoad: function (options) {
       // 页面初始化 options为页面跳转所带来的参数
@@ -25,7 +26,9 @@ Page({
       
   },
   onShow: function () {
-      
+      this.setData({
+        navigate:false
+      })
   },
   onHide: function () {
       var that = this;
@@ -39,9 +42,16 @@ Page({
     // 页面关闭
   },
   goToDetail: function (e) {
-    wx.navigateTo({
-        url: '/pages/index/index?' + 'code=' + e.currentTarget.dataset.id + '&name=' + e.currentTarget.dataset.name,
+    this.setData({
+      navigate:!this.data.navigate
     })
+    console.log(this.data.navigate)
+    if(this.data.navigate){
+        wx.navigateTo({
+            url: '/pages/index/index?' + 'code=' + e.currentTarget.dataset.id + '&name=' + e.currentTarget.dataset.name,
+        })
+    }
+    
   },
   searchType: function (e) {
     var that=this;

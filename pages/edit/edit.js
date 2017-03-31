@@ -109,7 +109,7 @@ Page({
     if (this.data.status == "Authenticated") {
       this.setData({ comment: null })
     }
-    var dataCity = city.getCity();
+    var dataCity = city.getDistricts();
     var thatCategory = {
       "001": 1,
       "002": 2,

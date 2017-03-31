@@ -1,4 +1,4 @@
 <view class="container">
-  <textarea bindinput="getInputName" rows="100" cols="3" placeholder="输入文本" value="{{content}}" auto-height auto-focus />
+  <textarea bindinput="getInputName" rows="100" cols="3"  value="{{content}}" auto-height auto-focus />
   <view class="last" bindtap="handlejump">提交</view>
 </view>

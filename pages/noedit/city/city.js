@@ -15,19 +15,13 @@ Page({
     styleHidden: true
   },
   onLoad: function (options) {
-    if (app.globalData.dataBrand) {
-      this.setData({
-        brand: app.globalData.dataBrand,
-        options: options.data
-      })
-    } else {
-      var dataBrand = city.getCity();
-      app.globalData.dataBrand = dataBrand;
-      this.setData({
-        brand: dataBrand,
-        options: options.data
-      })
-    }
+    var dataBrand = city.getCity();
+    var dataSmallcity = city.getDistricts();
+    this.setData({
+      brand: dataBrand,
+      smallbrand: dataSmallcity,
+      options: options.data
+    })
   },
   onShow: function () {
 
@@ -210,19 +204,20 @@ Page({
   //模态框
   setModalStatus: function (e) {
     var arrData = [];
+    var arrSmallcity = this.data.dataSmallcity;
     if (this.data.options) {
       var objData = {};
       objData.name = "全部区域";
       arrData.push(objData);
-      for (var i = 0; i < this.data.brand.length; i++) {
-        if (this.data.brand[i].parent == e.currentTarget.dataset.id) {
-          arrData.push(this.data.brand[i])
+      for (var i = 0; i < arrSmallcity.length; i++) {
+        if (arrSmallcity[i].parent == e.currentTarget.dataset.id) {
+          arrData.push(arrSmallcity[i])
         }
       };
     } else {
-      for (var i = 0; i < this.data.brand.length; i++) {
-        if (this.data.brand[i].parent == e.currentTarget.dataset.id) {
-          arrData.push(this.data.brand[i])
+      for (var i = 0; i < arrSmallcity.length; i++) {
+        if (arrSmallcity[i].parent == e.currentTarget.dataset.id) {
+          arrData.push(arrSmallcity[i])
         }
       };
     }
