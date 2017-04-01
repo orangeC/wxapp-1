@@ -204,14 +204,14 @@ Page({
   //模态框
   setModalStatus: function (e) {
     var arrData = [];
-    var arrSmallcity = this.data.dataSmallcity;
+    var arrSmallcity = this.data.smallbrand;
     if (this.data.options) {
       var objData = {};
       objData.name = "全部区域";
       arrData.push(objData);
       for (var i = 0; i < arrSmallcity.length; i++) {
         if (arrSmallcity[i].parent == e.currentTarget.dataset.id) {
-          arrData.push(arrSmallcity[i])
+          arrData.push(arrSmallcity[i]);
         }
       };
     } else {
