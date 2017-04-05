@@ -2,7 +2,7 @@
 var app = getApp();
 Page({
   data: {
-    navigate:false
+    navigate: false
   },
   onLoad: function (options) {
     var that = this;
@@ -15,13 +15,10 @@ Page({
       })
     });
   },
-  onReady: function () {
-    // 页面渲染完成
-  },
   onShow: function () {
     var that = this;
     that.setData({
-      navigate:false
+      navigate: false
     })
     //用户每次登陆系统, 记录用户访问信息
     app.send(
@@ -35,22 +32,14 @@ Page({
       }
     )
   },
-  onHide: function () {
-  },
-  onUnload: function () {
-  },
   search: function (e) {
     this.setData({
-      navigate:!this.data.navigate
+      navigate: !this.data.navigate
     })
-    console.log(this.data.navigate);
-    if(this.data.navigate){
-        wx.navigateTo({
-          url: '/pages/search/search?' + 'code=' + e.currentTarget.dataset.id + '&name=' + e.currentTarget.dataset.name,
-        })
+    if (this.data.navigate) {
+      wx.navigateTo({
+        url: '/pages/search/search?' + 'code=' + e.currentTarget.dataset.id + '&name=' + e.currentTarget.dataset.name,
+      })
     }
-    // wx.navigateTo({
-    //   url: '/pages/search/search?' + 'code=' + e.currentTarget.dataset.id + '&name=' + e.currentTarget.dataset.name,
-    // })
   }
 })

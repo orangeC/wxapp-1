@@ -16,15 +16,10 @@ Page({
   },
   onLoad: function (options) {
     var dataBrand = city.getCity();
-    var dataSmallcity = city.getDistricts();
     this.setData({
       brand: dataBrand,
-      smallbrand: dataSmallcity,
       options: options.data
     })
-  },
-  onShow: function () {
-
   },
   onReady: function () {
     var that = this;
@@ -204,22 +199,13 @@ Page({
   //模态框
   setModalStatus: function (e) {
     var arrData = [];
-    var arrSmallcity = this.data.smallbrand;
     if (this.data.options) {
       var objData = {};
       objData.name = "全部区域";
       arrData.push(objData);
-      for (var i = 0; i < arrSmallcity.length; i++) {
-        if (arrSmallcity[i].parent == e.currentTarget.dataset.id) {
-          arrData.push(arrSmallcity[i]);
-        }
-      };
+      arrData = city.getDistrict(e.currentTarget.dataset.id);
     } else {
-      for (var i = 0; i < arrSmallcity.length; i++) {
-        if (arrSmallcity[i].parent == e.currentTarget.dataset.id) {
-          arrData.push(arrSmallcity[i])
-        }
-      };
+      arrData = city.getDistrict(e.currentTarget.dataset.id);
     }
     this.setData({
       style: arrData

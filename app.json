@@ -2,7 +2,6 @@
   "pages": [   
     "pages/home/home",
     "pages/other/other",
-    "pages/empty/empty",
     "pages/index/index",
     "pages/offer/offer",
     "pages/search/search",

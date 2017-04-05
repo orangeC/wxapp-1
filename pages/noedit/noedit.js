@@ -35,7 +35,6 @@ Page({
     descriptionOffer: ''
   },
   onLoad: function (e) {
-    console.log(e)
     var that = this;
     wx.showToast({
       title: '玩命加载中...',
@@ -247,7 +246,6 @@ Page({
     };
   },
   onShow: function () {
-    console.log(app.globalData.user)
     var that = this;
     wx.showToast({
       title: '玩命加载中...',

@@ -1,5 +1,3 @@
-// pages/other/other.js
-//'use strict';
 // 获取全局应用程序实例对象
 var app = getApp();
 // 创建页面实例对象

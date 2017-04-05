@@ -3,7 +3,6 @@ var QQMapWX = require('../../utils/qqmap-wx-jssdk.min.js');
 var qqmapsdk;
 //获取应用实例
 var app = getApp();
-var common = require("../../utils/common.js")
 Page({
     data: {
         name: "",
@@ -65,7 +64,6 @@ Page({
             function (res) {
                 var shop = res.data;
                 for (var i = 0; i < shop.length; i++) {
-                    // shop[i].distance = Math.round(shop[i].distance);
                     var distance = Math.round(shop[i].distance);
                     if (distance >= 1000) {
                         shop[i].units = true;
@@ -105,11 +103,6 @@ Page({
             navigate:false
         })
         that.load(app.globalData.codeIndex);
-    },
-
-    onReady: function () {
-    },
-    bindKeyInput: function (e) {
     },
     load: function (code) {
         var that = this;
