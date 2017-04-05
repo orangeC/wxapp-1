@@ -30,41 +30,8 @@
   line-height: 1.5em;
 }
 
-.lastGroup {
-  display: flex;
-  flex-direction: row;
-  justify-content: flex-start;
-  align-items: center;
-  padding-top: 50rpx;
-  position: relative;
+.contentText {
+  line-height: 1.5em;
 }
 
-.lastGroup>.line {
-  width: 20%;
-  height: 2px;
-  background-color: #4392ee;
-}
 
-.lastGroup>image {
-  width: 80px;
-  height: 80px;
-}
-
-.lastGroup>text {
-  font-size: 0.8em;
-  color: #666;
-  word-wrap: break-word;
-  padding-left: 30rpx;
-  padding-top: 20rpx;
-}
-
-.lastGroup>image::after {
-  content: "";
-  position: absolute;
-  z-index: -1;
-  width: 70%;
-  height: 2px;
-  bottom: 15px;
-  right: 0;
-  background-color: #4392ee;
-}

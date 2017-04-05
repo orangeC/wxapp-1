@@ -2,21 +2,50 @@
 <!--pages/about/about.wxml-->
 <view class="container">
   <view class="group">
-    <text class="title">公司简介</text>
-    <text class="content">公司自成立以来，一直专注于品牌汽车经销领域，与各大品牌厂家、经销商集团、以及海内外进口车商均建立了良好的合作关系。公司致力于整合全国、乃至全球的优质新车货源</text>
+    <text class="title">关于我们</text>
+    <text class="content">《维修快线》是由天津明英科技发展有限公司制作完成的、一个为各个行业的维修工作者或公司，提供维修师傅信息的专业互联网平台。</text>
   </view>
   <view class="group">
-    <text class="title">收费标准</text>
-    <text class="content">本公司是一家立足京津、面向全国的高档汽车经销企业，主要销售奔驰、宝马、奥迪、保时捷、路虎、丰田、福特、大众等品牌汽车，涵盖国产、中规及平行进口车型。</text>
+    <text class="title">项目宗旨：</text>
+    <text class="contentText">让各行各业的维修师傅或公司，通过我们平台的推广，接受到客户主动的维修需求。并与维修师傅或公司经过横向、纵向的密切联系，实现合作共赢！</text>
   </view>
   <view class="group">
-    <text class="title">加盟信息</text>
-    <text class="content">本公司是一家立足京津、面向全国的高档汽车经销企业，主要销售奔驰、宝马、奥迪、保时捷、路虎、丰田、福特、大众等品牌汽车，涵盖国产、中规及平行进口车型。</text>
+    <text class="title">项目特点：</text>
+    <text class="contentText">1、所有维修项目分类详细、简单、一目了然
+    </text>
+    <text class="contentText">2、客户通过平台迅速找到最近、最好的维修服务</text>
+    <text class="contentText">3、维修价格客户直接洽谈，无任何中介费用</text>
   </view>
-  <view class="lastGroup">
-    <view class="line"></view>
-    <image src="/images/u603.png" mode="aspectFit">
-    </image>
-    <text>微信号“weixiukuaixian”</text>
+  <view class="group">
+    <text class="title">项目收费：</text>
+    <text class="contentText">1、平台只对维修师傅或公司收取相应的信息费，客户使用免费
+    </text>
+    <text class="contentText">2、维修师傅个人登录收费标准为100元/月，即1200元/年</text>
+    <text class="contentText">3、维修公司登录收费标准为200元/月，即2400元/年</text>
+  </view>
+  <view class="group">
+    <text class="title">项目加盟：</text>
+    <text class="contentText">《维修快线》平台，以区（县）为单位，诚招合作加盟，区域保护
+    </text>
+    <text class="contentText">1、城市合伙人          24000元/年，享受70%返利
+    </text>
+    <text class="contentText">2、区县经理人          12000元/年，享受50%返利
+    </text>
+    <text class="contentText">3、区县代理商          1200元/年，享受30%返利
+    </text>
+  </view>
+  <view class="group">
+    <text class="title">公司承诺：</text>
+    <text class="contentText">1、平台上的维修师傅或公司，经过一年使用，收益不佳，可无条件退款</text>
+    <text class="contentText">2、合作加盟商，经过一年运转，收益达不到投资额10倍以上的效益，可无条件退款</text>
+    <text class="contentText">3、合作加盟商每月5-10结算打款，结算费用按照6%缴纳税款</text>
+    <text class="contentText">4、合作加盟商在无损公司利益前提下，可终身续签</text>
+  </view>
+  <view class="group">
+    <text class="title">联系方式：</text>
+    <text class="contentText">宦先生          13920136451（微信）\n                       17050129678（微信）
+    </text>
+    <text class="contentText">邮箱            965055376@qq.com
+    </text>
   </view>
 </view>
