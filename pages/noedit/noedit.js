@@ -11,7 +11,7 @@ Page({
     phone: "",
     area: "请选择您的区域",
     address: "请选择您的地址",
-    scope: "请选择服务范围",
+    scope: "全国",
     description: "请写下描述",
     intro: false,
     Head: "/images/photo.png",
@@ -672,7 +672,7 @@ Page({
           title: "正在上传"
         }),
           wx.uploadFile({
-            url: 'http://image.3vcar.com/file/uploadwx/', //仅为示例，非真实的接口地址
+            url: 'http://radar.3vcar.com/file/upload/', //仅为示例，非真实的接口地址
             filePath: tempFilePaths[0],
             name: 'file',
             success: function (res) {
@@ -687,7 +687,7 @@ Page({
               var data = res.data
               var a = JSON.parse(data)[0].origin;
               that.setData({  //上传成功修改显示头像
-                Head: "http://image.3vcar.com" + a
+                Head: "http://radar.3vcar.com" + a
               })
             },
             fail: function (e) {

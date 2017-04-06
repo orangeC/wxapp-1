@@ -320,7 +320,7 @@ Page({
           title: "正在上传"
         }),
           wx.uploadFile({
-            url: 'http://image.3vcar.com/file/uploadwx/', //仅为示例，非真实的接口地址
+            url: 'http://radar.3vcar.com/file/upload/', //仅为示例，非真实的接口地址
             filePath: tempFilePaths[0],
             name: 'file',
             success: function (res) {
@@ -335,7 +335,7 @@ Page({
               var data = res.data
               var a = JSON.parse(data)[0].origin;
               that.setData({  //上传成功修改显示头像
-                Head: "http://image.3vcar.com" + a
+                Head: "http://radar.3vcar.com" + a
               })
             },
             fail: function (e) {

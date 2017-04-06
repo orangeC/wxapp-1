@@ -35,36 +35,58 @@ App({
   getClientData: function () {
     var that = this;
     //获取小程序登录凭证
-      wx.login({
-        success: function (res) {
-          if (res.code) {
-            var code = res.code;
-            that.send("/wechat/token", { code: code }, "GET", function (res) {
-              that.globalData.user = {
-                clientCode: res.data.ClientCode
-              };
-              if (res.data.Success) {
-                that.send(
-                  '/wechat/load',
-                  {
-                    code: res.data.ClientCode,
-                  },
-                  'GET',
-                  function (res) {
-                    if (res.data) {
-                      that.globalData.clientType = 'login';
-                      var code = res.data.code;
-                      that.globalData.user.code = res.data.code
-                    } else {
-                      that.globalData.clientType = 'visit';
-                    }
-                  },
-                );
-              }
-            })
-          }
+    wx.login({
+      success: function (res) {
+        if (res.code) {
+          var code = res.code;
+          that.send("/wechat/token", { code: code }, "GET", function (res) {
+            that.globalData.user = {
+              clientCode: res.data.ClientCode
+            };
+            if (res.data.Success) {
+              that.send(
+                '/wechat/load',
+                {
+                  code: res.data.ClientCode,
+                },
+                'GET',
+                function (res) {
+                  if (res.data) {
+                    that.globalData.clientType = 'login';
+                    var code = res.data.code;
+                    that.globalData.user.code = res.data.code;
+                    //用户每次登陆系统, 记录用户访问信息
+                    that.send(
+                      '/wechat/visit',
+                      {
+                        UserCode: that.globalData.user.clientCode,
+                        ActionType: that.globalData.clientType
+                      },
+                      'POST',
+                      function (res) {
+                      }
+                    )
+                  } else {
+                    that.globalData.clientType = 'visit';
+                    //用户每次登陆系统, 记录用户访问信息
+                    that.send(
+                      '/wechat/visit',
+                      {
+                        UserCode: that.globalData.user.clientCode,
+                        ActionType: that.globalData.clientType
+                      },
+                      'POST',
+                      function (res) {
+                      }
+                    )
+                  }
+                },
+              );
+            }
+          })
         }
-      });
+      }
+    });
   },
   onShow: function () {
     var that = this;
@@ -92,6 +114,6 @@ App({
     address: '',
     codeIndex: '',
     arrData: [],
-    arrDataCategory:[]
+    arrDataCategory: []
   }
 })

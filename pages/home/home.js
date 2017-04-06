@@ -20,17 +20,6 @@ Page({
     that.setData({
       navigate: false
     })
-    //用户每次登陆系统, 记录用户访问信息
-    app.send(
-      '/wechat/visit',
-      {
-        UserCode: app.globalData.user.clientCode,
-        ActionType: app.globalData.clientType
-      },
-      'POST',
-      function (res) {
-      }
-    )
   },
   search: function (e) {
     this.setData({
