@@ -14,6 +14,17 @@ Page({
         industry: res.data[2]
       })
     });
+    var arrData = [];
+    for (var i = 0; i < app.globalData.arrDataCategory.length; i++) {
+      if (app.globalData.arrDataCategory[i].code.slice(0, 3) == app.globalData.noPass.category.slice(0, 3) && app.globalData.arrDataCategory[i].tier == 2) {
+        arrData.push(app.globalData.arrDataCategory[i])
+      }
+    }
+    for (var i = 0; i < arrData.length; i++) {
+      if (arrData[i].code == app.globalData.noPass.category) {
+        app.globalData.noPass.index = i
+      }
+    }
   },
   onShow: function () {
     var that = this;

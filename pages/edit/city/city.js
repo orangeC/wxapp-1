@@ -203,11 +203,12 @@ Page({
     if (this.data.options) {
       var objData = {};
       objData.name = "全部区域";
-      arrData.push(objData);
       arrData = city.getDistrict(e.currentTarget.dataset.id);
+      arrData.unshift(objData);
     } else {
       arrData = city.getDistrict(e.currentTarget.dataset.id);
     }
+
     this.setData({
       style: arrData
     })

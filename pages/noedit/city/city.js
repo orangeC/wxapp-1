@@ -202,8 +202,8 @@ Page({
     if (this.data.options) {
       var objData = {};
       objData.name = "全部区域";
-      arrData.push(objData);
       arrData = city.getDistrict(e.currentTarget.dataset.id);
+      arrData.unshift(objData);
     } else {
       arrData = city.getDistrict(e.currentTarget.dataset.id);
     }
@@ -256,16 +256,19 @@ Page({
             prevPage.setData({
               scope: this.data.eCity + " ‒ " + this.data.style[i].name
             })
+            app.globalData.noPass.scope = this.data.eCity + " ‒ " + this.data.style[i].name
           } else {
             prevPage.setData({
               scope: this.data.style[i].name
             })
+            app.globalData.noPass.scope = this.data.style[i].name
           }
         } else {
           prevPage.setData({
             area: this.data.style[i].name,
             city: this.data.style[i].code
           })
+          app.globalData.noPass.city = this.data.style[i].name;
         }
         //直接调用上一个页面的setData()方法，把数据存到上一个页面中去
       }

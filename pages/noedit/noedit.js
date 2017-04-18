@@ -213,9 +213,9 @@ Page({
     }
     var dataCity = city.getDistricts();
     var thatCategory = {
-      "001": 1,
-      "002": 2,
-      "003": 3,
+      "101": 1,
+      "102": 2,
+      "103": 3,
     };
     var thatStatus = {
       "Authenticating": "认证中",
@@ -244,6 +244,11 @@ Page({
         }
       }
     };
+    this.setData({
+      categoryOne: app.globalData.arrData[0],
+      categoryTwo: app.globalData.arrData[1],
+      categoryThree: app.globalData.arrData[2],
+    })
   },
   onShow: function () {
     var that = this;
@@ -319,12 +324,12 @@ Page({
                         Head: data.head,
                         name: data.name,
                         phone: data.phone,
-                        area: data.city,
-                        address: data.address,
-                        Latitude: data.latitude,
-                        Longitude: data.longitude,
-                        scope: data.scope,
-                        description: data.description,
+                        area: app.globalData.noPass.city,
+                        address: app.globalData.noPass.address,
+                        Latitude: app.globalData.noPass.latitude,
+                        Longitude: app.globalData.noPass.longitude,
+                        scope: app.globalData.noPass.scope,
+                        description: app.globalData.noPass.description,
                         code: data.code,
                         status: data.status,
                         over: "未通过"
@@ -338,14 +343,23 @@ Page({
                           break;
                         }
                       }
+                      var thatCategory = {
+                        "101": 1,
+                        "102": 2,
+                        "103": 3,
+                      };
                       if (data.category) {
+                        var threeNumber = data.category.slice(0, 3)
                         var arrCate = app.globalData.arrDataCategory;
                         var arrSome = [];
+                        that.getcategory(threeNumber);
+                        that.getcategoryOne();
                         for (var i = 0; i < arrCate.length; i++) {
                           if (arrCate[i].code == data.category) {
                             that.setData({
                               categoryName: arrCate[i].name,
-                              categoryNormal: arrCate[i].name
+                              categoryNormal: arrCate[i].name,
+                              switchTab: thatCategory[threeNumber],
                             })
                           }
                           if ((data.category.slice(0, 3) == arrCate[i].code.slice(0, 3)) && (arrCate[i].tier == 2)) {
@@ -361,7 +375,6 @@ Page({
                         that.setData({
                           categorySlice: data.category.slice(0, 3)
                         })
-
                       };
                       wx.setNavigationBarTitle({ title: "编辑信息" });
                     },
@@ -374,7 +387,7 @@ Page({
                   wx.showToast({
                     title: "认证中",
                     icon: 'loading',
-                    duration: 2000,
+                    duration: 5000,
                     success: function () {
                       var data = res.data;
                       that.setData({
@@ -385,36 +398,45 @@ Page({
                         phone: data.phone,
                         area: data.city,
                         address: data.address,
-                        Latitude: data.latitude,
-                        Longitude: data.longitude,
                         scope: data.scope,
                         description: data.description,
                         code: data.code,
                         status: data.status,
                         over: "认证中"
                       })
+                      var thatCategory = {
+                        "101": 1,
+                        "102": 2,
+                        "103": 3,
+                      };
+                      var arrSome = [];
+                      var threeNumber = data.category.slice(0, 3);
+                      var arrCate = app.globalData.arrDataCategory;
+                      for (var i = 0; i < arrCate.length; i++) {
+                        if ((data.category.slice(0, 3) == arrCate[i].code.slice(0, 3)) && (arrCate[i].tier == 2)) {
+                          arrSome.push(arrCate[i].name);
+                        }
+
+                        if (arrCate[i].code == data.category) {
+                          that.setData({
+                            categoryNormal: arrCate[i].name,
+                            switchTab: thatCategory[threeNumber],
+                          })
+                        }
+
+                      }
+                      that.setData({
+                        category: arrSome,
+                        index: app.globalData.noPass.index
+                      })
                       for (var i = 0; i < dataCity.length; i++) {
                         if (dataCity[i].code == that.data.area) {
                           that.setData({
-                            city: that.data.area,
                             area: dataCity[i].name
                           })
                           break;
                         }
                       }
-                      if (data.category) {
-                        var arrCate = app.globalData.arrDataCategory;
-                        for (var i = 0; i < arrCate.length; i++) {
-                          if (arrCate[i].code == data.category) {
-                            that.setData({
-                              categoryNormal: arrCate[i].name,
-                              cateCode: arrCate[i].code
-                            })
-                          }
-                        }
-
-                      };
-                      wx.setNavigationBarTitle({ title: "编辑信息" });
                     },
                     complete: function () {
                       wx.hideToast();
@@ -473,6 +495,7 @@ Page({
   },
   //提交数据
   formSubmit: function (e) {
+    console.log(this.data.categoryNormal)
     if (this.data.status == "Authenticating") {
       wx.showToast({
         title: '您的账户正在认证中，请勿重复提交',
@@ -487,6 +510,7 @@ Page({
         })
       }
     }
+    console.log(this.data.categoryNormal)
     var that = this;
     //验证
     if (this.data.Head == "/images/photo.png") {
@@ -707,19 +731,19 @@ Page({
   serviceOne: function () {
     this.setData({ switchTab: 1 })
     //获取类型函数
-    this.getcategory("001");
+    this.getcategory(app.globalData.categoryTier[0]);
     this.getcategoryOne();
   },
   serviceTwo: function () {
     this.setData({ switchTab: 2 })
     //获取类型函数
-    this.getcategory("002");
+    this.getcategory(app.globalData.categoryTier[1]);
     this.getcategoryOne();
   },
   serviceThree: function () {
     this.setData({ switchTab: 3 })
     //获取类型函数
-    this.getcategory("003");
+    this.getcategory(app.globalData.categoryTier[2]);
     this.getcategoryOne();
   },
   //获取位置
@@ -743,6 +767,9 @@ Page({
               Latitude: latitude,
               Longitude: longitude
             })
+            app.globalData.noPass.address = address;
+            app.globalData.noPass.latitude = latitude;
+            app.globalData.noPass.longitude = longitude;
           }
         })
       }

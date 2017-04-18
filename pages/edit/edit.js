@@ -36,8 +36,6 @@ Page({
   },
   onLoad: function () {
     var that = this;
-    //调用API从本地缓存中获取数据user
-    console.log(app.globalData.user)
     //获得某个商家
     app.send("/wechat/load", { code: app.globalData.user.clientCode }, "GET", function (res) {
       wx.showToast({
@@ -111,9 +109,9 @@ Page({
     }
     var dataCity = city.getDistricts();
     var thatCategory = {
-      "001": 1,
-      "002": 2,
-      "003": 3,
+      "101": 1,
+      "102": 2,
+      "103": 3,
     };
     var thatStatus = {
       "Authenticating": "认证中",
@@ -355,19 +353,19 @@ Page({
   serviceOne: function () {
     this.setData({ switchTab: 1 })
     //获取类型函数
-    this.getcategory("001");
+    this.getcategory(app.globalData.categoryTier[0]);
     this.getcategoryOne();
   },
   serviceTwo: function () {
     this.setData({ switchTab: 2 })
     //获取类型函数
-    this.getcategory("002");
+    this.getcategory(app.globalData.categoryTier[1]);
     this.getcategoryOne();
   },
   serviceThree: function () {
     this.setData({ switchTab: 3 })
     //获取类型函数
-    this.getcategory("003");
+    this.getcategory(app.globalData.categoryTier[2]);
     this.getcategoryOne();
   },
   //获取位置
@@ -424,7 +422,6 @@ Page({
       }
     }
     that.setData({ category: arrOne, categoryCode: arrTwo });
-
   },
   //函数  
   getcategoryOne: function () {

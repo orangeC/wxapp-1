@@ -1,4 +1,5 @@
 // pages/notice/notice.js
+var app = getApp();
 Page({
   data: {
     query: "",
@@ -21,6 +22,7 @@ Page({
     prevPage.setData({
       description: this.data.query
     });
+    app.globalData.noPass.description = this.data.query
     wx.navigateBack({
       delta: 1
     })

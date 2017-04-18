@@ -51,7 +51,17 @@ App({
                 },
                 'GET',
                 function (res) {
+                  console.log(res.data)
                   if (res.data) {
+                    that.globalData.noPass = {
+                      city: res.data.city,
+                      category: res.data.category,
+                      address: res.data.address,
+                      latitude: res.data.latitude,
+                      longitude: res.data.longitude,
+                      scope: res.data.scope,
+                      description: res.data.description,
+                    }
                     that.globalData.clientType = 'login';
                     var code = res.data.code;
                     that.globalData.user.code = res.data.code;
@@ -89,13 +99,17 @@ App({
     });
   },
   onShow: function () {
+      console.log(this.globalData.noPass.category)
+    
     var that = this;
     that.globalData.arrData = [];
     that.globalData.arrDataCategory = [];
+    that.globalData.categoryTier = [];
     that.send("/shop/category", { code: "all" }, "GET", function (res) {
       for (var i = 0; i < res.data.length; i++) {
         if (res.data[i].tier == "1") {
-          that.globalData.arrData.push(res.data[i].name)
+          that.globalData.arrData.push(res.data[i].name);
+          that.globalData.categoryTier.push(res.data[i].code);
         };
         that.globalData.arrDataCategory.push(res.data[i])
       }
@@ -106,6 +120,9 @@ App({
       clientCode: '',
       clientType: '',
       expiredTime: ''
+    },
+    noPass: {
+      city: ''
     },
     data: {},
     clientType: '',
