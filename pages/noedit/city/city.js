@@ -24,7 +24,7 @@ Page({
   onReady: function () {
     var that = this;
     wx.showToast({
-      title: '玩儿了命加载中。。。',
+      title: '玩命加载中。。。',
       icon: 'loading',
       duration: 10000,
       success: function () {

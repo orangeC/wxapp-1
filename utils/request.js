@@ -1,6 +1,6 @@
 function send(url, data, method, success,fail) {
   wx.request({
-    url: 'http://radar.3vcar.com'+ url,
+    url: 'https://api.weixiukx.com'+ url,
     method: method,
     data: data,
     header: {
@@ -16,7 +16,7 @@ function send(url, data, method, success,fail) {
 };
 function token(url,data,method,token,sucess,fail){
   wx.request({
-    url: 'http://radar.3vcar.com'+ url,
+    url: 'https://api.weixiukx.com'+ url,
     data:data,
     method: method, 
     header: {

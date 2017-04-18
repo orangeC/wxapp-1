@@ -14,23 +14,40 @@ Page({
         industry: res.data[2]
       })
     });
-    var arrData = [];
-    for (var i = 0; i < app.globalData.arrDataCategory.length; i++) {
-      if (app.globalData.arrDataCategory[i].code.slice(0, 3) == app.globalData.noPass.category.slice(0, 3) && app.globalData.arrDataCategory[i].tier == 2) {
-        arrData.push(app.globalData.arrDataCategory[i])
-      }
-    }
-    for (var i = 0; i < arrData.length; i++) {
-      if (arrData[i].code == app.globalData.noPass.category) {
-        app.globalData.noPass.index = i
-      }
-    }
+
   },
   onShow: function () {
     var that = this;
     that.setData({
       navigate: false
     })
+    app.send('/wechat/load', { code: app.globalData.user.clientCode }, 'GET', function (res) {
+      if (res.data.Message) {
+        return;
+      } else {
+        app.globalData.noPass = {
+          city: res.data.city,
+          category: res.data.category,
+          address: res.data.address,
+          latitude: res.data.latitude,
+          longitude: res.data.longitude,
+          scope: res.data.scope,
+          description: res.data.description,
+        }
+        var arrData = [];
+        for (var i = 0; i < app.globalData.arrDataCategory.length; i++) {
+          if (app.globalData.arrDataCategory[i].code.slice(0, 3) == res.data.category.slice(0, 3) && app.globalData.arrDataCategory[i].tier == 2) {
+            arrData.push(app.globalData.arrDataCategory[i])
+          }
+        }
+        for (var i = 0; i < arrData.length; i++) {
+          if (arrData[i].code == res.data.category) {
+            app.globalData.noPass.index = i;
+          }
+        }
+      }
+    })
+
   },
   search: function (e) {
     this.setData({

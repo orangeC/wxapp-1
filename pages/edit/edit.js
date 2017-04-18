@@ -39,7 +39,7 @@ Page({
     //获得某个商家
     app.send("/wechat/load", { code: app.globalData.user.clientCode }, "GET", function (res) {
       wx.showToast({
-        title: '玩儿命加载中。。',
+        title: '玩命加载中。。',
         icon: 'loading',
         duration: 5000,
         success: function () {
@@ -313,12 +313,13 @@ Page({
       sourceType: ['album', 'camera'], // album 从相册选图，camera 使用相机，默认二者都有
       success: function (res) {
         var tempFilePaths = res.tempFilePaths;
+        var imgDomain = 'https://api.weixiukx.com';
         wx.showToast({
           icon: "loading",
           title: "正在上传"
         }),
           wx.uploadFile({
-            url: 'http://radar.3vcar.com/file/upload/', //仅为示例，非真实的接口地址
+            url: imgDomain+'/file/upload/', //仅为示例，非真实的接口地址
             filePath: tempFilePaths[0],
             name: 'file',
             success: function (res) {
@@ -333,7 +334,7 @@ Page({
               var data = res.data
               var a = JSON.parse(data)[0].origin;
               that.setData({  //上传成功修改显示头像
-                Head: "http://radar.3vcar.com" + a
+                Head: imgDomain + a
               })
             },
             fail: function (e) {

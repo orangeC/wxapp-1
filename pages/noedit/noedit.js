@@ -59,7 +59,7 @@ Page({
             //获得某个商家
             app.send("/wechat/load", { code: app.globalData.user.clientCode }, "GET", function (res) {
               wx.showToast({
-                title: '玩儿命加载中。。',
+                title: '玩命加载中。。',
                 icon: 'loading',
                 duration: 5000,
                 success: function () {
@@ -244,13 +244,14 @@ Page({
         }
       }
     };
+
+  },
+  onShow: function () {
     this.setData({
       categoryOne: app.globalData.arrData[0],
       categoryTwo: app.globalData.arrData[1],
       categoryThree: app.globalData.arrData[2],
     })
-  },
-  onShow: function () {
     var that = this;
     wx.showToast({
       title: '玩命加载中...',
@@ -263,7 +264,7 @@ Page({
         //获得某个商家
         app.send("/wechat/load", { code: app.globalData.user.clientCode }, "GET", function (res) {
           wx.showToast({
-            title: '玩儿命加载中。。',
+            title: '玩命加载中。。',
             icon: 'loading',
             duration: 5000,
             success: function () {
@@ -315,7 +316,7 @@ Page({
                   wx.showToast({
                     title: "未通过",
                     icon: 'loading',
-                    duration: 2000,
+                    duration: 5000,
                     success: function () {
                       var data = res.data;
                       that.setData({
@@ -376,6 +377,9 @@ Page({
                           categorySlice: data.category.slice(0, 3)
                         })
                       };
+                      that.setData({
+                        categoryNormal: app.globalData.noPass.category,
+                      })
                       wx.setNavigationBarTitle({ title: "编辑信息" });
                     },
                     complete: function () {
@@ -495,7 +499,6 @@ Page({
   },
   //提交数据
   formSubmit: function (e) {
-    console.log(this.data.categoryNormal)
     if (this.data.status == "Authenticating") {
       wx.showToast({
         title: '您的账户正在认证中，请勿重复提交',
@@ -510,7 +513,6 @@ Page({
         })
       }
     }
-    console.log(this.data.categoryNormal)
     var that = this;
     //验证
     if (this.data.Head == "/images/photo.png") {
@@ -537,8 +539,8 @@ Page({
       });
       return;
     };
-    var reg = /^\d{10,12}$/
-    if (this.data.phone.match(reg)) {
+    var reg = /^1[3|4|5|8][0-9]\d{4,8}/
+    if (!this.data.phone.match(reg)) {
       wx.showToast({
         title: '电话号码格式不正确',
         icon: 'loading',
@@ -691,12 +693,13 @@ Page({
       sourceType: ['album', 'camera'], // album 从相册选图，camera 使用相机，默认二者都有
       success: function (res) {
         var tempFilePaths = res.tempFilePaths;
+        var imgDomain = 'https://api.weixiukx.com';
         wx.showToast({
           icon: "loading",
           title: "正在上传"
         }),
           wx.uploadFile({
-            url: 'http://radar.3vcar.com/file/upload/', //仅为示例，非真实的接口地址
+            url: imgDomain + '/file/upload/', //仅为示例，非真实的接口地址
             filePath: tempFilePaths[0],
             name: 'file',
             success: function (res) {
@@ -711,7 +714,7 @@ Page({
               var data = res.data
               var a = JSON.parse(data)[0].origin;
               that.setData({  //上传成功修改显示头像
-                Head: "http://radar.3vcar.com" + a
+                Head: imgDomain + a
               })
             },
             fail: function (e) {

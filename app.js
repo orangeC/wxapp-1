@@ -51,17 +51,7 @@ App({
                 },
                 'GET',
                 function (res) {
-                  console.log(res.data)
                   if (res.data) {
-                    that.globalData.noPass = {
-                      city: res.data.city,
-                      category: res.data.category,
-                      address: res.data.address,
-                      latitude: res.data.latitude,
-                      longitude: res.data.longitude,
-                      scope: res.data.scope,
-                      description: res.data.description,
-                    }
                     that.globalData.clientType = 'login';
                     var code = res.data.code;
                     that.globalData.user.code = res.data.code;
@@ -99,8 +89,6 @@ App({
     });
   },
   onShow: function () {
-      console.log(this.globalData.noPass.category)
-    
     var that = this;
     that.globalData.arrData = [];
     that.globalData.arrDataCategory = [];
@@ -122,7 +110,14 @@ App({
       expiredTime: ''
     },
     noPass: {
-      city: ''
+      city: '',
+      category: '',
+      address: '',
+      latitude: '',
+      longitude: '',
+      scope: '',
+      description: '',
+      index: ''
     },
     data: {},
     clientType: '',
@@ -131,6 +126,6 @@ App({
     address: '',
     codeIndex: '',
     arrData: [],
-    arrDataCategory: []
+    arrDataCategory: [],
   }
 })
